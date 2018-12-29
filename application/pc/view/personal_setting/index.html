@@ -1,0 +1,230 @@
+{extend name="public/layout" /}
+{block name="pluginsCss"}{/block}
+{block name="style"}{/block}
+
+{block name="body"}
+    <div class="content-wrapper">
+        <div class="personal-wrapper container">
+            <div class="row">
+                <div class="personal-sideBar">
+                    <div class="avatar">
+                        <img src="{$data.avatar}" alt="">
+                    </div>
+                    <ul>
+                        <li class="active"><a href="{:url('pc/personal_setting/index')}"><i class="fa fa-user-o"></i>个人信息</a></li>
+                        <li><a href="{:url('pc/personal_password/index')}"><i class="fa fa-book"></i>修改密码</a></li>
+                        <li><a href="{:url('pc/personal_upload/index')}"><i class="fa fa-bell-o"></i>上传头像</a></li>
+                        <li><a href="{:url('pc/personal_score/index')}"><i class="fa fa-desktop"></i>查看成绩</a></li>
+                    </ul>
+                </div>
+                <div class="personal-content">
+                    <div class="user-wrapper">
+                        <div class="user-wrapper-header cf">
+                            <div class="user-related">
+                                <a class="name" href="#">{$data.username}</a>
+                                <span>考试场次<em>{$data.exam_count|default=0}</em></span>
+                                <span>通过场次<em>{$data.pass_count|default=0}</em></span>
+                            </div>
+                            <div class="user-wrapper-btn">
+                                <a id="userSettingBtn" href="javascript:" class="btn-userSetting"><i class="fa fa-pencil"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-wrapper-content">
+                        <dl>
+                            <dt>ID</dt>
+                            <dd>{$data.id}</dd>
+                        </dl>
+                        <dl class="saved">
+                            <dt>昵称</dt>
+                            <dd>
+                                <p id="username">{$data.username}</p>
+                            </dd>
+                        </dl>
+                        <dl class="higher modify">
+                            <dt>昵称</dt>
+                            <dd>
+                            <span class="modify">
+                                <input id="idInput" type="hidden" value="{$data.id}">
+                                <input id="usernameInput" type="text" value="{$data.username}">
+                            </span>
+                            </dd>
+                        </dl>
+                        <dl class="saved">
+                            <dt>真实姓名</dt>
+                            <dd>
+                                <p id="truename">{$data.truename}</p>
+                            </dd>
+                        </dl>
+                        <dl class="higher modify">
+                            <dt>真实姓名</dt>
+                            <dd>
+                            <span class="modify">
+                                <input id="truenameInput" type="text" value="{$data.truename}">
+                            </span>
+                            </dd>
+                        </dl>
+                        <dl class="saved">
+                            <dt>手机号码</dt>
+                            <dd>
+                                <p id="phone">{$data.phone}</p>
+                            </dd>
+                        </dl>
+                        <dl class="higher modify">
+                            <dt>手机号码</dt>
+                            <dd>
+                            <span class="modify">
+                                <input id="phoneInput" type="text" value="{$data.phone}">
+                            </span>
+                            </dd>
+                        </dl>
+                        <dl class="saved">
+                            <dt>性别</dt>
+                            <dd>
+                                <p id="sex">
+                                    {if condition="$data.sex eq 1"}
+                                    男
+                                    {else/}
+                                    女
+                                    {/if}
+                                </p>
+                            </dd>
+                        </dl>
+                        <dl class="modify">
+                            <dt>性别</dt>
+                            <dd>
+                                {if condition="$data.sex eq 1"}
+                                <input class="radio-danger" type="radio" name="sex" value="1" checked>男
+                                <input class="radio-danger" type="radio" name="sex" value="2">女
+                                {else/}
+                                <input class="radio-danger" type="radio" name="sex" value="1" >男
+                                <input class="radio-danger" type="radio" name="sex" value="2" checked>女
+                                {/if}
+                            </dd>
+                        </dl>
+                        <dl class="saved">
+                            <dt>生日</dt>
+                            <dd>
+                                <p id="userBirthday">{$data.birth}</p>
+                            </dd>
+                        </dl>
+                        <dl class="higher modify">
+                            <dt>生日</dt>
+                            <dd>
+                                <input id="userBirthdayInput" type="text" value="{$data.birth}">
+                            </dd>
+                        </dl>
+                        <dl class="saved">
+                            <dt>简介</dt>
+                            <dd>
+                                <p id="userDesc">{$data.desc}</p>
+                            </dd>
+                        </dl>
+                        <dl class="higher modify">
+                            <dt>简介</dt>
+                            <dd>
+                                <div class="count-text">
+                                    <span class="count"><em id="J_descCounter">0</em>/200</span>
+                                    <textarea id="userDescInput" placeholder="可以简单地描述自己">{$data.desc}</textarea>
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl class="higher modify">
+                            <dt></dt>
+                            <dd>
+                                <button id="saveInfoBtn" class="button button-blue">保存</button>
+                                <button id="cancelInfoBtn" class="button button-normal">取消</button>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}
+{block name="pluginsJs"}{/block}
+{block name="script"}
+<script>
+    $(function () {
+        var oldName = $('#usernameInput').val(),
+            oldTrueName = $('#truenameInput').val(),
+            oldPhone = $('#phoneInput').val(),
+            oldSex = $('.user-wrapper-content input[type=radio][name="sex"]').val(),
+            oldBirthday = $('#userBirthdayInput').val(),
+            oldDesc = $('#userDescInput').val();
+
+        // 屏幕缩放监听
+        $(window).on('resize', function () {
+            $('.personal-content').css('min-height', ($(window).height() - 189) + 'px')
+        }).trigger('resize');
+
+        // 编辑按钮
+        $('#userSettingBtn').on('click', function () {
+            $('.user-wrapper-content').find('.modify').show();
+            $('.user-wrapper-content').find('.saved').hide();
+            $('#J_descCounter').text($('#userDescInput').val().length);
+        });
+
+        // 保存
+        $('#saveInfoBtn').on('click', function () {
+            $('#username').text($('#usernameInput').val());
+            $('#truename').text($('#truenameInput').val());
+            $('#phone').text($('#phoneInput').val());
+            $('#userBirthday').text($('#userBirthdayInput').val());
+            $('#userDesc').text($('#userDescInput').val());
+            //console.log($('.user-wrapper-content input[type=radio][name="sex"]:checked').val());
+            $('#sex').text($('.user-wrapper-content input[type=radio][name="sex"]:checked').val() == 1 ? '男' : '女');
+
+            //保存数据
+            $.ajax({
+                url: "{:url('personal_setting/save')}",
+                type: 'post',
+                data: {
+                    id:$('#idInput').val(),
+                    username:$('#usernameInput').val(),
+                    truename:$('#truenameInput').val(),
+                    phone:$('#phoneInput').val(),
+                    birth:$('#userBirthdayInput').val(),
+                    desc:$('#userDescInput').val(),
+                    sex:$('.user-wrapper-content input[type=radio][name="sex"]:checked').val(),
+                },
+            }).done(function (response) {
+                $('.user-wrapper-content').find('.modify').hide();
+                $('.user-wrapper-content').find('.saved').show();
+                if (response.status) {
+                    layer.msg(response.message, {icon: 1});
+                } else {
+                    layer.msg(response.message);
+                }
+            }).fail(function () {
+                console.error('立即报名请求失败！');
+            });
+
+        });
+
+        // 取消保存
+        $('#cancelInfoBtn').on('click', function () {
+
+            $('#usernameInput').val(oldName);
+            $('#truenameInput').val(oldTrueName);
+            $('#phoneInput').val(oldPhone);
+            $('.user-wrapper-content input[type=radio][name="sex"]').val(oldSex);
+            $('#userBirthdayInput').val(oldBirthday);
+            $('#userDescInput').val(oldDesc);
+
+            $('.user-wrapper-content').find('.modify').hide();
+            $('.user-wrapper-content').find('.saved').show();
+        });
+
+        // 时间选择控件初始化
+        $('#userBirthdayInput').val() === "" ? $('#datetimepicker2').val(new Date().toLocaleDateString()) : true;
+        $('#userBirthdayInput').datetimepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            language: 'zh-CN',
+            minView: 'month'
+        });
+
+    });
+</script>
+{/block}

@@ -1,0 +1,140 @@
+{extend name="public/layout" /}
+{block name="pluginsCss"}{/block}
+{block name="style"}{/block}
+
+{block name="body"}
+    <div class="content-wrapper">
+        <div class="personal-wrapper container">
+            <div class="row">
+                <div class="personal-sideBar">
+                    <div class="avatar">
+                        <img src="/upload/{$data.avatar}" alt="">
+                    </div>
+                    <ul>
+                        <li><a href="{:url('pc/personal_setting/index')}"><i class="fa fa-user-o"></i>个人信息</a></li>
+                        <li><a href="{:url('pc/personal_password/index')}"><i class="fa fa-book"></i>修改密码</a></li>
+                        <li class="active"><a href="{:url('pc/personal_upload/index')}"><i class="fa fa-bell-o"></i>上传头像</a></li>
+                        <li><a href="{:url('pc/personal_score/index')}"><i class="fa fa-desktop"></i>查看成绩</a></li>
+                    </ul>
+                </div>
+                <div class="personal-content">
+                    <div class="user-wrapper">
+                        <div class="user-wrapper-header cf">
+                            <div class="user-related">
+                                <a class="name" href="#">{$data.username}</a>
+                                <input type="hidden" id="id" value="{$data.id}">
+                                <span>考试场次<em>{$data.exam_count}</em></span>
+                                <span>通过场次<em>{$data.pass_count}</em></span>
+                            </div>
+                            <div class="user-wrapper-btn">
+                                <a id="userSettingBtn" href="javascript:" class="btn-userSetting"><i class="fa fa-pencil"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-wrapper-content">
+                        <form action="javascript:" id="uploadForm">
+                            <div class="file">
+                                <input id="file-img" class="hide" type="file" name="avatar" accept="image/*">
+                                <a href="javascript:" class="button button-blue" id="uploadBtn">选择图片</a>
+                            </div>
+                            <div class="preview">
+                                <p>预览</p>
+                                <div class="preview-box">
+                                    <div class="box-w">
+                                        <div class="preview-3x">
+                                            <img src="/static/images/default-avatar.png">
+                                        </div>
+                                        <div class="preview-2x">
+                                            <img src="/static/images/default-avatar.png">
+                                        </div>
+                                        <div class="preview-1x">
+                                            <img src="/static/images/default-avatar.png">
+                                        </div>
+                                        <span class="text-3">120px*120px</span>
+                                        <span class="text-2">80px*80px</span>
+                                        <span class="text-1">34px*34px</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="suc"><a class="button button-blue" href="javascript:" id="upload">上传</a></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}
+{block name="pluginsJs"}{/block}
+{block name="script"}
+
+<script>
+    $(function () {
+        // 屏幕缩放监听
+        $(window).on('resize', function () {
+            $('.personal-content').css('min-height', ($(window).height() - 189) + 'px')
+        }).trigger('resize');
+
+        // 获取图片路径
+        function fnGetPath (obj) {
+            if (obj) {
+                //古代浏览器,IE7、8、9
+                if (navigator.userAgent.indexOf("MSIE") > 0 && !(navigator.userAgent.indexOf("MSIE 10.0") > 0)) {
+                    //IE7、8、9浏览器特殊处理,要先Select一下获取所选的内容,但是选中情况下不能获取所以要执行blur()再获取
+                    obj.select();
+                    obj.blur();
+                    //IE下取得图片的本地路径
+                    return document.selection.createRange().text;
+                } else {
+                    //如果支持files对象表示是现代浏览器
+                    if (obj.files) {
+                        var objectURL = window.URL.createObjectURL(obj.files[0]);
+
+                        return objectURL;
+                    }
+                    //基本不可能用到
+                    return obj.value;
+                }
+            }
+        }
+
+        $('#uploadBtn').on('click', function () {
+            $('#file-img').trigger('click');
+        });
+
+        $('#file-img').on('change', function () {
+            var that = this,
+                src = $(that).val();
+            if (src.indexOf(".jpg") > 0 || src.indexOf(".jpeg") > 0 || src.indexOf(".JPG") > 0 || src.indexOf(".JPEG") > 0 || src.indexOf(".png") > 0) {
+                $('#uploadForm img').attr('src', fnGetPath(that));
+                $('#uploadForm .suc').show();
+            } else {
+                layer.msg('请上传格式为jpg、jpeg的图片！');
+                $(this).val('');
+            }
+        });
+        //上传点击事件
+        $('#upload').click(function(){
+           var formData = new FormData(document.getElementById('uploadForm'));
+           formData.append('id',$('#id').val());
+            $.ajax({
+                url: "{:url('personal_upload/save')}",
+                type: 'post',
+                data: formData,
+                processData: false,                // jQuery不要去处理发送的数据
+                contentType: false,                // jQuery不要去设置Content-Type请求头
+            }).done(function (response) {
+                if (response.status) {
+                    layer.msg(response.message,{icon:1},function(){
+                        window.location.reload();
+                    });
+                } else {
+                    layer.msg(response.message);
+                }
+            }).fail(function () {
+                console.error('管理员添加请求失败！');
+            });
+        });
+
+    });
+</script>
+{/block}

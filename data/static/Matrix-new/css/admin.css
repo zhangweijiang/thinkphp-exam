@@ -1,0 +1,421 @@
+
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+.bg-dashboard {
+    background-color: #f3f3f3;
+}
+
+.wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.wrapper .leftWrapper {
+    display: inline-block;
+    float: left;
+    height: 100%;
+    width: 220px;
+    background: #2e363f;
+}
+
+.wrapper .leftWrapper .logoWrapper {
+    position: relative;
+    height: 77px;
+    width: 100%;
+    background: #1f262d;
+}
+
+.wrapper .leftWrapper .logoWrapper .logo {
+    padding-left: 15px;
+    line-height: 77px;
+}
+
+.wrapper .leftWrapper .logoWrapper .logo a {
+    color: #666;
+}
+
+.wrapper .leftWrapper .menuWrapper {
+    height: calc(100% - 77px);
+    width: 100%;
+    overflow: hidden;
+}
+
+.wrapper .leftWrapper .menuWrapper .menu {
+    height: 100%;
+    overflow: hidden;
+}
+
+.wrapper .leftWrapper .menuWrapper .menu > li {
+    border-top: 1px solid #37414b;
+    border-bottom: 1px solid #1f262d;
+}
+
+.wrapper .leftWrapper .menuWrapper .menu li a {
+    display: block;
+    width: 100%;
+    padding: 10px 0 10px 15px;
+    color: #939da8;
+    line-height: 20px;
+}
+
+.wrapper .leftWrapper .menuWrapper .menu > li > a:hover {
+    background-color: #27a9e3;
+    color: #fff;
+}
+
+.wrapper .leftWrapper .menuWrapper .menu > li.active {
+    background-color: #27a9e3;
+    border-bottom: 1px solid #27a9e3;
+    border-top: 1px solid #27a9e3;
+}
+
+.wrapper .leftWrapper .menuWrapper .menu > li.active > a {
+    color: #fff;
+}
+
+.wrapper .leftWrapper .menuWrapper .menu > li.active > a:after {
+    content: '';
+    float: right;
+    display: inline-block;
+    border: 10px solid transparent;
+    border-right-color: #fff;
+}
+
+.wrapper .leftWrapper .menuWrapper .menu > li > a > i {
+    display: inline-block;
+    width: 13px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.wrapper .leftWrapper .menuWrapper .menu li ul {
+    display: none;
+    background-color: #1e242b;
+}
+
+.wrapper .leftWrapper .menuWrapper .menu li ul li a {
+    padding: 10px 0 10px 25px;
+}
+
+.wrapper .leftWrapper .menuWrapper .menu li ul li a:hover,
+.wrapper .leftWrapper .menuWrapper .menu li ul li.active a {
+    color: #fff;
+    background-color: #28b779;
+}
+
+.wrapper .rightWrapper {
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: calc(100% - 220px);
+    height: 100%;
+}
+
+.wrapper .rightWrapper .navWrapper {
+    width: 100%;
+    background: #1f262d;
+}
+
+.wrapper .rightWrapper .navWrapper .user-nav > ul {
+    border-right: 1px solid #2e363f;
+    border-left: 1px solid #000;
+}
+
+.wrapper .rightWrapper .navWrapper .user-nav > ul > li {
+    position: relative;
+    display: inline-block;
+    list-style-type: none;
+    margin: 0;
+    position: relative;
+    padding: 0;
+    border-left: 1px solid #2e363f;
+    border-right: 1px solid #000;
+}
+
+.wrapper .rightWrapper .navWrapper .user-nav > ul > li > a {
+    padding: 12px 10px;
+    display: block;
+    font-size: 11px;
+    color: #999;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.wrapper .rightWrapper .navWrapper .user-nav > ul > li > a:hover {
+    color: #ffffff;
+    background: #000;
+}
+
+.wrapper .rightWrapper .navWrapper .user-nav > ul > li > .dropdown-menu:before {
+    content: '';
+    position: absolute;
+    top: -7px;
+    left: 9px;
+    display: inline-block;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #ccc;
+    border-left: 7px solid transparent;
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+
+.wrapper .rightWrapper .navWrapper .user-nav > ul > li > .dropdown-menu:after {
+    position: absolute;
+    top: -6px;
+    left: 10px;
+    display: inline-block;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #fff;
+    border-left: 6px solid transparent;
+    content: '';
+}
+
+.wrapper .rightWrapper .navWrapper .user-nav > ul > li > .dropdown-menu li a {
+    padding: 3px 10px;
+    color: #666;
+    font-size: 12px;
+    text-align: left;
+    line-height: 20px;
+}
+
+.wrapper .rightWrapper .navWrapper .user-nav > ul > li > .dropdown-menu li a i {
+    display: inline-block;
+    width: 13px;
+    text-align: center;
+    margin-right: 3px;
+}
+
+.wrapper .rightWrapper .navWrapper .user-nav > ul > li > .dropdown-menu li a:hover,
+.wrapper .rightWrapper .navWrapper .user-nav > ul > li > .dropdown-menu li.active a,
+.wrapper .rightWrapper .navWrapper .user-nav > ul > li > .dropdown-menu li.active a:hover {
+    color: #eeeeee;
+    background: #666;
+}
+
+.wrapper .rightWrapper .contentWrapper {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 79px);
+    background-color: #fff;
+}
+
+.wrapper .rightWrapper .contentWrapper #content {
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper .rightWrapper .contentWrapper .content-header .breadcrumb {
+    margin: 0;
+    background-color: #eee;
+}
+
+.wrapper .rightWrapper .contentWrapper .content-header .breadcrumb li a {
+    color: #777;
+}
+
+.wrapper .rightWrapper .contentWrapper .content-header .breadcrumb li i {
+    margin-right: 5px;
+}
+
+.wrapper .rightWrapper .contentWrapper .content-header .breadcrumb li.active {
+    color: #444;
+}
+
+.wrapper .rightWrapper .contentWrapper .body-wrapper {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 36px);
+    overflow: hidden;
+}
+
+.wrapper .rightWrapper .contentWrapper .body-wrapper .content-body {
+    height: 100%;
+    overflow: hidden;
+}
+
+.wrapper .rightWrapper .contentWrapper .body-wrapper .content-body .content-title {
+    margin: 15px 0;
+    color: #666;
+}
+
+.wrapper .rightWrapper .footerWrapper {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    color: #888;
+    background: #2e363f;
+}
+
+.wrapper .rightWrapper .footerWrapper .copyright {
+    font-size: 13px;
+}
+
+.wrapper .rightWrapper .footerWrapper .copyright a {
+    position: relative;
+    white-space: nowrap;
+    color: #888;
+}
+
+.wrapper .rightWrapper .footerWrapper .copyright a:hover {
+    color: #fff;
+}
+
+.wrapper .rightWrapper .footerWrapper .copyright a::after {
+    position: absolute;
+    bottom: -2px;
+    left: 100%;
+    width: 0;
+    border-bottom: 1px solid #fff;
+    content: "";
+    transition: width 350ms, left 350ms;
+}
+
+.wrapper .rightWrapper .footerWrapper .copyright a:hover::after {
+    left: 0;
+    transition: width 350ms ease 0s;
+    width: 100%;
+}
+
+/* Widget */
+.widget {
+    position: relative;
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.widget .widget-heading {
+    line-height: 30px;
+    overflow: hidden;
+}
+
+.widget .widget-heading .widget-title {
+    display: inline-block;
+    float: left;
+    margin: 0;
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 30px;
+    color: #777;
+}
+
+.widget .widget-heading .widget-tools {
+    display: inline-block;
+    float: right;
+    position: relative;
+    margin-top: 0;
+    padding: 0;
+}
+
+.widget .widget-heading .widget-tools > a {
+    cursor: pointer;
+    margin-left: 5px;
+    color: #c4c4c4;
+}
+
+.widget .statistical {
+    width: 100%;
+    font-size: 0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.widget table.statistical {
+    width: calc(100% + 1px);
+}
+
+.widget .statistical tr td {
+    width: 50%;
+    height: auto;
+    padding: 25px 10px;
+    text-align: center;
+}
+
+.widget .statistical td:first-child {
+    text-align: right;
+    padding-right: 20px;
+}
+
+.widget .statistical tr td:nth-child(2) {
+    font-size: 48px;
+    line-height: 48px;
+    background-color: #f8f8fc;
+    color: #243a45;
+}
+
+.widget .statistical .statistical-title {
+    font-size: 13px;
+    color: #797979;
+    margin: 0;
+    margin-bottom: 3px;
+}
+
+.widget .statistical .statistical-count {
+    font-size: 36px;
+    color: #98a6ad;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* 层叠效果 */
+.cascade:before {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+    0 7px 0 -3px #e4e5ea,
+    0 8px 1px -3px rgba(0, 0, 0, 0.2),
+    0 14px 0 -6px #e4e5ea,
+    0 15px 2px -6px rgba(0, 0, 0, 0.2);
+}
+
+/* 列表页内容部分 */
+.search-panel {
+    height: 70px;
+    padding-left: 20px;
+    border-top: 1px solid #ececec;
+    border-bottom: 1px solid #ececec;
+    line-height: 70px;
+    background-color: #f8f8f8;
+}
+
+.search-panel select,
+.search-panel input {
+    height: 36px;
+    padding: 5px 8px;
+    border: 1px solid #ececec;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+
+.search-panel select {
+    height: 34px;
+}
+
+.search-panel .btn-link {
+    color: #666;
+}
+
+.search-panel .btn-link:hover,
+.search-panel .btn-link:focus {
+    color: #2a3245;
+}
+
+.content-panel {
+    padding: 0 20px;
+}
+
+.statistics-panel {
+    height: 33px;
+    color: #585858;
+    font-size: 12px;
+    line-height: 33px;
+}

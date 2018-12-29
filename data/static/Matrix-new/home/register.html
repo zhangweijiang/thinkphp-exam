@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页</title>
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+
+    <link rel="stylesheet" href="../css/plugins.reset.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/icon.css">
+    <link rel="stylesheet" href="../css/home.css">
+
+</head>
+<body class="loaded bg-gray">
+<div class="wrapper">
+    <header class="header">
+        <div class="logo pull-left">
+            <a href="index.html" target="_self" title="首页">
+                LOGO
+            </a>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <div class="sign-wrapper">
+            <div class="login-wrapper">
+                <div class="login-header">
+                    <h4 class="login-title">账号登录</h4>
+                </div>
+                <div class="login-body">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="请输入用户名">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="请输入真实姓名">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-lock"></i>
+                        </span>
+                        <input type="password" class="form-control" placeholder="请输入密码">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-envelope"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="请输入邮箱地址">
+                    </div>
+                    <button class="btn btn-info form-control">注 册</button>
+                    <div class="login-footer">
+                        <a class="pull-right" href="#">已有账号？立即登录</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="site-map">
+                    <ul>
+                        <li><a href="javascript:">系统简介</a></li>
+                        <li><a href="javascript:">广告服务</a></li>
+                        <li><a href="javascript:">试用洽谈</a></li>
+                        <li><a href="javascript:">网站地图</a></li>
+                        <li><a href="javascript:">联系方式</a></li>
+                        <li><a href="javascript:">关于我们</a></li>
+                    </ul>
+                </div>
+                <div class="copyright">
+                    Copyright © 2017 <a href="javascript:">Gallonce</a> , Inc. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="../plugins/jquery/jquery.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="../plugins/layui/layui.all.js"></script>
+<script src="../plugins/validator/validator.min.js"></script>
+<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+<script src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<script src="../js/common.js"></script>
+<script>
+    $(function () {
+        // 屏幕缩放监听
+        $(window).on('resize', function () {
+            $('.sign-wrapper').css('min-height', ($(window).height() - 147) + 'px')
+        }).trigger('resize');
+    });
+</script>
+</body>
+</html>

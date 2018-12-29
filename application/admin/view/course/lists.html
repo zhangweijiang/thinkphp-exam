@@ -1,0 +1,161 @@
+{extend name="public/layout" /}
+{block name="pluginsCss"}{/block}
+{block name="style"}{/block}
+
+{block name="body"}
+<div class="content-header">
+    <ul class="breadcrumb">
+        <li>
+            <a href="{:url('index/index')}" title="返回首页">
+                <i class="fa fa-home"></i>首页
+            </a>
+        </li>
+        <li class="active">课程信息列表</li>
+    </ul>
+</div>
+<div class="body-wrapper">
+    <div class="content-body">
+        <div class="container-fluid content-title">
+            <h4>课程信息列表</h4>
+        </div>
+        <div class="search-panel">
+            <button class="btn btn-primary" id="btn-add" title="添加"><i class="fa fa-plus"></i>添加课程</button>
+            <input id="search-text" type="text" placeholder="请输入课程名称">
+            <button id="btn-refresh" class="btn btn-link" title="刷新"><i class="fa fa-refresh"></i></button>
+        </div>
+        <div class="content-panel" style="padding-top: 15px;">
+            <table id="table" class="table table-striped  table-bordered dataTable" cellspacing="0" width="100%">
+            </table>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="pluginsJs"}{/block}
+{block name="script"}
+<script>
+    (function () {
+        // 表格初始化
+        var table = $('#table').DataTable({
+            ajax: {
+                url: "{:url('course/courseList')}",
+                dataSrc: ""
+            },
+            columns: [
+                {
+                    title: 'ID', data: 'id', visible: true
+                },
+                {title: '课程名称', data: 'name', visible: true},
+                {title: '所属专业', data: 'majorName', visible: true},
+                {title: '排序', data: 'order', visible: true},
+                {
+                    title: '操作', data: null, visible: true,
+                    render: function (v, type, row) {
+                        return '<a class="update-button" data-id="' + row.id + '" href="javascript:" style="margin-right:30px;"><i class="fa fa-pencil"></i></a><a class="delete-button" data-id="' + row.id + '" href="javascript:"><i class="fa fa-trash"></i></a>'
+                    }
+                }
+            ],
+            searching: true,
+            info: false,
+            lengthChange: false,
+            pagingType: 'full',
+            lengthMenu: [10, 20, 40, 80, 100],
+            language: {
+                emptyTable: '暂无数据',
+                info: '_START_ - _END_   共 _TOTAL_ 条',
+                infoEmpty: '共0条',
+                infoFiltered: '',
+                zeroRecords: '没有找到匹配条件的数据',
+                loadingRecords: '加载中....',
+                lengthMenu: '_MENU_',
+                paginate: {
+                    previous: '上一页',
+                    next: '下一页',
+                    first: '首页',
+                    last: '末页'
+                }
+            }
+        });
+        // 删除
+        $('#table').on('click', '.delete-button', function () {
+            var that = $(this),
+                id = that.data('id');
+            swal({
+                title: '警告',
+                text: "确定删除该课程吗",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: "是的，我要删除！",
+                cancelButtonText: "让我再考虑一下…"
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: "{:url('course/delete')}",
+                        type: 'post',
+                        data: {
+                            id: id
+                        }
+                    }).done(function (response) {
+                        if (response.status) {
+                            table.row(that.parents('tr')).remove().draw();
+                        }
+                    }).fail(function () {
+                        console.error('删除数据请求失败！');
+                    });
+                }
+            }, function (dismiss) {
+                if (dismiss === 'cancel') {
+
+                } else {
+                    throw dismiss;
+                }
+            }).catch(function (err) {
+                console.error(err);
+                throw err;
+            });
+        });
+        // 修改按钮弹窗
+        $('#table').on('click', '.update-button', function () {
+            var id = $(this).data('id');
+            $.post("{:url('course/edit')}", {id: id}).then(function (html) {
+                layer.open({
+                    type: 1,
+                    title: '修改课程信息',
+                    skin: false,
+                    area: ['430px', '260px'],
+                    content: html,
+                    end: function () {
+                        table.ajax.reload();
+                    }
+                });
+            });
+        });
+        // 添加按钮弹窗
+        $('#btn-add').on('click', function () {
+            $.post("{:url('course/add')}").then(function (html) {
+                layer.open({
+                    type: 1,
+                    title: '添加课程信息',
+                    skin: false,
+                    area: ['430px', '260px'],
+                    content: html,
+                    end: function () {
+                        table.ajax.reload();
+                    }
+                });
+            });
+        });
+        // 搜索框事件
+        $('#search-text').on('keyup', function () {
+            var val = $(this).val();
+            table.column(1).search(val).draw();
+        });
+        // 表格刷新
+        $('#btn-refresh').on('click', function () {
+            table.ajax.reload();
+        });
+
+    })();
+</script>
+{/block}

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>试卷页</title>
+    <link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/static/css/plugins.reset.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/icon.css">
+    <link rel="stylesheet" href="/static/css/home.css">
+</head>
+<body class="loaded bg-gray">
+<div class="wrapper">
+    <div class="exam-wrapper">
+        <h1 class="exam-title">适合人群及技术储备要求</h1>
+        <div class="exam-toolbar">
+            <a class="pull-left btn-show-questions" href="javascript:"><i class="fa fa-calendar"></i>答题卡</a>
+            <div class="questions-card">
+                <h4 class="title">题目序号</h4>
+                <ul>
+                    {volist name="PaperQuestionList" id="vo" key="k"}
+                    {if condition="$k eq 1"}
+                        <li class="active" data-index="{$k}"><a href="javascript:">{$k}</a></li>
+                        {else/}
+                        <li  data-index="{$k}"><a href="javascript:">{$k}</a></li>
+                    {/if}
+                    {/volist}
+                </ul>
+                <a class="btn-close" href="javascript:"><i class="fa fa-close"></i></a>
+            </div>
+            <div class="pull-left exam-score">总分：<span class="text">{$exam.score}</span>分</div>
+            <div class="pull-left exam-time">考试时长：<span class="text">{$exam.time|Sec2Time}</span></div>
+            <button class="btn btn-danger pull-right btn-submit" href="javascript:">交卷</button>
+            <div class="pull-right time-wrapper">
+                <i class="fa fa-clock-o"></i>
+                <span class="time">00:00:00</span>
+            </div>
+        </div>
+        <div class="exam-box">
+            <div class="question-wrapper">
+                {volist name="PaperQuestionList" id="vo" key="kk"}
+                {if condition="$vo.type eq 1"}
+                    <div class="question-item active" data-type="{$vo.type}" data-index="{$kk}" data-id="{$vo.id}">
+                        <label class="label label-danger question-type-label">判断题</label>
+                        <div class="question-title">
+                            <span class="score-text">（<em class="text">{$vo.score}</em>分）</span><span class="text">{$vo.title}</span>
+                        </div>
+                        <div class="answer-wrapper">
+                            {volist name="vo.optionsList" id="vo1" key="k1"}
+                                <div class="form-group">
+                                    <input type="radio" name="question{$kk}" value="{$k1}">
+                                    <span class="text">{$vo1}</span>
+                                </div>
+                            {/volist}
+
+                        </div>
+                        <div class="button-wrapper">
+                            <a class="pull-left question-prev" href="javascript:"><i class="fa fa-long-arrow-left"></i>上一题</a>
+                            <a class="pull-right question-next" href="javascript:">下一题<i class="fa fa-long-arrow-right"></i></a>
+                            <a class="pull-right btn-submit" href="javascript:">交卷</a>
+                        </div>
+                    </div>
+                {elseif condition="$vo.type eq 2"}
+                        <div class="question-item" data-type="{$vo.type}" data-index="{$kk}" data-id="{$vo.id}">
+                            <label class="label label-danger question-type-label">单选题</label>
+                        <div class="question-title">
+                            <span class="score-text">（<em class="text">{$vo.score}</em>分）</span><span class="text">{$vo.title}</span>
+                        </div>
+                        <div class="answer-wrapper">
+                            {volist name="vo.optionsList" id="vo1" key="k1"}
+                                <div class="form-group">
+                                    <input class="radio" type="radio" name="question{$kk}" value="{$k1}">
+                                    <span class="text">{$vo1}</span>
+                                </div>
+                            {/volist}
+
+                        </div>
+                        <div class="button-wrapper">
+                            <a class="pull-left question-prev" href="javascript:"><i class="fa fa-long-arrow-left"></i>上一题</a>
+                            <a class="pull-right question-next" href="javascript:">下一题<i class="fa fa-long-arrow-right"></i></a>
+                            <a class="pull-right btn-submit" href="javascript:">交卷</a>
+                        </div>
+                    </div>
+
+                {elseif condition="$vo.type eq 3"}
+                    <div class="question-item" data-type="{$vo.type}" data-index="{$kk}" data-id="{$vo.id}">
+                        <label class="label label-danger question-type-label">多选题</label>
+                        <div class="question-title">
+                            <span class="score-text">（<em class="text">{$vo.type}</em>分）</span><span class="text">{$vo.title}</span>
+                        </div>
+                        <div class="answer-wrapper">
+                            {volist name="vo.optionsList" id="vo1" key="k1"}
+                                <div class="form-group">
+                                    <input class="checkbox" type="checkbox" name="question{$kk}" value="{$k1}">
+                                    <span class="text">{$vo1}</span>
+                                </div>
+                            {/volist}
+                        </div>
+                        <div class="button-wrapper">
+                            <a class="pull-left question-prev" href="javascript:"><i class="fa fa-long-arrow-left"></i>上一题</a>
+                            <a class="pull-right question-next" href="javascript:">下一题<i class="fa fa-long-arrow-right"></i></a>
+                            <a class="pull-right btn-submit" href="javascript:">交卷</a>
+                        </div>
+                    </div>
+                {elseif condition="$vo.type eq 4"}
+                    <div class="question-item" data-type="{$vo.type}" data-index="{$kk}" data-id="{$vo.id}">
+                        <label class="label label-danger question-type-label">填空题</label>
+                        <div class="question-title">
+                            <span class="score-text">（<em class="text">{$vo.score}</em>分）</span><span class="text">{$vo.title}</span>
+                        </div>
+                        <div class="answer-wrapper">
+                            {volist name="vo.optionsList" id="vo1"}
+                                <div class="form-group">
+                                    <div class="input-group col-sm-4">
+                                        <span class="input-group-addon">1</span>
+                                        <input class="form-control" name="question{$kk}" type="text">
+                                    </div>
+                                </div>
+                            {/volist}
+
+                        </div>
+                        <div class="button-wrapper">
+                            <a class="pull-left question-prev" href="javascript:"><i class="fa fa-long-arrow-left"></i>上一题</a>
+                            <a class="pull-right question-next" href="javascript:">下一题<i class="fa fa-long-arrow-right"></i></a>
+                            <a class="pull-right btn-submit" href="javascript:">交卷</a>
+                        </div>
+                    </div>
+                {elseif condition="$vo.type eq 5"}
+                    <div class="question-item" data-type="{$vo.type}" data-index="{$kk}" data-id="{$vo.id}">
+                        <label class="label label-danger question-type-label">简答题</label>
+                        <div class="question-title">
+                            <span class="score-text">（<em class="text">{$vo.score}</em>分）</span><span class="text">{$vo.title}</span>
+                        </div>
+                        <div class="answer-wrapper">
+                            <textarea name="question{$kk}" placeholder="在此输入解答"></textarea>
+                        </div>
+                        <div class="button-wrapper">
+                            <a class="pull-left question-prev" href="javascript:"><i class="fa fa-long-arrow-left"></i>上一题</a>
+                            <a class="pull-right question-next" href="javascript:">下一题<i class="fa fa-long-arrow-right"></i></a>
+                            <a class="pull-right btn-submit" href="javascript:">交卷</a>
+                        </div>
+                    </div>
+                {/if}
+                {/volist}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--ajax提交转圈圈-->
+<link rel="stylesheet" href="/static/css/loading.css" />
+<div class="loading_div" style="display: none">
+    <img src="/static/images/loading.png" alt="" class="loading">
+</div>
+
+<script src="/static/plugins/jquery/jquery.min.js"></script>
+<script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/plugins/layui/layui.all.js"></script>
+<script src="/static/plugins/validator/validator.min.js"></script>
+<script src="/static/plugins/sweetalert/sweetalert2.all.min.js"></script>
+
+<script src="/static/js/common.js"></script>
+<script>
+    (function () {
+        var questionsCard = $('.questions-card'),
+            isWhitePaper = false;
+
+        // 上一题
+        $('.question-prev').on('click', function () {
+            var questionPane = $('.question-item.active');
+            if (questionPane.prevAll('.question-item').length > 0) {
+                var index = questionPane.prev('.question-item').data('index');
+                $('.questions-card li[data-index="' + index + '"]').trigger('click');
+                questionPane.removeClass('active').prev('.question-item').addClass('active');
+            }
+        });
+
+        // 下一题
+        $('.question-next').on('click', function () {
+            var questionPane = $('.question-item.active');
+            if (questionPane.nextAll('.question-item').length > 0) {
+                var index = questionPane.next('.question-item').data('index');
+                $('.questions-card li[data-index="' + index + '"]').trigger('click');
+                questionPane.removeClass('active').next('.question-item').addClass('active');
+            }
+        });
+
+        // 交卷
+        $('.btn-submit').on('click', function () {
+            var questions = $('.question-item');
+            var list = [];
+            isWhitePaper = false;
+            $.each(questions, function (index, item) {
+                var questionData = collectQuestionContent(item);
+                if (questionData.answer === '') {
+                    isWhitePaper = true;
+                }
+                list.push(questionData);
+            });
+            if (isWhitePaper) {
+                layer.confirm('有试题尚未答题，是否现在交卷？', {icon: 3, title: '提示'}, function (index) {
+                    if (index) {
+
+                        // TODO:提交学生试卷结果
+                        $.ajax({
+                            url: "{:url('pc/exam/submit')}",
+                            type: 'post',
+                            data: {
+                                data:list,
+                                id:"{$Think.GET.id}",
+                            },
+                            beforeSend:function(){
+                                $('.loading_div').show();
+                            },
+                        }).done(function (response) {
+                            $('.loading_div').hide();
+                            if (response.status) {
+                                clearLocalStorage();
+                                layer.msg(response.message,{icon:1},function(){
+                                    window.location.href = "{:url('pc/personal_score/index')}";
+                                });
+                            } else {
+                                layer.msg(response.message);
+                            }
+                        }).fail(function () {
+                            $('.loading_div').hide();
+                            console.error('请求失败！');
+                        });
+
+
+                    }
+                });
+            } else {
+                layer.confirm('是否现在交卷？', {icon: 3, title: '提示'}, function (index) {
+                    if (index) {
+
+                        // TODO:提交学生试卷结果
+                        $.ajax({
+                            url: "{:url('pc/exam/submit')}",
+                            type: 'post',
+                            data: {
+                                data:list,
+                                id:"{$Think.GET.id}"
+                            },
+                            beforeSend:function(){
+                                $('.loading_div').show();
+                            },
+                        }).done(function (response) {
+                            $('.loading_div').hide();
+                            if (response.status) {
+                                clearLocalStorage();
+                                layer.msg(response.message,{icon:1},function(){
+                                    window.location.href = "{:url('pc/personal_score/index')}";
+                                });
+                            } else {
+                                layer.msg(response.message);
+                            }
+                        }).fail(function () {
+                            $('.loading_div').hide();
+                            console.error('请求失败！');
+                        });
+
+
+                    }
+                });
+            }
+
+        });
+
+        // ajax提交试卷
+
+        // 打开答题卡
+        $('.btn-show-questions').on('click', function () {
+            $('.questions-card').toggle();
+        });
+
+        // 关闭答题卡
+        questionsCard.on('click', '.btn-close', function () {
+            $('.questions-card').hide();
+        });
+
+        // 选择题目序号
+        questionsCard.on('click', 'li', function () {
+            var index = $(this).data('index');
+            $(this).addClass('active').siblings().removeClass('active');
+            $('.question-item').removeClass('active');
+            $('.question-item[data-index="' + index + '"]').addClass('active');
+            $('.questions-card').hide();
+        });
+
+        // 获取试题数据及考生答案
+        function collectQuestionContent(element) {
+            var questionItem = {
+                id:$(element).data('id'), //试卷-试题id
+                type: $(element).data('type'), // 试题类型
+                index: $(element).data('index'), // 试题序号
+                title: $(element).find('.question-title > .text').text(), // 试题题目
+                score: $(element).find('.score-text > .text').text(), // 试题分数
+                options: "", // 试题选项内容（多项，用‘|||’隔开）
+                answer: "" // 考生答案内容（多项，用‘|||’隔开）
+            };
+            var optionList = [], // 临时存放选项内容（多项）
+                answerList = []; // 临时存放考生答案（多项）
+
+            switch (questionItem.type) {
+                case 1: // 判断题
+                    questionItem.options = optionList.join('||');
+                    questionItem.answer = $.trim($(element).find('[name="question' + questionItem.index + '"]:checked').val()) === undefined ? '' : $.trim($(element).find('[name="question' + questionItem.index + '"]:checked').val());
+                    break;
+                case 2: // 单选题
+                    $.each($(element).find('[name="question' + questionItem.index + '"]'), function (index, item) {
+                        optionList.push($(item).val());
+                    });
+                    questionItem.options = optionList.join('||');
+                    questionItem.answer = $.trim($(element).find('[name="question' + questionItem.index + '"]:checked').val()) === undefined ? '' : $.trim($(element).find('[name="question' + questionItem.index + '"]:checked').val());
+                    break;
+                case 3: // 多选题
+                    $.each($(element).find('[name="question' + questionItem.index + '"]'), function (index, item) {
+                        optionList.push($.trim($(item).val()));
+                    });
+                    questionItem.options = optionList.join('||');
+                    $.each($(element).find('[name="question' + questionItem.index + '"]:checked'), function (index, item) {
+                        answerList.push($.trim($(item).val()));
+                    });
+                    questionItem.answer = answerList.join('||');
+                    break;
+                case 4: // 填空题
+                    $.each($(element).find('[name="question' + questionItem.index + '"]'), function (index, item) {
+                        answerList.push($.trim($(item).val()) === '' ? ' ' : $.trim($(item).val()));
+                    });
+                    questionItem.answer = answerList.join('||');
+                    break;
+                case 5: // 简答题
+                    questionItem.answer = $.trim($(element).find('[name="question' + questionItem.index + '"]').val());
+                    break;
+            }
+            return questionItem;
+        }
+
+        /**
+         * 考试倒计时
+         * @param time 秒
+         * @return 时:分:秒
+         */
+        function backTimer(time) {
+            var seconds = time;
+            window.setInterval(function () {
+                var day = 0,
+                    hour = 0,
+                    minute = 0,
+                    second = 0;//时间默认值
+                if (seconds > 0) {
+                    day = Math.floor(seconds / (60 * 60 * 24));
+                    hour = Math.floor(seconds / (60 * 60)) - (day * 24);
+                    minute = Math.floor(seconds / 60) - (day * 24 * 60) - (hour * 60);
+                    second = Math.floor(seconds) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+                }
+                if (hour <= 9) hour = '0' + hour;
+                if (minute <= 9) minute = '0' + minute;
+                if (second <= 9) second = '0' + second;
+//                $('#day_show').html(day + "天");
+                $('.time-wrapper .time').text(hour + ':' + minute + ':' + second);
+                seconds--;
+            }, 1000);
+        }
+
+        // 设置无操作超过最大无操作时间，自动提交试卷
+        function setNoOperateEvent() {
+            //若干秒无操作提示，自动交卷
+            var maxTime = 120; // 设置最大无操作时间为60秒
+            var time = maxTime;
+            $(document).on('keydown click mousemove scroll', function (e) {
+                time = maxTime; // 若页面有操作，则重置时间为最大无操作时间
+            });
+            var intervalId = setInterval(function () {
+                if (time === 0) {
+                    clearInterval(intervalId);
+                    // TODO:提交试卷
+                    var questions = $('.question-item');
+                    var list = [];
+                    isWhitePaper = false;
+                    $.each(questions, function (index, item) {
+                        var questionData = collectQuestionContent(item);
+                        if (questionData.answer === '') {
+                            isWhitePaper = true;
+                        }
+                        list.push(questionData);
+                    });
+                    $.ajax({
+                        url: "{:url('pc/exam/submit')}",
+                        type: 'post',
+                        data: {
+                            data:list,
+                            id:"{$Think.GET.id}"
+                        },
+                        beforeSend:function(){
+                            $('.loading_div').show();
+                        },
+                    }).done(function (response) {
+                        $('.loading_div').hide();
+                        if (response.status) {
+                            clearLocalStorage();
+                            layer.msg(response.message,{icon:1},function(){
+                                window.location.href = "{:url('pc/personal_score/index')}";
+                            });
+                        } else {
+                            layer.msg(response.message);
+                        }
+                    }).fail(function () {
+                        $('.loading_div').hide();
+                        console.error('请求失败！');
+                    });
+
+
+                } else if (time <= 10) {
+                    layer.msg('无操作，试卷将在' + time + '秒后提交！');
+                }
+                time--;
+            }, 1000);
+        }
+
+        // 初始化考试页
+        function initExamPage() {
+            var now = new Date(), endTime;
+
+            if (localStorage.getItem('endTime')) {
+                endTime = localStorage.getItem('endTime');
+            } else {
+                endTime = parseInt("{$exam.max_end_date}")*1000;
+                localStorage.setItem('endTime', endTime);
+            }
+            var temp = (endTime - now.getTime()) / 1000;
+
+            setNoOperateEvent();
+
+            if(temp <= 0) {
+                // TODO:提交试卷
+                var questions = $('.question-item');
+                var list = [];
+                isWhitePaper = false;
+                $.each(questions, function (index, item) {
+                    var questionData = collectQuestionContent(item);
+                    if (questionData.answer === '') {
+                        isWhitePaper = true;
+                    }
+                    list.push(questionData);
+                });
+                $.ajax({
+                    url: "{:url('pc/exam/submit')}",
+                    type: 'post',
+                    data: {
+                        data:list,
+                        id:"{$Think.GET.id}"
+                    },
+                    beforeSend:function(){
+                        $('.loading_div').show();
+                    },
+                }).done(function (response) {
+                    $('.loading_div').hide();
+                    if (response.status) {
+                        clearLocalStorage();
+                        layer.msg(response.message,{icon:1},function(){
+                            window.location.href = "{:url('pc/personal_score/index')}";
+                        });
+                    } else {
+                        layer.msg(response.message);
+                    }
+                }).fail(function () {
+                    $('.loading_div').hide();
+                    console.error('请求失败！');
+                });
+            } else {
+                backTimer(temp);
+            }
+        }
+
+        function clearLocalStorage() {
+            if(localStorage.getItem('endTime'))
+                localStorage.removeItem('endTime');
+        }
+
+
+        // TODO：获取用户ID和试卷ID，判断其状态，若在考试中，则初始化；否则提示错误
+        $.ajax({
+            url: "{:url('pc/exam/check')}",
+            type: 'post',
+            data: {
+                id:"{$Think.GET.id}"
+            },
+        }).done(function (response) {
+            if (response.status) {
+                initExamPage();
+            } else{
+                layer.msg('您已提交过，请勿重新进入',{icon:1},function(){
+                   window.location.href = "{:url('pc/index/index')}";
+                });
+            }
+        }).fail(function () {
+            console.error('请求失败！');
+        });
+
+
+
+    })();
+</script>
+</body>
+</html>
+

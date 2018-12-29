@@ -1,0 +1,88 @@
+<div id="addCourseWrapper" style="width: 400px; padding-top: 15px;">
+    <form class="form-horizontal" id="addCourseForm" data-id="{$course.id|default=''}">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">课程名称 :</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="课程名称" id="name" name="name" value="{$course.name|default=''}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">所属专业 :</label>
+            <div class="col-sm-9">
+                <select id="majorSelector" name="major_id" style="width: 200px">
+                    {foreach name="majors" item="vo"}
+                        <option value="{$vo.id}" {if condition="isset($course) && $course.major_id == $vo['id']"} selected="selected"{/if}>{$vo.name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">排序 :</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="排序序号" name="order" value="{$course.order|default=''}" />
+            </div>
+        </div>
+        <div class="form-actions" style="text-align: right;">
+            <a id="saveManager" class="btn btn-primary">保存</a>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    (function () {
+        var validator = new Validator('addCourseForm', [
+            {
+                name: 'name',
+                display: '请输入课程名称',
+                rules: 'required'
+            }
+        ], function (obj, evt) {
+            //如果errors具有内容则表示验证不通过
+            if (obj.errors.length) {
+                $.each(obj.errors, function (index, item) {
+                    layer.tips(item.message, $('#addCourseForm').find('[name="' + item.name + '"]'), {
+                        tips: [2, '#00B4E9'],
+                        tipsMore: true
+                    });
+                });
+            }
+        });
+
+        // 保存
+        $('#saveManager').on('click', function () {
+            if(!validator.validate().errors.length){
+                var form = $('#addCourseForm'),
+                    id = form.data('id'),
+                    formData = {}, url = "", success = "添加成功！";
+                if (id != null && id !== "") {
+                    url = "{:url('course/editCourse')}";
+                    formData["id"] = id;
+                    success = "编辑成功！";
+                } else {
+                    url = "{:url('course/addCourse')}";
+                }
+                formData["name"] = form.find('[name="name"]').val();
+                formData["major_id"] = form.find('[name="major_id"]').val();
+                formData["order"] = form.find('[name="order"]').val() || 0;
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: formData
+                }).done(function (response) {
+                    if (response.status) {
+                        layer.closeAll();
+                        layer.msg(success);
+                    } else {
+                        layer.msg(response.message);
+                    }
+                }).fail(function () {
+                    console.error('请求失败！');
+                });
+            }
+
+        });
+
+        $('#majorSelector').SumoSelect();
+    })();
+</script>

@@ -1,0 +1,90 @@
+<div id="addManagerWrapper" style="width: 500px; padding-top: 15px;">
+    <form class="form-horizontal" id="addManagerForm">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">账号 :</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="账号" id="username" name="username" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">密码 :</label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" placeholder="密码" id="password" name="password" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">确认密码 :</label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" placeholder="确认密码" id="repassworld" name="repassworld" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">状态 :</label>
+            <div class="col-sm-9" id="radio" style="padding-top: 3px;">
+                <input class="switch-button switch-primary" type="checkbox" id="status" name="status" checked />
+            </div>
+        </div>
+        <div class="form-actions">
+            <a id="saveManager" class="btn btn-primary" style="float:right">保存</a>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    (function () {
+        // 前端校验
+        var validator = new Validator('addManagerForm', [
+            {
+                name: 'username',
+                display: '请输入用户名',
+                rules: 'required'
+            },
+            {
+                name: 'password',
+                display: '请输入密码',
+                rules: 'required'
+            },
+            {
+                name: 'repassworld',
+                display: '密码不一致',
+                rules: 'same(password)'
+            }
+        ], function (obj, evt) {
+            //如果errors具有内容则表示验证不通过
+            if (obj.errors.length) {
+                $.each(obj.errors, function (index, item) {
+                    layer.tips(item.message, $('#addManagerForm').find('[name="' + item.name + '"]'), {
+                        tips: [2, '#00B4E9'],
+                        tipsMore: true
+                    });
+                });
+            }
+        });
+
+        // 保存
+        $('#saveManager').on('click', function () {
+            if (!validator.validate().errors.length) {
+                var form = $('#addManagerForm'),
+                    formData = {};
+                formData["username"] = form.find('[name="username"]').val();
+                formData["password"] = form.find('[name="password"]').val();
+                formData["status"] = form.find('[name="status"]').is(':checked') ? 1 : 0;
+                $.ajax({
+                    url: "{:url('manager/addManager')}",
+                    type: 'post',
+                    data: formData
+                }).done(function (response) {
+                    if (response.status) {
+                        layer.closeAll();
+                        layer.msg('添加成功！');
+                    } else {
+                        layer.msg(response.message);
+                    }
+                }).fail(function () {
+                    console.error('管理员添加请求失败！');
+                });
+            }
+        });
+    })();
+</script>

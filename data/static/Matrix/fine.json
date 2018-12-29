@@ -1,0 +1,26 @@
+{
+  "status": true,
+  "message": "success",
+  "data": {
+    "id": "C123",
+    "title": "新试题",
+    "type": 2,
+    "options": [
+      {
+        "isAnswer": true,
+        "text": "选项1"
+      },
+      {
+        "isAnswer": false,
+        "text": "选项2"
+      },
+      {
+        "isAnswer": false,
+        "text": "选项3"
+      }
+    ],
+    "answerText": "A",
+    "analysis": "无",
+    "score": "20"
+  }
+}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>考试信息后台管理</title>
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/DataTables/datatables.min.css">
+    <link rel="stylesheet" href="../plugins/DataTables/DataTables-1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/sumoselect/sumoselect.min.css">
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../css/plugins.reset.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/icon.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+<div class="wrapper loaded">
+    <div class="leftWrapper">
+        <div class="logoWrapper">
+            <h1 class="logo">
+                <a href="dashboard.html"><img src="../images/logo.png" alt="LOGO"></a>
+            </h1>
+        </div>
+        <div class="menuWrapper">
+            <ul class="menu" id="admin-menu">
+                <li class="active">
+                    <a href="dashboard.html">
+                        <i class="fa fa-home"></i>
+                        <span>首页</span>
+                    </a>
+                </li>
+                <li class="submenu">
+                    <a href="javascript:">
+                        <i class="fa fa-group"></i>
+                        <span>考生信息管理</span>
+                        <span class="label label-important"></span>
+                    </a>
+                    <ul>
+                        <li><a href="javascript:">所有考生</a></li>
+                        <li><a href="javascript:">添加考生</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <a href="javascript:">
+                        <i class="fa fa-envelope"></i>
+                        <span>专业信息管理</span>
+                        <span class="label label-important"></span>
+                    </a>
+                    <ul>
+                        <li><a href="javascript:">所有专业</a></li>
+                        <li><a href="javascript:">添加专业</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <a href="javascript:">
+                        <i class="fa fa-user"></i>
+                        <span>管理员管理</span>
+                        <span class="label label-important"></span>
+                    </a>
+                    <ul>
+                        <li><a href="javascript:">所有管理员</a></li>
+                        <li><a href="javascript:">添加管理员</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="rightWrapper">
+        <div class="navWrapper">
+            <div class="user-nav">
+                <ul>
+                    <li class="dropdown" id="profile-messages">
+                        <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+                            <i class="fa fa-user"></i>
+                            <span class="text">Gallonce</span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:"><i class="fa fa-cog"></i>修改密码</a></li>
+                            <li class="divider"></li>
+                            <li><a href="login.html"><i class="fa fa-sign-out"></i>退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="contentWrapper">
+            <div id="content">
+                <div class="content-header">
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="dashboard.html" title="返回首页">
+                                <i class="fa fa-home"></i>首页
+                            </a>
+                        </li>
+                        <li class="active">管理员列表</li>
+                    </ul>
+                </div>
+                <div class="body-wrapper">
+                    <div class="content-body">
+                        <div class="container-fluid content-title">
+                            <h4>管理员列表</h4>
+                        </div>
+                        <div class="search-panel">
+                            <button class="btn btn-primary" title="添加"><i class="fa fa-plus"></i>添加学生</button>
+                            <select id="select1">
+                                <option value="">所有年级</option>
+                                <option value="2011">2011</option>
+                                <option value="2012">2012</option>
+                            </select>
+                            <select id="select2" style="width: 150px">
+                                <option value="">所有专业</option>
+                                <option value="1001">软件工程</option>
+                                <option value="1002">信息管理与信息系统</option>
+                            </select>
+                            <input type="text" placeholder="请输入关键字">
+                            <button class="btn btn-link" title="重置"><i class="fa fa-undo"></i></button>
+                            <button class="btn btn-link" title="导入"><i class="glyphicon glyphicon-import"></i></button>
+                            <button class="btn btn-link" title="导出"><i class="glyphicon glyphicon-export"></i></button>
+                            <button id="btn-refresh" class="btn btn-link" title="刷新"><i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                        <div class="content-panel">
+                            <div class="statistics-panel">
+                                <span>学生人数:</span> <span class="text-danger">45</span> 人
+                            </div>
+                            <table id="table" class="table table-striped table-bordered dataTable" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>学号</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footerWrapper">
+            <div class="copyright">
+                Copyright © 2017 <a href="javascript:">Gallonce</a> , Inc. All rights reserved.
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+<script src="../plugins/jquery/jquery.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="../plugins/layui/layui.all.js"></script>
+<script src="../plugins/DataTables/DataTables-1.10.16/js/jquery.dataTables.js"></script>
+<script src="../plugins/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.min.js"></script>
+<script src="../plugins/sumoselect/jquery.sumoselect.min.js"></script>
+<script src="../plugins/validator/validator.min.js"></script>
+<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script src="../plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<script src="../js/common.js"></script>
+<script src="../js/admin.js"></script>
+<script>
+    (function () {
+        $('#select1').SumoSelect();
+        $('#select2').SumoSelect();
+
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>考试信息后台管理</title>
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/DataTables/datatables.min.css">
+    <link rel="stylesheet" href="../plugins/DataTables/DataTables-1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/sumoselect/sumoselect.min.css">
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../css/plugins.reset.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/icon.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+<div class="wrapper loaded">
+    <div class="leftWrapper">
+        <div class="logoWrapper">
+            <h1 class="logo">
+                <a href="dashboard.html"><img src="../images/logo.png" alt="LOGO"></a>
+            </h1>
+        </div>
+        <div class="menuWrapper">
+            <ul class="menu" id="admin-menu">
+                <li class="active">
+                    <a href="dashboard.html">
+                        <i class="fa fa-home"></i>
+                        <span>首页</span>
+                    </a>
+                </li>
+                <li class="submenu">
+                    <a href="javascript:">
+                        <i class="fa fa-group"></i>
+                        <span>考生信息管理</span>
+                        <span class="label label-important"></span>
+                    </a>
+                    <ul>
+                        <li><a href="javascript:">所有考生</a></li>
+                        <li><a href="javascript:">添加考生</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <a href="javascript:">
+                        <i class="fa fa-envelope"></i>
+                        <span>专业信息管理</span>
+                        <span class="label label-important"></span>
+                    </a>
+                    <ul>
+                        <li><a href="javascript:">所有专业</a></li>
+                        <li><a href="javascript:">添加专业</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <a href="javascript:">
+                        <i class="fa fa-user"></i>
+                        <span>管理员管理</span>
+                        <span class="label label-important"></span>
+                    </a>
+                    <ul>
+                        <li><a href="javascript:">所有管理员</a></li>
+                        <li><a href="javascript:">添加管理员</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="rightWrapper">
+        <div class="navWrapper">
+            <div class="user-nav">
+                <ul>
+                    <li class="dropdown" id="profile-messages">
+                        <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
+                            <i class="fa fa-user"></i>
+                            <span class="text">Gallonce</span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:"><i class="fa fa-cog"></i>修改密码</a></li>
+                            <li class="divider"></li>
+                            <li><a href="login.html"><i class="fa fa-sign-out"></i>退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="contentWrapper">
+            <div class="bg-dashboard" id="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="widget no-padding">
+                                <table class="statistical">
+                                    <tr>
+                                        <td>
+                                            <h4 class="statistical-title">专业数</h4>
+                                            <h3 class="statistical-count">1035</h3>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-desktop text-primary"></i>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="widget no-padding">
+                                <table class="statistical">
+                                    <tr>
+                                        <td>
+                                            <h4 class="statistical-title">课程数</h4>
+                                            <h3 class="statistical-count">1035</h3>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-book text-danger"></i>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="widget no-padding">
+                                <table class="statistical">
+                                    <tr>
+                                        <td>
+                                            <h4 class="statistical-title">试卷数</h4>
+                                            <h3 class="statistical-count">1035</h3>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-paperclip text-info"></i>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="widget no-padding">
+                                <table class="statistical">
+                                    <tr>
+                                        <td>
+                                            <h4 class="statistical-title">考试数</h4>
+                                            <h3 class="statistical-count">1035</h3>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-paper-plane text-warning"></i>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footerWrapper">
+            <div class="copyright">
+                Copyright © 2017 <a href="javascript:">Gallonce</a> , Inc. All rights reserved.
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+<script src="../plugins/jquery/jquery.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="../plugins/layui/layui.all.js"></script>
+<script src="../plugins/DataTables/DataTables-1.10.16/js/jquery.dataTables.js"></script>
+<script src="../plugins/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.min.js"></script>
+<script src="../plugins/sumoselect/jquery.sumoselect.min.js"></script>
+<script src="../plugins/validator/validator.min.js"></script>
+<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script src="../plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<script src="../js/common.js"></script>
+<script src="../js/admin.js"></script>
+<script>
+    (function () {
+        var menu = $('#admin-menu');
+        var contentBody = $('.content-body');
+        menu.on('click', '.submenu a', function (e) {
+            e.preventDefault();
+            var submenu = $(this).siblings('ul');
+            var li = $(this).parents('li');
+            var submenus = $('#admin-menu li.submenu ul');
+            var submenus_parents = $('#admin-menu li.submenu');
+            if (li.hasClass('open')) {
+                submenu.slideUp();
+                li.removeClass('open');
+            } else {
+                submenus.slideUp();
+                submenu.slideDown();
+                submenus_parents.removeClass('open');
+                li.addClass('open');
+            }
+        });
+
+        menu.slimScroll({
+            height: "100%", railOpacity: .9, alwaysVisible: !1
+        });
+
+        contentBody.slimScroll({
+            height: "100%", railOpacity: .9, alwaysVisible: !1
+        });
+
+    })();
+</script>
+</body>
+</html>

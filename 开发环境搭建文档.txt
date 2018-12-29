@@ -1,0 +1,80 @@
+﻿// +----------------------------------------------------------------------
+// |
+// | 在线考试系统项目
+// | @doc:开发环境搭建说明文档
+// | @author: Gallonce
+// | @date: 2018-01-12
+// |
+// +----------------------------------------------------------------------
+
+
+1.PHPStudy下载安装
+
+    1) 下载地址：http://www.phpstudy.net/
+
+    2) 安装：按照安装说明安装即可，无需破解
+
+
+2.PHPStorm下载安装
+    1) 下载地址：http://www.jetbrains.com/phpstorm/
+
+    2) 安装： 按照安装说明安装即可
+
+    3) 破解：
+
+        A.如第一次打开PHPStorm,软件默认会弹出 PHPStorm License Activation 窗口,会有三种方式进行注册,选择 License Server,
+          在 License Server Address 一栏中输入 http://idea.iteblog.com/key.php , 然后点击 Discover Server ,再点击 Activate 即可.
+
+        B.如已经进入软件，则在顶部菜单栏中点击 Help -> Register,弹窗出来之后步骤请看上一条.
+
+
+3.项目放入PHPStudy环境目录下
+
+    将xit.exam项目拷贝到以下目录： PHPStudy安装路径\PHPTutorial\WWW
+
+
+4.PHPStudy环境配置
+
+    1) 配置vhosts.ini
+
+       首先,打开 PHPStudy -> 其他选项菜单 -> 打开配置文件 -> vhosts.ini
+       然后,在尾部添加以下内容:
+
+        <VirtualHost *:80>
+            ServerAdmin webmaster@tomener.dev
+            DocumentRoot " [PHPStudy安装路径]\PHPTutorial\WWW\xit.exam\public"
+            ServerName xit.exam.com
+            ErrorLog "logs/xit.exam.error.log"
+            CustomLog "logs/xit.exam.access.log" common
+            <Directory " [PHPStudy安装路径]\PHPTutorial\WWW\xit.exam\public">
+                Options Indexes FollowSymLinks
+                AllowOverride All
+                Require all granted
+            </Directory>
+        </VirtualHost>
+
+    2) 配置hosts
+
+        首先,打开 PHPStudy -> 其他选项菜单 -> 打开host
+        然后在尾部添加以下内容:
+            127.0.0.1  xit.exam.com
+
+    3) 选择Apache和PHP版本
+
+        打开 PHPStudy -> 切换版本 , 选择 php-5.4.45 + Apache , 然后点击启动或者重启即可.
+
+
+5.运行项目
+
+    打开Chrome浏览器,在地址中输入: xit.exam.com, 后台管理则输入: xit.exam.com/admin
+
+
+6.开发环境卸载
+
+    答辩结束后,如若要删除开发环境,只要在 控制面板 -> 添加与删除程序 中卸载PHPStudy以及PHPStorm即可.
+
+
+
+
+
+

@@ -1,0 +1,114 @@
+{extend name="public/layout" /}
+{block name="pluginsCss"}{/block}
+{block name="style"}{/block}
+
+{block name="body"}
+<div class="content-wrapper">
+    <div class="top container">
+        <div class="row">
+            <div class="course-content">
+                <div class="course-nav-box">
+                    <div class="course-nav-row clearfix">
+                        <span class="hd pull-left">专业：</span>
+                        <div class="bd">
+                            <ul class="">
+                                {notempty name="Think.GET.major_id"}
+                                <li class="course-nav-item">
+                                    <a href="{:url('pc/lists/index')}">全部</a>
+                                </li>
+                                {else/}
+                                <li class="course-nav-item  active">
+                                    <a href="{:url('pc/lists/index')}">全部</a>
+                                </li>
+                                {/notempty}
+                                {volist name="MajorList" id="vo"}
+                                {if condition="$vo['id'] eq $Think.GET.major_id"}
+                                <li class="course-nav-item active">
+                                    <a href="{:url('pc/lists/index')}?major_id={$vo.id}{notempty name='Think.GET.course_id'}&course_id={$Think.GET.course_id}{/notempty}">{$vo.name}</a>
+                                </li>
+                                {else/}
+                                <li class="course-nav-item">
+                                    <a href="{:url('pc/lists/index')}?major_id={$vo.id}{notempty name='Think.GET.course_id'}&course_id={$Think.GET.course_id}{/notempty}">{$vo.name}</a>
+                                </li>
+                                {/if}
+                                {/volist}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="course-nav-row clearfix">
+                        <span class="hd pull-left">课程：</span>
+                        <div class="bd">
+                            <ul>
+                                {notempty name="Think.GET.course_id"}
+                                <li class="course-nav-item">
+                                    <a href="{:url('pc/lists/index')}{notempty name='Think.GET.major_id'}?major_id={$Think.GET.major_id}{/notempty}">全部</a>
+                                </li>
+                                {else/}
+                                <li class="course-nav-item  active">
+                                    <a href="{:url('pc/lists/index')}{notempty name='Think.GET.major_id'}?major_id={$Think.GET.major_id}{/notempty}">全部</a>
+                                </li>
+                                {/notempty}
+                                {volist name="CourseList" id="vo"}
+                                {if condition="$vo['id'] eq $Think.GET.course_id"}
+                                <li class="course-nav-item active">
+                                    <a href="{:url('pc/lists/index')}?course_id={$vo.id}{notempty name='Think.GET.major_id'}&major_id={$Think.GET.major_id}{/notempty}">{$vo.name}</a>
+                                </li>
+                                {else/}
+                                <li class="course-nav-item">
+                                    <a href="{:url('pc/lists/index')}?course_id={$vo.id}{notempty name='Think.GET.major_id'}&major_id={$Think.GET.major_id}{/notempty}">{$vo.name}</a>
+                                </li>
+                                {/if}
+                                {/volist}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="exam-list-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="exams-tool-bar">
+                    <a href="{:url('pc/lists/index')}{notempty name='Think.GET.course_id'}?course_id={$Think.GET.course_id}{/notempty}{notempty name='Think.GET.major_id'}?major_id={$Think.GET.major_id}{/notempty}" class="sort-item {if condition='$Think.GET.exam_state == null'}active{/if}">全部</a>
+                    <a href="{:url('pc/lists/index')}?exam_state=1{notempty name='Think.GET.course_id'}?course_id={$Think.GET.course_id}{/notempty}{notempty name='Think.GET.major_id'}?major_id={$Think.GET.major_id}{/notempty}" class="sort-item {if condition='$Think.GET.exam_state == 1'}active{/if}">未开始</a>
+                    <a href="{:url('pc/lists/index')}?exam_state=2{notempty name='Think.GET.course_id'}?course_id={$Think.GET.course_id}{/notempty}{notempty name='Think.GET.major_id'}?major_id={$Think.GET.major_id}{/notempty}" class="sort-item {if condition='$Think.GET.exam_state == 2'}active{/if}">进行中</a>
+                </div>
+                <div class="exam-list">
+                    <div class="clearfix">
+                        {volist name="List" id="vo"}
+                        <div class="exam-card-container">
+                            <a target="_blank" href="{:url('pc/exam_info/index')}?id={$vo.id}" class="exam-card">
+                                <div class="exam-card-top">
+                                    <img class="exam-banner lazy" src="/upload/{$vo.img}" style="display: inline;">
+                                    <div class="exam-label">
+                                        <label>{$vo.course_name}</label>
+                                    </div>
+                                </div>
+                                <div class="exam-card-content">
+                                    <h3 class="exam-card-name">{$vo.title}</h3>
+                                    <div class="clearfix exam-card-bottom">
+                                        <div class="exam-card-info">
+                                            <i class="fa fa-clock-o"></i>{$vo.time|Sec2Time}<span><span>&nbsp;</span><i class="fa fa-user"></i>{$vo.count}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {/volist}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="pluginsJs"}{/block}
+{block name="script"}
+<script>
+    // 屏幕缩放监听
+    $(window).on('resize', function () {
+        $('.exam-list-wrapper').css('min-height', ($(window).height() - 289) + 'px')
+    }).trigger('resize');
+</script>
+{/block}

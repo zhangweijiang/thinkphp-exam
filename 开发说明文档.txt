@@ -1,0 +1,80 @@
+﻿// +----------------------------------------------------------------------
+// |
+// | 在线考试系统项目
+// | @doc:项目说明文档
+// | @author: Gallonce
+// | @date: 2018-01-12
+// |
+// +----------------------------------------------------------------------
+
+项目目录结构如下：（extend开始以下部分可忽略,该部分为ThinkPHP5框架核心内容）
+project		                                    应用部署目录
+├─application									应用目录
+│	├─common								    公共模块目录
+│	├─index									    前台模块目录
+│	│	├─config.php					        模块配置文件
+│	│	├─common.php					        模块函数文件
+│	│	├─controller					        控制器目录（逻辑处理层）
+│	│	├─view							        视图目录（视图层）
+│	│	└─	...							        更多类库目录
+│	├─admin									    后台模块目录
+│	│	├─config.php					        模块配置文件
+│	│	├─common.php					        模块函数文件
+│	│	├─controller					        控制器目录（逻辑处理层）
+│	│	├─view							        视图目录（视图层）
+│	│	└─	...							        更多类库目录
+│	├─api									    API接口模块目录（数据访问层）
+│	│	├─config.php					        模块配置文件
+│	│	├─common.php					        模块函数文件
+│	│	├─controller					        控制器目录
+│	│	├─model							        模型目录
+│	│	└─	...							        更多类库目录
+│	├─command.php							    命令行工具配置文件
+│	├─common.php							    应用公共（函数）文件
+│	├─config.php							    应用（公共）配置文件
+│	├─database.php							    数据库配置文件
+│	├─tags.php								    应用行为扩展定义文件
+│	└─route.php								    路由配置文件
+├─public										WEB	部署目录（对外访问目录）
+│	├─static								    静态资源存放目录
+│	│	├─css							        CSS样式目录
+│	│	│   ├─common.css                        公共CSS样式表
+│	│	│   ├─icon.css                          自定义字图标CSS样式表
+│	│	│   ├─plugins.reset.css                 插件重写CSS样式表
+│	│	│   ├─admin.css                         后台模块CSS样式表
+│	│	│   └─home.css                          前台模块CSS样式表
+│	│	├─js							        JS脚本目录
+│	│	│   ├─common.js                         公共JS
+│	│	│   ├─admin.js                          后台模块JS
+│	│	│   └─home.js                           前台模块JS
+│	│	├─images							    图片资源目录
+│	│	├─fonts							        字体资源目录
+│	│	└─plugins						        外部引用目录（插件、UI框架）
+│	├─index.php								    应用入口文件
+│	├─router.php							    快速测试文件
+│	└─.htaccess								    用于	apache	的重写
+├─runtime										应用的运行时目录（项目运行时缓存）
+├─extend										扩展类库目录
+├─vendor										第三方类库目录（Composer）
+├─thinkphp										框架系统目录
+│	├─lang									    语言包目录
+│	├─library								    框架核心类库目录
+│	│	├─think							        Think	类库包目录
+│	│	└─traits						        系统	Traits	目录
+│	├─tpl									    系统模板目录
+│	├─.htaccess								    用于	apache	的重写
+│	├─.travis.yml							    CI	定义文件
+│	├─base.php								    基础定义文件
+│	├─composer.json						        composer	定义文件
+│	├─console.php							    控制台入口文件
+│	├─convention.php					        惯例配置文件
+│	├─helper.php							    助手函数文件
+│	├─LICENSE.txt							    授权说明文件
+│	├─phpunit.xml							    单元测试配置文件
+│	├─README.md								    README	文件
+│	└─start.php								    框架引导文件
+├─build.php										自动生成定义文件
+├─composer.json									composer定义文件
+├─LICENSE.txt									授权说明文件
+├─README.md										README	文件
+└─think								            命令行入口文件

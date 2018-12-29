@@ -1,0 +1,90 @@
+{extend name="public/layout" /}
+{block name="pluginsCss"}{/block}
+{block name="style"}{/block}
+
+{block name="body"}
+    <div class="content-wrapper">
+        <div class="sign-wrapper">
+            <div class="login-wrapper">
+                <div class="login-header">
+                    <h4 class="login-title">账号登录</h4>
+                </div>
+                <form action="javascript:" id="form">
+                    <div class="login-body">
+                        <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </span>
+                            <input type="text" class="form-control" placeholder="请输入用户名" name="username">
+                        </div>
+                        <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-lock"></i>
+                        </span>
+                            <input type="password" class="form-control" placeholder="请输入密码" name="password">
+                        </div>
+                        <div class="form-inline clearfix">
+                            <input type="text" class="form-control" placeholder="请输入验证码" style="width:45%;float:left;margin-right:2%;" name="captcha_code">
+                            <img src="{:captcha_src()}" alt="验证码" onclick="refreshVerify()" class="verify-img" style="width:50%;float:left;">
+                        </div>
+
+                        <button class="btn btn-info form-control" id="login">登 录</button>
+                        <div class="login-footer">
+                            <a class="pull-left" href="{:url('pc/register/index')}">立即注册</a>
+                            <a class="pull-right" href="#">忘记密码？</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{/block}
+{block name="pluginsJs"}{/block}
+{block name="script"}
+<script>
+    function refreshVerify() {
+        var ts = Date.parse(new Date()) / 1000;
+        $(".verify-img").attr('src', '/captcha?id=' + ts);
+    }
+    refreshVerify();
+
+    $(function () {
+        // 屏幕缩放监听
+        $(window).on('resize', function () {
+            $('.sign-wrapper').css('min-height', ($(window).height() - 147) + 'px')
+        }).trigger('resize');
+
+        //登录点击事件
+        $('#login').click(function(){
+            var username = $("input[name='username']").val();
+            var password = $("input[name='password']").val();
+            if(username==''){
+                layer.msg('请输入姓名');
+                return false;
+            }
+            if(password==''){
+                layer.msg('请输入密码');
+                return false;
+            }
+            var formData = $('#form').serialize();
+            $.ajax({
+                url: "{:url('pc/login/login')}",
+                type: 'post',
+                data: formData,
+            }).done(function (response) {
+                if (response.status) {
+                    layer.msg(response.message, {icon: 1},function(){
+                        window.location.href = response.url;
+                    });
+                } else {
+                    refreshVerify();
+                    layer.msg(response.message);
+                }
+            }).fail(function () {
+                console.error('立即报名请求失败！');
+            });
+        });
+
+    });
+</script>
+{/block}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TEST · 在线考试系统</title>
+    <link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
+    {block name="pluginsCss"}{/block}
+    <link rel="stylesheet" href="/static/css/plugins.reset.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/icon.css">
+    <link rel="stylesheet" href="/static/css/home.css">
+    {block name="style"}{/block}
+</head>
+<body class="loaded bg-gray">
+<div class="wrapper">
+    <header class="header">
+        <div class="logo pull-left">
+            <a href="{:url('pc/index/index')}" target="_self" title="首页">
+                <img src="/static/images/home-logo.png" alt="">
+            </a>
+        </div>
+        <ul class="nav-item">
+            <li>
+                <a href="{:url('pc/lists/index')}" target="_self">备考广场</a>
+            </li>
+        </ul>
+        <div class="header-signin pull-right">
+            {notempty name="Think.session.user.id"}
+            <a href="{:url('pc/personal_setting/index')}">{$Think.session.user.username}</a>
+            /
+            <a href="{:url('pc/login/logout')}">退出</a>
+            {else/}
+            <a href="{:url('pc/login/index')}">登录</a>
+            /
+            <a href="{:url('pc/register/index')}">注册</a>
+            {/notempty}
+        </div>
+    </header>
+    {block name="body"}
+
+    {/block}
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="site-map">
+                    <ul>
+                        <li><a href="javascript:">系统简介</a></li>
+                        <li><a href="javascript:">广告服务</a></li>
+                        <li><a href="javascript:">试用洽谈</a></li>
+                        <li><a href="javascript:">网站地图</a></li>
+                        <li><a href="javascript:">联系方式</a></li>
+                        <li><a href="javascript:">关于我们</a></li>
+                    </ul>
+                </div>
+                <div class="copyright">
+                    Copyright © 2017 <a href="javascript:">Gallonce</a> , Inc. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="/static/plugins/jquery/jquery.min.js"></script>
+<script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+<script src="/static/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="/static/plugins/layui/layui.all.js"></script>
+<script src="/static/plugins/validator/validator.min.js"></script>
+<script src="/static/plugins/sweetalert/sweetalert2.all.min.js"></script>
+{block name="pluginsJs"}{/block}
+<script src="/static/js/common.js"></script>
+{block name="script"}{/block}
+<script>
+    (function () {
+        var timer = 0;
+        $(".menu .item").on('mouseenter', function () {
+            var item = $(this);
+            var that = this, activeItem = $(".menuContent").find(".js-menu-item-on")[0];
+            if (that != activeItem) {
+                $(".menu .item").removeClass("active"), item.addClass("active"), $(".submenu").hide();
+                var id = item.attr("data-id");
+                $(".submenu[data-id='" + id + "']").show();
+            }
+        });
+        $(".menu, .submenu").on('mouseleave', function () {
+            $(".menu .item").removeClass("active"), $(".submenu").hide()
+        });
+        $(".submenu").on('mouseenter', function () {
+            $(".submenu").hide();
+            var id = $(this).data("id"), item = $(".menu .item[data-id='" + id + "']");
+            item.addClass('active');
+            $(this).show();
+        })
+    })();
+</script>
+</body>
+</html>

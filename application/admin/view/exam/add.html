@@ -1,0 +1,277 @@
+<style>
+    #addExamWrapper textarea {
+        resize: none;
+    }
+</style>
+<div id="addExamWrapper" style="width: 600px; padding-top: 15px;">
+    <form class="form-horizontal" id="addExamForm" data-id="{$exam.id|default=''}">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">考试封面 :</label>
+            <div class="col-sm-3" style="padding-top: 3px;">
+                <input id="file-img" class="hide" type="file" name="avatar" accept="image/*">
+                <a href="javascript:" class="btn btn-primary" id="uploadBtn">选择图片</a>
+            </div>
+            <div class="col-sm-6">
+                <img src="{$exam.img|default='/static/images/avatar.png'}" alt="" id="avatar" name="avatar" style="width:130px;height:130px;">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">考试名称 :</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="考试名称" id="title" name="title" value="{$exam.title|default=''}" />
+            </div>
+            <label class="col-sm-3 control-label">时长(分钟) :</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="时长" id="time" name="time" value="{$exam.time|default=''}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">开始时间 :</label>
+            <div class="col-sm-6">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" placeholder="开始时间" id="start_date" name="start_date" value="{$exam.start_date|default=''}" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <!--<input type="text" class="form-control" placeholder="开始时间" id="start_date" name="start_date" value="{$exam.start_date|default=''}" />-->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">最晚截止时间 :</label>
+            <div class="col-sm-6">
+                <div class='input-group date' id='datetimepicker2'>
+                    <input type='text' class="form-control" placeholder="最晚截止时间" id="max_end_date" name="max_end_date" value="{$exam.max_end_date|default=''}" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <!--<input type="text" class="form-control" placeholder="最晚截止时间" id="max_end_date" name="max_end_date" value="{$exam.max_end_date|default=''}" />-->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">专业/课程 :</label>
+            <div class="col-sm-9">
+                <select id="majorSelector" name="major_id" style="width: 160px">
+                    {foreach name="majors" item="vo"}
+                    <option value="{$vo.id}" {if condition="isset($exam) && $exam.major_id == $vo['id']" } selected="selected" {
+                    /if}>{$vo.name}</option>
+                    {/foreach}
+                </select>
+                <select id="courseSelector" name="course_id" style="width: 160px">
+                    {foreach name="courses" item="vo"}
+                    <option value="{$vo.id}" {if condition="isset($exam) && $exam.course_id == $vo['id']" } selected="selected" {
+                    /if}>{$vo.name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">是否显示解析 :</label>
+            <div class="col-sm-4" style="padding-top: 3px;">
+                <input class="switch-button switch-primary" type="checkbox" id="is_analysis" name="is_analysis" {if condition="(isset($exam) && $exam.is_analysis==1) || !isset($exam)" } checked {/if} />
+            </div>
+            <label class="col-sm-3 control-label">是否人工审卷 :</label>
+            <div class="col-sm-2" style="padding-top: 3px;">
+                <input class="switch-button switch-primary" type="checkbox" id="is_check" name="is_check" {if condition="(isset($exam) && $exam.is_check==1)" } checked {/if} />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">考试规则 :</label>
+            <div class="col-sm-9">
+                <textarea class="form-control" name="rule" id="rule" rows="4" placeholder="考试规则" style="width: 100%;">{$exam.rule|default=''}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">注意事项 :</label>
+            <div class="col-sm-9">
+                <textarea class="form-control" name="focus" id="focus" rows="4" placeholder="注意事项" style="width: 100%;">{$exam.focus|default=''}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">考试试卷 :</label>
+            <div class="col-sm-9">
+                <select id="paperSelector" name="paper_id" style="width: 160px">
+                    {foreach name="papers" item="vo"}
+                    <option value="{$vo.id}" {if condition="isset($exam) && $exam.paper_id == $vo['id']" } selected="selected" {
+                    /if}>{$vo.name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">状态 :</label>
+            <div class="col-sm-9" style="padding-top: 3px;">
+                <input class="switch-button switch-primary" type="checkbox" id="state" name="state" {if condition="(isset($exam) && $exam.state==1) || !isset($exam)" } checked {/if}
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <a id="saveExam" class="btn btn-primary" style="float:right">保存</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    (function () {
+        //图片选择
+        $('#uploadBtn').on('click', function () {
+            $('#file-img').trigger('click');
+        });
+
+        function getObjectURL(file) {
+            var url = null;
+            if (window.createObjectURL != undefined) { // basic
+                url = window.createObjectURL(file);
+            } else if (window.URL != undefined) { // mozilla(firefox)
+                url = window.URL.createObjectURL(file);
+            } else if (window.webkitURL != undefined) { // webkit or chrome
+                url = window.webkitURL.createObjectURL(file);
+            }
+            return url;
+        }
+
+        $('#file-img').change(function () {
+            var eImg = $('#avatar');
+            eImg.attr('src', getObjectURL($(this)[0].files[0])); // 或 this.files[0] this->input
+            //$(this).after(eImg);
+        });
+
+
+        // 前端校验
+        var validator = new Validator('addExamForm', [
+            {
+                name: 'title',
+                display: '请输入考试名称',
+                rules: 'required',
+                width: 220
+            },
+            {
+                name: 'time',
+                display: '请输入考试时长|请输入数字',
+                regexp_num: /^[0-9]+$/,
+                rules: 'required|regexp_num',
+                width: 220
+            },
+            {
+                name: 'start_date',
+                display: '请选择考试开始时间',
+                rules: 'required'
+            },
+            {
+                name: 'max_end_date',
+                display: '请选择最晚截止时间',
+                rules: 'required'
+            },
+            {
+                name: 'rule',
+                display: '请输入考试规则',
+                rules: 'required'
+            },
+            {
+                name: 'focus',
+                display: '请输入注意事项',
+                rules: 'required'
+            }
+        ], function (obj, evt) {
+            //如果errors具有内容则表示验证不通过
+            if (obj.errors.length) {
+                $.each(obj.errors, function (index, item) {
+                    layer.tips(item.message, $('#addExamForm').find('[name="' + item.name + '"]'), {
+                        tips: [2, '#00B4E9'],
+                        tipsMore: true
+                    });
+                });
+            }
+        });
+
+        // 保存
+        $('#saveExam').on('click', function () {
+            if (!validator.validate().errors.length) {
+                var form = $('#addExamForm'),
+                    id = form.data('id'), success = "添加成功！";
+
+                var formData = new FormData(document.getElementById('addExamForm'));
+
+                formData.append('major_name', form.find('[name="major_id"] option:checked').text());
+                formData.append('course_name', form.find('[name="course_id"] option:checked').text());
+                formData.append('is_analysis', form.find('[name="is_analysis"]').is(':checked') ? 1 : 0);
+                formData.append('is_check', form.find('[name="is_check"]').is(':checked') ? 1 : 0);
+                formData.append('state', form.find('[name="state"]').is(':checked') ? 1 : 0);
+
+                if (id != null && id !== "") {
+                    url = "{:url('exam/editExam')}";
+                    formData.append('id', id);
+                    success = "编辑成功！";
+                } else {
+                    url = "{:url('exam/addExam')}";
+                }
+
+
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: formData,
+                    processData: false,                // jQuery不要去处理发送的数据
+                    contentType: false,
+                }).done(function (response) {
+                    if (response.status) {
+                        layer.closeAll();
+                        layer.msg(success);
+                    } else {
+                        layer.msg(response.message);
+                    }
+                }).fail(function () {
+                    console.error('请求失败！');
+                });
+            }
+        });
+
+        // 时间插件
+        $('#datetimepicker1 input').val() === "" ? $('#datetimepicker1 input').val(new Date().toLocaleTimeString()) : true;
+        $('#datetimepicker2 input').val() === "" ? $('#datetimepicker2 input').val(new Date().toLocaleTimeString()) : true;
+        $('#datetimepicker1').datetimepicker({
+            startDate: new Date(),
+            autoclose: true,
+            initialDate: new Date(),
+            language: 'zh-CN'
+        }).on("changeDate", function () {
+            $('#datetimepicker2').datetimepicker('setStartDate', $('#datetimepicker1 input').val());
+            if ($('#datetimepicker1 input').val() > $('#datetimepicker2 input').val()) {
+                $('#datetimepicker2 input').val($('#datetimepicker1 input').val());
+                $('#datetimepicker2').datetimepicker('update');
+            }
+
+        });
+
+        $('#datetimepicker2').datetimepicker({
+            startDate: new Date(),
+            autoclose: true,
+            language: 'zh-CN'
+        });
+
+        $('#majorSelector').SumoSelect();
+        $('#courseSelector').SumoSelect();
+        $('#paperSelector').SumoSelect();
+        $('#majorSelector').on('change', function () {
+            var that = this,
+                id = $(that).val(), formData = {};
+            formData["major_id"] = id;
+            $.ajax({
+                url: "{:url('exam/getCourseListByMajor')}",
+                type: 'post',
+                data: formData
+            }).done(function (response) {
+                var str = "";
+                $.each(response, function (index, item) {
+                    str += '<option value="' + item.id + '">' + item.name + '</option>';
+                });
+                $('#courseSelector').html(str);
+                $('#courseSelector')[0].sumo.reload();
+            }).fail(function () {
+                console.error('请求失败！');
+            });
+        });
+
+    })();
+</script>

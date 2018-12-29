@@ -1,0 +1,100 @@
+{extend name="public/layout" /}
+{block name="pluginsCss"}{/block}
+{block name="style"}{/block}
+
+{block name="body"}
+    <div class="content-wrapper">
+        <div class="personal-wrapper container">
+            <div class="row">
+                <div class="personal-sideBar">
+                    <div class="avatar">
+                        <img src="/upload/{$data.avatar}" alt="">
+                    </div>
+                    <ul>
+                        <li><a href="{:url('pc/personal_setting/index')}"><i class="fa fa-user-o"></i>个人信息</a></li>
+                        <li class="active"><a href="{:url('pc/personal_password/index')}"><i class="fa fa-book"></i>修改密码</a></li>
+                        <li><a href="{:url('pc/personal_upload/index')}"><i class="fa fa-bell-o"></i>上传头像</a></li>
+                        <li><a href="{:url('pc/personal_score/index')}"><i class="fa fa-desktop"></i>查看成绩</a></li>
+                    </ul>
+                </div>
+                <div class="personal-content">
+                    <div class="user-wrapper">
+                        <div class="user-wrapper-header cf">
+                            <div class="user-related">
+                                <a class="name" href="#">{$data.username}</a>
+                                <span>考试场次<em>{$data.exam_count}</em></span>
+                                <span>通过场次<em>{$data.pass_count}</em></span>
+                            </div>
+                            <div class="user-wrapper-btn">
+                                <a id="userSettingBtn" href="javascript:" class="btn-userSetting"><i class="fa fa-pencil"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-wrapper-content" style="width: 500px; margin: 0 auto;">
+                        <dl class="higher">
+                            <dt>新密码</dt>
+                            <dd>
+                                <input type="hidden" id="id" value="{$data.id}">
+                                <input id="password" name="password" type="password" value="">
+                            </dd>
+                        </dl>
+                        <dl class="higher">
+                            <dt>确认密码</dt>
+                            <dd>
+                                <input id="password1" name="password1" type="password" value="">
+                            </dd>
+                        </dl>
+                        <dl class="higher">
+                            <dt></dt>
+                            <dd>
+                                <button id="saveInfoBtn" class="button button-blue" style="width: 190px;">保存</button>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}
+{block name="pluginsJs"}{/block}
+{block name="script"}
+<script>
+    $(function () {
+        // 屏幕缩放监听
+        $(window).on('resize', function () {
+            $('.personal-content').css('min-height', ($(window).height() - 189) + 'px')
+        }).trigger('resize');
+
+        //保存点击事件
+        $('#saveInfoBtn').click(function(){
+           var password = $('#password').val();
+           var password1 = $('#password1').val();
+           if(password!=password1){
+               layer.alert('两次密码输入不一致，请重新输入')
+               $('#password').val('');
+               $('#password1').val('');
+               return false;
+           }
+            $.ajax({
+                url: "{:url('personal_password/save')}",
+                type: 'post',
+                data: {
+                    id:$('#id').val(),
+                    password:password
+                },
+            }).done(function (response) {
+                $('.user-wrapper-content').find('.modify').hide();
+                $('.user-wrapper-content').find('.saved').show();
+                if (response.status) {
+                    layer.msg(response.message, {icon: 1});
+                } else {
+                    layer.msg(response.message);
+                }
+            }).fail(function () {
+                console.error('立即报名请求失败！');
+            });
+
+        });
+    });
+</script>
+{/block}

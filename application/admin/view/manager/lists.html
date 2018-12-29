@@ -1,0 +1,205 @@
+{extend name="public/layout" /}
+{block name="pluginsCss"}{/block}
+{block name="style"}{/block}
+
+{block name="body"}
+<div class="content-header">
+    <ul class="breadcrumb">
+        <li>
+            <a href="{:url('index/index')}" title="返回首页">
+                <i class="fa fa-home"></i>首页
+            </a>
+        </li>
+        <li class="active">管理员列表</li>
+    </ul>
+</div>
+<div class="body-wrapper">
+    <div class="content-body">
+        <div class="container-fluid content-title">
+            <h4>管理员列表</h4>
+        </div>
+        <div class="search-panel">
+            <button class="btn btn-primary" id="btn-add" title="添加"><i class="fa fa-plus"></i>添加管理员</button>
+            <select id="statusSelector" style="width: 120px">
+                <option value="">用户状态</option>
+                <option value="禁用">禁用</option>
+                <option value="正常">正常</option>
+            </select>
+            <input id="search-text" type="text" placeholder="请输入用户名">
+            <button id="btn-refresh" class="btn btn-link" title="刷新"><i class="fa fa-refresh"></i>
+            </button>
+        </div>
+        <div class="content-panel" style="padding-top: 15px;">
+            <table id="table" class="table table-striped  table-bordered dataTable" cellspacing="0" width="100%">
+            </table>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="pluginsJs"}{/block}
+{block name="script"}
+<script>
+    (function () {
+        var table = $('#table').DataTable({
+            ajax: {
+                url: "{:url('manager/managerList')}",
+                dataSrc: ""
+            },
+            columns: [
+                {
+                    title: 'ID', data: 'id', visible: true
+                },
+                {title: '用户名', data: 'username', visible: true},
+                {
+                    title: '密码', data: null, visible: true,
+                    render: function () {
+                        return '******'
+                    }
+                },
+                {
+                    title: '状态', data: 'status', visible: true,
+                    render: function (v) {
+                        return v === 1 ? '正常' : '禁用';
+                    }
+                },
+                {
+                    title: '启用/禁用', data: null, visible: true,
+                    render: function (v, type, row) {
+                        return '<input class="switchStatus switch-button switch-primary" data-id="' + row.id + '" type="checkbox"' + (row.status === 1 ? ' checked="checked"' : '') + '>'
+                    }
+                },
+                {
+                    title: '操作', data: null, visible: true,
+                    render: function (v, type, row) {
+                        return '<a class="delete-button" data-id="' + row.id + '" href="javascript:"><i class="fa fa-trash"></i></a>'
+                    }
+                }
+            ],
+            searching: true,
+            info: false,
+            lengthChange: false,
+            pagingType: 'full',
+            lengthMenu: [10, 20, 40, 80, 100],
+            language: {
+                emptyTable: '暂无数据',
+                info: '_START_ - _END_   共 _TOTAL_ 条',
+                infoEmpty: '共0条',
+                infoFiltered: '',
+                zeroRecords: '没有找到匹配条件的数据',
+                loadingRecords: '加载中....',
+                lengthMenu: '_MENU_',
+                paginate: {
+                    previous: '上一页',
+                    next: '下一页',
+                    first: '首页',
+                    last: '末页'
+                }
+            }
+        });
+
+        // 启用/禁用状态
+        $('#table').on('click', '.switchStatus', function (e) {
+            e.preventDefault();
+            var that = $(this),
+                id = that.data('id'),
+                status = (that.is(':checked') ? 1 : 0);
+            $.ajax({
+                url: "{:url('manager/switchStatus')}",
+                type: 'post',
+                data: {
+                    id: id,
+                    status: status
+                }
+            }).done(function (response) {
+                if (response.status) {
+                    if (!status) {
+                        that.prop("checked", false);
+                        that.parent().prev().text('禁用');
+                    } else {
+                        that.prop("checked", true);
+                        that.parent().prev().text('正常');
+                    }
+                }
+            }).fail(function () {
+                console.error('状态切换请求失败！');
+            });
+        });
+
+        // 删除
+        $('#table').on('click', '.delete-button', function () {
+            var that = $(this),
+                id = that.data('id');
+            swal({
+                title: '警告',
+                text: "确定删除管理员" + name + "的所有信息吗",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: "是的，我要删除！",
+                cancelButtonText: "让我再考虑一下…"
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: "{:url('manager/delete')}",
+                        type: 'post',
+                        data: {
+                            id: id
+                        }
+                    }).done(function (response) {
+                        if (response.status) {
+                            table.row(that.parents('tr')).remove().draw();
+                        }
+                    }).fail(function () {
+                        console.error('删除数据请求失败！');
+                    });
+                }
+            }, function (dismiss) {
+                if (dismiss === 'cancel') {
+
+                } else {
+                    throw dismiss;
+                }
+            }).catch(function (err) {
+                console.error(err);
+                throw err;
+            });
+        });
+
+        // 添加按钮弹窗
+        $('#btn-add').on('click', function () {
+            $.post("{:url('manager/add')}").then(function (html) {
+                layer.open({
+                    type: 1,
+                    title: '添加',
+                    skin: false,
+                    area: ['560px', '300px'],
+                    content: html,
+                    end: function () {
+                        table.ajax.reload();
+                    }
+                });
+            });
+        });
+
+        // 搜索框事件
+        $('#search-text').on('keyup', function () {
+            var val = $(this).val();
+            table.column(1).search(val).draw();
+        });
+
+        // 表格刷新
+        $('#btn-refresh').on('click', function () {
+            table.ajax.reload();
+        });
+
+        $('#statusSelector').on('change', function () {
+            var val = $(this).val();
+            table.column(3).search(val).draw();
+        });
+
+        $('#statusSelector').SumoSelect();
+
+    })();
+</script>
+{/block}

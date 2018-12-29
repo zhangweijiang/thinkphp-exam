@@ -1,0 +1,181 @@
+{extend name="public/layout" /}
+{block name="pluginsCss"}{/block}
+{block name="style"}{/block}
+
+{block name="body"}
+<div class="content-wrapper">
+    <div class="bk" style='background-image: url("//img.mukewang.com/5a55f2c90001b28b09360316.jpg");'></div>
+    <section class="bg-fff">
+        <div class="container clearfix">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="banner-wrapper">
+                        <div class="menu-wrapper">
+                            <div class="menu">
+                                {volist name="MajorList" id="vo"}
+                                <div class="item" data-id="{$vo.id}">
+                                    <a href="{:url('Pc/lists/index')}?major_id={$vo.id}" target="_blank">
+                                        <span class="group">{$vo.name}</span>
+                                        <i class="fa fa-chevron-right"></i>
+                                    </a>
+                                </div>
+                                {/volist}
+                            </div>
+                            {volist name="CourseList" id="vo" key="k"}
+                            <div class="submenu-wrapper">
+                                <div class="submenu" data-id="{$k}">
+                                    <div class="innerBox">
+                                        <div class="subinnerBox">
+                                            <div class="cates-box">
+                                                <div class="fe-base-box">
+                                                    <div class="banner-line">
+                                                        <span class="bold mr10 pull-left small-title">课程</span>
+                                                    </div>
+                                                    <div class="tag-box pull-left">
+                                                        {volist name="vo" id="vo1"}
+                                                        <a target="_blank" href="{:url('Pc/lists/index')}?major_id={$k}&course_id={$vo1.id}">{$vo1.name}</a>
+                                                        {/volist}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="recomment-box">
+                                        {volist name="ExamList[$k-1]" id="vo2"}
+                                        <div class="pull-left banner-course-card">
+                                            <a href="{:url('pc/exam_info/index')}?id={$vo2.id}" target="_blank" title="{$vo2.title}" class="clearfix">
+                                                <img src="/upload/{$vo2.img}" class="pull-left">
+                                                <div class="pull-left course-card">
+                                                    <h3 class="course-card-name">{$vo2.title}</h3>
+                                                    <div class="course-card-info">
+                                                        <span>{$vo2.major_name}</span><span>:</span><span><i class="icon-set_sns"></i>{$vo2.course_name}</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        {/volist}
+                                    </div>
+                                </div>
+                            </div>
+                            {/volist}
+                        </div>
+                        <div class="banner-content">
+                            <div class="banner-images">
+                                <a href="#">
+                                    <img src="//img.mukewang.com/5a55f2c90001b28b09360316.jpg" alt="">
+                                </a>
+                            </div>
+                            <div class="banner-control">
+                                <div class="banner-dots"></div>
+                                <a href="javascript:" class="banner-prev"></a>
+                                <a href="javascript:" class="banner-next"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="bg-000">
+        <div class="section-title">
+            <i class="title-icon title-icon-1-l title-icon-l"></i>最 新 推 荐<i class="title-icon title-icon-1-r title-icon-r"></i>
+        </div>
+        <div class="container clearfix">
+            <div class="row">
+                {volist name="hotExam" id="vo"}
+                <div class="per-20-div">
+                    <div class="exam-widget">
+                        <div class="exam-widget-heading">
+                            <img src="/upload/{$vo.img}" alt="">
+                            <span class="exam-widget-tag">
+                                <label>{$vo.course_name}</label>
+                            </span>
+                        </div>
+                        <div class="exam-widget-body">
+                            <div class="exam-widget-title">
+                                <a href="{:url('pc/exam_info/index')}?id={$vo.id}">{$vo.title}</a>
+                            </div>
+                            <div class="exam-widget-info">
+                                <i class="fa fa-clock-o"></i>{$vo.time|Sec2Time}
+                                <span class="pull-right text-info">
+                                    {if condition="$vo.status eq 1"}
+                                    未开始
+                                    {elseif condition="$vo.status eq 2"}
+                                    进行中
+                                    {elseif condition="$vo.status eq 3"}
+                                    已完成
+                                    {/if}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/volist}
+            </div>
+        </div>
+    </section>
+    <section class="bg-fff">
+        <div class="section-title">
+            <i class="title-icon title-icon-2-l title-icon-l"></i>热 门 考 试<i class="title-icon title-icon-2-r title-icon-r"></i>
+        </div>
+        <div class="container clearfix">
+            <div class="row">
+                {volist name="newExam" id="vo"}
+                <div class="per-20-div">
+                    <div class="exam-widget">
+                        <div class="exam-widget-heading">
+                            <img src="/upload/{$vo.img}" alt="">
+                            <span class="exam-widget-tag">
+                                <label>{$vo.course_name}</label>
+                            </span>
+                        </div>
+                        <div class="exam-widget-body">
+                            <div class="exam-widget-title">
+                                <a href="{:url('pc/exam_info/index')}?id={$vo.id}">{$vo.title}</a></div>
+                            <div class="exam-widget-info">
+                                <i class="fa fa-clock-o"></i>{$vo.time|Sec2Time}
+                                <span class="pull-right text-info">
+                                    {if condition="$vo.status eq 1"}
+                                    未开始
+                                    {elseif condition="$vo.status eq 2"}
+                                    进行中
+                                    {elseif condition="$vo.status eq 3"}
+                                    已完成
+                                    {/if}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/volist}
+            </div>
+        </div>
+    </section>
+</div>
+{/block}
+{block name="pluginsJs"}{/block}
+{block name="script"}
+<script>
+    (function () {
+        var timer = 0;
+        $(".menu .item").on('mouseenter', function () {
+            var item = $(this);
+            var that = this, activeItem = $(".menuContent").find(".js-menu-item-on")[0];
+            if (that != activeItem) {
+                $(".menu .item").removeClass("active"), item.addClass("active"), $(".submenu").hide();
+                var id = item.attr("data-id");
+                $(".submenu[data-id='" + id + "']").show();
+            }
+        });
+        $(".menu, .submenu").on('mouseleave', function () {
+            $(".menu .item").removeClass("active"), $(".submenu").hide()
+        });
+        $(".submenu").on('mouseenter', function () {
+            $(".submenu").hide();
+            var id = $(this).data("id"), item = $(".menu .item[data-id='" + id + "']");
+            item.addClass('active');
+            $(this).show();
+        })
+    })();
+</script>
+{/block}

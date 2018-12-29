@@ -1,0 +1,395 @@
+<style>
+    .question-type-pane {
+        display: none;
+    }
+    .question-type-pane.active {
+        display: block;
+    }
+    .question-option {
+        font-size: 0;
+        margin-bottom: 10px;
+    }
+    .question-option label,
+    .question-option input[type=text] {
+        font-size: 14px;
+        vertical-align: middle;
+    }
+
+    .question-option input[type=text].form-control {
+        display: inline-block;
+        width: 400px;
+    }
+
+    .question-option label {
+        margin-bottom: 0;
+    }
+
+    .question-wrapper {
+        position: relative;
+        padding: 15px;
+        margin-bottom: 20px;
+        background: #f6f7fa;
+        border-radius: 5px;
+        min-height: 230px;
+        text-align: left;
+    }
+    .question-wrapper .question-title {
+        max-width: 50%;
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+    .question-wrapper .option {
+        max-width: 50%;
+        margin-bottom: 20px;
+    }
+    .question-wrapper .option li {
+        margin-bottom: 10px;
+    }
+    .question-wrapper .option li.selected {
+        color: #1a8cfe;
+    }
+    .question-wrapper .question-answer {
+        max-width: 50%;
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 12px;
+        color: #666;
+    }
+    .question-wrapper .question-score-wrapper {
+        position: absolute;
+        right: 22%;
+        top: 93px;
+        height: 28px;
+    }
+    .question-wrapper .question-score-wrapper input {
+        height: 28px;
+        width: 56px;
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-bottom: 0;
+        border: 1px solid #d8d8d8;
+        border-radius: 4px;
+        text-align: center;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .question-wrapper a {
+        position: absolute;
+        right: 15px;
+        font-size: 12px;
+        color: #b7b7b7;
+        border: 1px solid #e0e2e3;
+        border-radius: 4px;
+        padding: 8px 16px;
+        background: #fff;
+        transition: all .3s;
+    }
+    .question-wrapper a.edit {
+        top: 50px;
+    }
+    .question-wrapper a.remove {
+        top: 97px;
+    }
+    .question-wrapper a.up {
+        top: 145px;
+    }
+    .question-wrapper a.down {
+        top: 192px;
+    }
+    .question-wrapper a:hover {
+        color: #1a8cfe;
+        border-color: #1a8cfe;
+    }
+    .question-wrapper a i {
+        margin-right: 11px;
+    }
+</style>
+<div id="addQuestionWrapper" style="width: 750px; padding-top: 15px;">
+    <form class="form-horizontal" id="addQuestionForm" data-id="{$question.id|default=''}">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">试题名称 :</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="试题名称" name="name" value="{$question.name|default=''}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">试题题目 :</label>
+            <div class="col-sm-9">
+                <!--<input type="text" class="form-control" placeholder="试题题目" name="title" value="{$question.title|default=''}"/>-->
+                <textarea id="questionTitle" placeholder="试题题目" name="title">{$question.title|default=''}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">分值 :</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" placeholder="分值" name="score" value="{$question.score|default=''}"/>
+            </div>
+            <label class="col-sm-3 control-label">排序 :</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" placeholder="排序序号" name="order" value="{$question.order|default=''}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">题型 :</label>
+            <div class="col-sm-9">
+                <select id="question-type" class="question-type" name="type" style="width: 200px;" title="题型">
+                    <option value="1" {notempty name="question.type"}{eq name="question.type" value="1"}selected{/eq}{/notempty} >判断题</option>
+                    <option value="2" {notempty name="question.type"}{eq name="question.type" value="2"}selected{/eq}{/notempty} >单选题</option>
+                    <option value="3" {notempty name="question.type"}{eq name="question.type" value="3"}selected{/eq}{/notempty} >多选题</option>
+                    <option value="4" {notempty name="question.type"}{eq name="question.type" value="4"}selected{/eq}{/notempty} >填空题</option>
+                    <option value="5" {notempty name="question.type"}{eq name="question.type" value="5"}selected{/eq}{/notempty} >简答题</option>
+                </select>
+            </div>
+        </div>
+        <div class="question-setting-wrapper">
+            <div class="question-type-pane active" data-type="1">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">选项 :</label>
+                    <div class="col-sm-9">
+                        <div class="question-option">
+                            <input type="radio" name="trueOrFalse" title="判断题选项" {notempty name="question.answer"}{eq name="question.answer" value="1"}checked{/eq}{/notempty} >
+                            <label class="trueOrFalse">正确</label>
+                        </div>
+                        <div class="question-option">
+                            <input type="radio" name="trueOrFalse" title="判断题选项" {notempty name="question.answer"}{eq name="question.answer" value="2"}checked{/eq}{/notempty} >
+                            <label class="trueOrFalse">错误</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-type-pane" data-type="2">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">选项 :</label>
+                    <div class="col-sm-9">
+                        <div class="question-option">
+                            <input type="radio" name="radio" title="单选题选项" {notempty name="question.answer"}{eq name="question.answer" value="1"}checked{/eq}{/notempty}>
+                            <input type="text" class="form-control" name="radioText" placeholder="单选题选项内容" value="{$question.optionsList[0]|default=''}" >
+                        </div>
+                        <div class="question-option">
+                            <input type="radio" name="radio" title="单选题选项" {notempty name="question.answer"}{eq name="question.answer" value="2"}checked{/eq}{/notempty}>
+                            <input type="text" class="form-control" name="radioText" placeholder="单选题选项内容" value="{$question.optionsList[1]|default=''}">
+                        </div>
+                        <div class="question-option">
+                            <input type="radio" name="radio" title="单选题选项" {notempty name="question.answer"}{eq name="question.answer" value="3"}checked{/eq}{/notempty}>
+                            <input type="text" class="form-control" name="radioText" placeholder="单选题选项内容" value="{$question.optionsList[2]|default=''}">
+                        </div>
+                        <div class="question-option">
+                            <input type="radio" name="radio" title="单选题选项" {notempty name="question.answer"}{eq name="question.answer" value="4"}checked{/eq}{/notempty}>
+                            <input type="text" class="form-control" name="radioText" placeholder="单选题选项内容" value="{$question.optionsList[3]|default=''}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-type-pane" data-type="3">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">选项 :</label>
+                    <div class="col-sm-9">
+                        <div class="question-option">
+                            <input type="checkbox" name="checkbox" title="复选题选项" {notempty name="question.answer"}{in name="1" value="$question.answerString"}checked{/in}{/notempty} >
+                            <input type="text" class="form-control" name="checkboxText" placeholder="复选题选项内容" value="{$question.optionsList[0]|default=''}">
+                        </div>
+                        <div class="question-option">
+                            <input type="checkbox" name="checkbox" title="复选题选项" {notempty name="question.answer"}{in name="2" value="$question.answerString"}checked{/in}{/notempty} >
+                            <input type="text" class="form-control" name="checkboxText" placeholder="复选题选项内容" value="{$question.optionsList[1]|default=''}">
+                        </div>
+                        <div class="question-option">
+                            <input type="checkbox" name="checkbox" title="复选题选项" {notempty name="question.answer"}{in name="3" value="$question.answerString"}checked{/in}{/notempty} >
+                            <input type="text" class="form-control" name="checkboxText" placeholder="复选题选项内容" value="{$question.optionsList[2]|default=''}">
+                        </div>
+                        <div class="question-option">
+                            <input type="checkbox" name="checkbox" title="复选题选项" {notempty name="question.answer"}{in name="4" value="$question.answerString"}checked{/in}{/notempty}>
+                            <input type="text" class="form-control" name="checkboxText" placeholder="复选题选项内容" value="{$question.optionsList[3]|default=''}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-type-pane" data-type="4">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">答案 :</label>
+                    <div class="col-sm-9">
+                        <div class="question-option">
+                            <input class="form-control" type="text" name="blank" title="填空内容">
+                        </div>
+                        <a class="btn btn-primary add-option" href="javascript:"><i class="fa fa-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="question-type-pane" data-type="5">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">关键字 :</label>
+                    <div class="col-sm-9">
+                        <div class="question-option">
+                            <input class="form-control" type="text" name="keyword" title="关键字">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">重要关键字 :</label>
+                    <div class="col-sm-9">
+                        <div class="question-option">
+                            <input class="form-control" type="text" name="keywordImp" title="重要关键字">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">试题解析 :</label>
+            <div class="col-sm-9">
+                <textarea class="form-control" name="analysis" id="analysis" rows="4" placeholder="试题解析">{$question.analysis|default=''}</textarea>
+            </div>
+        </div>
+        <div class="form-group" style="text-align: right;">
+            <a id="saveQuestion" class="btn btn-primary">保存</a>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    (function () {
+        var validator = new Validator('addQuestionForm', [
+            {
+                name: 'name',
+                display: '请输入试题名称',
+                rules: 'required'
+            },
+            {
+                name: 'title',
+                display: '请输入试题题目',
+                rules: 'required'
+            },
+            {
+                name: 'score',
+                display: '请输入试题分值',
+                rules: 'required'
+            },
+            {
+                name: 'order',
+                display: '请输入试题排序',
+                rules: 'required'
+            },
+            {
+                name: 'analysis',
+                display: '请输入试题解析',
+                rules: 'required'
+            }
+        ], function (obj, evt) {
+            //如果errors具有内容则表示验证不通过
+            if (obj.errors.length) {
+                $.each(obj.errors, function (index, item) {
+                    layer.tips(item.message, $('#addQuestionForm').find('[name="' + item.name + '"]'), {
+                        tips: [2, '#00B4E9'],
+                        tipsMore: true
+                    });
+                });
+            }
+        });
+
+        // 保存
+        $('#saveQuestion').on('click', function () {
+            if (!validator.validate().errors.length) {
+                var form = $('#addQuestionForm'),
+                    id = form.data('id'),
+                    formData = {}, url = "", success = "添加成功！";
+                var type = $('.question-type-pane.active').data('type');
+                var questionData = getQuestionData(type);
+                console.log(questionData);
+                // 判断当前为新增还是编辑
+                if (id != null && id !== "") {
+                    url = "{:url('question/editQuestion')}";
+                    formData["id"] = id;
+                    success = "编辑成功！";
+                } else {
+                    url = "{:url('question/addQuestion')}";
+                }
+
+                formData["name"] = form.find('[name="name"]').val();
+                formData["title"] = form.find('[name="title"]').val();
+                formData["options"] = questionData.options|| "";
+                formData["answer"] = questionData.answer;
+                formData["keyword"] = questionData.keyword|| "";
+                formData["keyword_imp"] = questionData.keyword_imp|| "";
+                formData["score"] = form.find('[name="score"]').val() || 0;
+                formData["order"] = form.find('[name="order"]').val() || 0;
+                formData["type"] = form.find('[name="type"]').val();
+                formData["analysis"] = form.find('[name="analysis"]').val();
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: formData
+                }).done(function (response) {
+                    if (response.status) {
+                        layer.closeAll();
+                        layer.msg(success);
+                    } else {
+                        layer.msg(response.message);
+                    }
+                }).fail(function () {
+                    console.error('请求失败！');
+                });
+            }
+        });
+
+        function getQuestionData(type) {
+            var data = {}, options = [];
+            switch (type) {
+                case 1: // 判断题
+                    $('[name=trueOrFalse]').each(function (index, item) {
+                        if ($(item).is(':checked')) {
+                            data.answer = index+1;
+                        }
+                    });
+                    data.options = "正确||错误";
+                    break;
+                case 2: // 单选题
+                    $('[name=radio]').each(function (index, item) {
+                        options.push($.trim($(item).siblings('[name=radioText]').val()));
+                        if ($(item).is(':checked')) {
+                            data.answer = index+1;
+                        }
+                    });
+                    data.options = options.join('||');
+                    break;
+                case 3: // 多选题
+                    var answer = [];
+                    $('[name=checkbox]').each(function (index, item) {
+                        options.push($.trim($(item).siblings('[name=checkboxText]').val()));
+                        if ($(item).is(':checked')) {
+                            answer.push(index+1);
+                        }
+                    });
+                    data.options = options.join('||');
+                    data.answer = answer.join('||');
+                    break;
+                case 4: // 填空题
+                    $('[name=blank]').each(function (index, item) {
+                        options.push($.trim($(item).val()));
+                    });
+                    data.options = options.join('||');
+                    data.answer = options.join('||');
+                    break;
+                case 5: // 简答题
+                    data.keyword = $.trim($('[name=keyword]').val());
+                    data.keyword_imp = $.trim($('[name=keywordImp]').val());
+                    break;
+            }
+            return data;
+        }
+
+        // 选择题型
+        $('.question-type').on('change', function () {
+            var val = $(this).val();
+            if (val !== null) {
+                $('.question-setting-wrapper').find('.question-type-pane.active').removeClass('active');
+                $('.question-setting-wrapper').find('.question-type-pane[data-type="' + val + '"]').addClass('active');
+            }
+        }).trigger('change');
+
+        $('#question-type').SumoSelect();
+        $('#questionTitle').summernote({height: 200,lang: 'zh-CN'});
+
+    })();
+</script>

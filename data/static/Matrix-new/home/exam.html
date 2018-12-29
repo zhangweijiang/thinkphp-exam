@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>试卷页</title>
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../css/plugins.reset.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/icon.css">
+    <link rel="stylesheet" href="../css/home.css">
+
+</head>
+<body class="loaded bg-gray">
+<div class="wrapper">
+    <div class="exam-wrapper">
+        <h1 class="exam-title">适合人群及技术储备要求</h1>
+        <div class="exam-toolbar">
+            <a class="pull-left btn-show-questions" href="javascript:"><i class="fa fa-calendar"></i>答题卡</a>
+            <div class="questions-card">
+                <h4 class="title">题目序号</h4>
+                <ul>
+                    <li class="active" data-index="1"><a href="javascript:">1</a></li>
+                    <li data-index="2"><a href="javascript:">2</a></li>
+                    <li data-index="3"><a href="javascript:">3</a></li>
+                    <li data-index="4"><a href="javascript:">4</a></li>
+                    <li data-index="5"><a href="javascript:">5</a></li>
+                </ul>
+                <a class="btn-close" href="javascript:"><i class="fa fa-close"></i></a>
+            </div>
+            <div class="pull-left exam-score">总分：<span class="text">100</span>分</div>
+            <div class="pull-left exam-time">考试时长：<span class="text">60</span>分钟</div>
+            <button class="btn btn-danger pull-right btn-submit" href="javascript:">交卷</button>
+            <div class="pull-right time-wrapper">
+                <i class="fa fa-clock-o"></i>
+                <span class="time">00:00:00</span>
+            </div>
+        </div>
+        <div class="exam-box">
+            <div class="question-wrapper">
+                <div class="question-item active" data-type="1" data-index="1">
+                    <label class="label label-danger question-type-label">选择题</label>
+                    <div class="question-title">
+                        <span class="score-text">（<em class="text">5</em>分）</span><span class="text">1+1=2?</span>
+                    </div>
+                    <div class="answer-wrapper">
+                        <div class="form-group">
+                            <input type="radio" name="question1" value="1">
+                            <span class="text">正确</span>
+                        </div>
+                        <div class="form-group">
+                            <input type="radio" name="question1" value="2">
+                            <span class="text">错误</span>
+                        </div>
+                    </div>
+                    <div class="button-wrapper">
+                        <a class="pull-left question-prev" href="javascript:"><i class="fa fa-long-arrow-left"></i>上一题</a>
+                        <a class="pull-right question-next" href="javascript:">下一题<i class="fa fa-long-arrow-right"></i></a>
+                        <a class="pull-right btn-submit" href="javascript:">交卷</a>
+                    </div>
+                </div>
+                <div class="question-item" data-type="2" data-index="2">
+                    <div class="question-title">
+                        <span class="score-text">（<em class="text">5</em>分）</span><span class="text">1+1=2?</span>
+                    </div>
+                    <div class="answer-wrapper">
+                        <div class="form-group">
+                            <input class="radio" type="radio" name="question2" value="45,123">
+                            <span class="text">45</span>
+                        </div>
+                        <div class="form-group">
+                            <input class="radio" type="radio" name="question2" value="123">
+                            <span class="text">123</span>
+                        </div>
+                        <div class="form-group">
+                            <input class="radio" type="radio" name="question2" value="54">
+                            <span class="text">54</span>
+                        </div>
+                        <div class="form-group">
+                            <input class="radio" type="radio" name="question2" value="2">
+                            <span class="text">2</span>
+                        </div>
+                    </div>
+                    <div class="button-wrapper">
+                        <a class="pull-left question-prev" href="javascript:"><i class="fa fa-long-arrow-left"></i>上一题</a>
+                        <a class="pull-right question-next" href="javascript:">下一题<i class="fa fa-long-arrow-right"></i></a>
+                        <a class="pull-right btn-submit" href="javascript:">交卷</a>
+                    </div>
+                </div>
+                <div class="question-item" data-type="3" data-index="3">
+                    <div class="question-title">
+                        <span class="score-text">（<em class="text">5</em>分）</span><span class="text">1+1=2?</span>
+                    </div>
+                    <div class="answer-wrapper">
+                        <div class="form-group">
+                            <input class="checkbox" type="checkbox" name="question3" value="123">
+                            <span class="text">123</span>
+                        </div>
+                        <div class="form-group">
+                            <input class="checkbox" type="checkbox" name="question3" value="54">
+                            <span class="text">54</span>
+                        </div>
+                        <div class="form-group">
+                            <input class="checkbox" type="checkbox" name="question3" value="2">
+                            <span class="text">2</span>
+                        </div>
+                    </div>
+                    <div class="button-wrapper">
+                        <a class="pull-left question-prev" href="javascript:"><i class="fa fa-long-arrow-left"></i>上一题</a>
+                        <a class="pull-right question-next" href="javascript:">下一题<i class="fa fa-long-arrow-right"></i></a>
+                        <a class="pull-right btn-submit" href="javascript:">交卷</a>
+                    </div>
+                </div>
+                <div class="question-item" data-type="4" data-index="4">
+                    <div class="question-title">
+                        <span class="score-text">（<em class="text">5</em>分）</span><span class="text">1+1=2?</span>
+                    </div>
+                    <div class="answer-wrapper">
+                        <div class="form-group">
+                            <div class="input-group col-sm-4">
+                                <span class="input-group-addon">1</span>
+                                <input class="form-control" name="question4" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group col-sm-4">
+                                <span class="input-group-addon">2</span>
+                                <input class="form-control" name="question4" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group col-sm-4">
+                                <span class="input-group-addon">3</span>
+                                <input class="form-control" name="question4" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-wrapper">
+                        <a class="pull-left question-prev" href="javascript:"><i class="fa fa-long-arrow-left"></i>上一题</a>
+                        <a class="pull-right question-next" href="javascript:">下一题<i class="fa fa-long-arrow-right"></i></a>
+                        <a class="pull-right btn-submit" href="javascript:">交卷</a>
+                    </div>
+                </div>
+                <div class="question-item" data-type="5" data-index="5">
+                    <div class="question-title">
+                        <span class="score-text">（<em class="text">5</em>分）</span><span class="text">1+1=2?</span>
+                    </div>
+                    <div class="answer-wrapper">
+                        <textarea name="question5" placeholder="在此输入解答"></textarea>
+                    </div>
+                    <div class="button-wrapper">
+                        <a class="pull-left question-prev" href="javascript:"><i class="fa fa-long-arrow-left"></i>上一题</a>
+                        <a class="pull-right question-next" href="javascript:">下一题<i class="fa fa-long-arrow-right"></i></a>
+                        <a class="pull-right btn-submit" href="javascript:">交卷</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../plugins/jquery/jquery.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="../plugins/layui/layui.all.js"></script>
+<script src="../plugins/validator/validator.min.js"></script>
+<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
+
+<script src="../js/common.js"></script>
+<script>
+    (function () {
+        var questionsCard = $('.questions-card'),
+            isWhitePaper = false;
+
+        // 上一题
+        $('.question-prev').on('click', function () {
+            var questionPane = $('.question-item.active');
+            if (questionPane.prevAll('.question-item').length > 0) {
+                var index = questionPane.prev('.question-item').data('index');
+                $('.questions-card li[data-index="' + index + '"]').trigger('click');
+                questionPane.removeClass('active').prev('.question-item').addClass('active');
+            }
+        });
+
+        // 下一题
+        $('.question-next').on('click', function () {
+            var questionPane = $('.question-item.active');
+            if (questionPane.nextAll('.question-item').length > 0) {
+                var index = questionPane.next('.question-item').data('index');
+                $('.questions-card li[data-index="' + index + '"]').trigger('click');
+                questionPane.removeClass('active').next('.question-item').addClass('active');
+            }
+        });
+
+        // 交卷
+        $('.btn-submit').on('click', function () {
+            var questions = $('.question-item');
+            var list = [];
+            isWhitePaper = false;
+            $.each(questions, function (index, item) {
+                var questionData = collectQuestionContent(item);
+                if (questionData.answer === '') {
+                    isWhitePaper = true;
+                }
+                list.push(questionData);
+            });
+            if (isWhitePaper) {
+                layer.confirm('有试题尚未答题，是否现在交卷？', {icon: 3, title: '提示'}, function (index) {
+                    if (index) {
+                        // TODO:提交学生试卷结果
+                    }
+                });
+            } else {
+                layer.confirm('是否现在交卷？', {icon: 3, title: '提示'}, function (index) {
+                    if (index) {
+                        // TODO:提交学生试卷结果
+                    }
+                });
+            }
+
+        });
+
+        // ajax提交试卷
+
+        // 打开答题卡
+        $('.btn-show-questions').on('click', function () {
+            $('.questions-card').toggle();
+        });
+
+        // 关闭答题卡
+        questionsCard.on('click', '.btn-close', function () {
+            $('.questions-card').hide();
+        });
+
+        // 选择题目序号
+        questionsCard.on('click', 'li', function () {
+            var index = $(this).data('index');
+            $(this).addClass('active').siblings().removeClass('active');
+            $('.question-item').removeClass('active');
+            $('.question-item[data-index="' + index + '"]').addClass('active');
+            $('.questions-card').hide();
+        });
+
+        // 获取试题数据及考生答案
+        function collectQuestionContent(element) {
+            var questionItem = {
+                type: $(element).data('type'), // 试题类型
+                index: $(element).data('index'), // 试题序号
+                title: $(element).find('.question-title > .text').text(), // 试题题目
+                score: $(element).find('.score-text > .text').text(), // 试题分数
+                options: "", // 试题选项内容（多项，用‘|||’隔开）
+                answer: "" // 考生答案内容（多项，用‘|||’隔开）
+            };
+            var optionList = [], // 临时存放选项内容（多项）
+                answerList = []; // 临时存放考生答案（多项）
+
+            switch (questionItem.type) {
+                case 1: // 判断题
+                    questionItem.answer = $.trim($(element).find('[name="question' + questionItem.index + '"]:checked').val()) === undefined ? '' : $.trim($(element).find('[name="question' + questionItem.index + '"]:checked').val());
+                    break;
+                case 2: // 单选题
+                    $.each($(element).find('[name="question' + questionItem.index + '"]'), function (index, item) {
+                        optionList.push($(item).val());
+                    });
+                    questionItem.options = optionList.join('|||');
+                    questionItem.answer = $.trim($(element).find('[name="question' + questionItem.index + '"]:checked').val()) === undefined ? '' : $.trim($(element).find('[name="question' + questionItem.index + '"]:checked').val());
+                    break;
+                case 3: // 多选题
+                    $.each($(element).find('[name="question' + questionItem.index + '"]'), function (index, item) {
+                        optionList.push($.trim($(item).val()));
+                    });
+                    questionItem.options = optionList.join('|||');
+                    $.each($(element).find('[name="question' + questionItem.index + '"]:checked'), function (index, item) {
+                        answerList.push($.trim($(item).val()));
+                    });
+                    questionItem.answer = answerList.join('|||');
+                    break;
+                case 4: // 填空题
+                    $.each($(element).find('[name="question' + questionItem.index + '"]'), function (index, item) {
+                        answerList.push($.trim($(item).val()) === '' ? ' ' : $.trim($(item).val()));
+                    });
+                    questionItem.answer = answerList.join('|||');
+                    break;
+                case 5: // 简答题
+                    questionItem.answer = $.trim($(element).find('[name="question' + questionItem.index + '"]').val());
+                    break;
+            }
+            return questionItem;
+        }
+
+        /**
+         * 考试倒计时
+         * @param time 秒
+         * @return 时:分:秒
+         */
+        function backTimer(time) {
+            var seconds = time;
+            window.setInterval(function () {
+                var day = 0,
+                    hour = 0,
+                    minute = 0,
+                    second = 0;//时间默认值
+                if (seconds > 0) {
+                    day = Math.floor(seconds / (60 * 60 * 24));
+                    hour = Math.floor(seconds / (60 * 60)) - (day * 24);
+                    minute = Math.floor(seconds / 60) - (day * 24 * 60) - (hour * 60);
+                    second = Math.floor(seconds) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+                }
+                if (hour <= 9) hour = '0' + hour;
+                if (minute <= 9) minute = '0' + minute;
+                if (second <= 9) second = '0' + second;
+//                $('#day_show').html(day + "天");
+                $('.time-wrapper .time').text(hour + ':' + minute + ':' + second);
+                seconds--;
+            }, 1000);
+        }
+
+        // 设置无操作超过最大无操作时间，自动提交试卷
+        function setNoOperateEvent() {
+            //若干秒无操作提示，自动交卷
+            var maxTime = 60; // 设置最大无操作时间为60秒
+            var time = maxTime;
+            $(document).on('keydown click mousemove scroll', function (e) {
+                time = maxTime; // 若页面有操作，则重置时间为最大无操作时间
+            });
+            var intervalId = setInterval(function () {
+                if (time === 0) {
+                    clearInterval(intervalId);
+                    // TODO:提交试卷
+                    layer.msg('试卷已提交');
+                } else if (time <= 10) {
+                    layer.msg(time);
+                }
+                time--;
+            }, 1000);
+        }
+
+        // 初始化考试页
+        function initExamPage() {
+            var now = new Date(), endTime;
+
+            if (localStorage.getItem('endTime')) {
+                endTime = new Date(localStorage.getItem('endTime'));
+            } else {
+                endTime = new Date("2018/03/10 13:24:58");
+                localStorage.setItem('endTime', endTime);
+            }
+            var temp = (endTime.getTime() - now.getTime()) / 1000;
+            console.log(temp)
+            setNoOperateEvent();
+
+            if(temp <= 0) {
+                // TODO:提交试卷
+            } else {
+                backTimer(temp);
+            }
+
+        }
+
+        initExamPage();
+
+        // TODO：获取用户ID和试卷ID，判断其状态，若在考试中，则初始化；否则提示错误
+
+
+    })();
+</script>
+</body>
+</html>
+

@@ -1,0 +1,88 @@
+<div id="addPaperWrapper" style="width: 400px; padding-top: 15px;">
+    <form class="form-horizontal" id="addPaperForm" data-id="{$paper.id|default=''}">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">试卷名称 :</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="试卷名称" id="name" name="name" value="{$paper.name|default=''}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">及格分数 :</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="及格分数" id="pass_score" name="pass_score" value="{$paper.pass_score|default=''}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">状态 :</label>
+            <div class="col-sm-9" style="padding-top: 3px;">
+                <input class="switch-button switch-primary" type="checkbox" id="status" name="status" {if condition="(isset($paper) && $paper.status==1) || !isset($exam)" } checked {/if}
+                />
+            </div>
+        </div>
+        <div class="form-actions" style="text-align: right;">
+            <a id="savePaper" class="btn btn-primary">保存</a>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    (function () {
+        var validator = new Validator('addPaperForm', [
+            {
+                name: 'name',
+                display: '请输入试卷名称',
+                rules: 'required'
+            },
+            {
+                name: 'pass_score',
+                display: '请输入试卷及格分数',
+                rules: 'required'
+            }
+        ], function (obj, evt) {
+            //如果errors具有内容则表示验证不通过
+            if (obj.errors.length) {
+                $.each(obj.errors, function (index, item) {
+                    layer.tips(item.message, $('#addPaperForm').find('[name="' + item.name + '"]'), {
+                        tips: [2, '#00B4E9'],
+                        tipsMore: true
+                    });
+                });
+            }
+        });
+
+        // 保存
+        $('#savePaper').on('click', function () {
+            if(!validator.validate().errors.length){
+                var form = $('#addPaperForm'),
+                    id = form.data('id'),
+                    formData = {}, url = "", success = "添加成功！";
+                if (id != null && id !== "") {
+                    url = "{:url('paper/editPaper')}";
+                    formData["id"] = id;
+                    success = "编辑成功！";
+                } else {
+                    url = "{:url('paper/addPaper')}";
+                }
+                formData["name"] = form.find('[name="name"]').val();
+                formData["pass_score"] = form.find('[name="pass_score"]').val();
+                formData["status"] = form.find('[name="status"]').val();
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: formData
+                }).done(function (response) {
+                    if (response.status) {
+                        layer.closeAll();
+                        layer.msg(success);
+                    } else {
+                        layer.msg(response.message);
+                    }
+                }).fail(function () {
+                    console.error('请求失败！');
+                });
+            }
+
+        });
+    })();
+</script>

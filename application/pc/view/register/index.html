@@ -1,0 +1,72 @@
+{extend name="public/layout" /}
+{block name="pluginsCss"}{/block}
+{block name="style"}{/block}
+
+{block name="body"}
+    <div class="content-wrapper">
+        <div class="sign-wrapper">
+            <div class="login-wrapper">
+                <div class="login-header">
+                    <h4 class="login-title">账号登录</h4>
+                </div>
+                <form action="javascript:" id="form">
+                    <div class="login-body">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="请输入用户名" name="username">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="请输入真实姓名" name="truename">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-lock"></i>
+                        </span>
+                        <input type="password" class="form-control" placeholder="请输入密码" name="password">
+                    </div>
+                    <button class="btn btn-info form-control" id="register">注 册</button>
+                    <div class="login-footer">
+                        <a class="pull-right" href="{:url('pc/login/index')}">已有账号？立即登录</a>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{/block}
+{block name="pluginsJs"}{/block}
+{block name="script"}
+<script>
+    $(function () {
+        // 屏幕缩放监听
+        $(window).on('resize', function () {
+            $('.sign-wrapper').css('min-height', ($(window).height() - 147) + 'px')
+        }).trigger('resize');
+        //注册点击事件
+        $('#register').click(function(){
+           var formData = $('#form').serialize();
+            $.ajax({
+                url: "{:url('pc/register/save')}",
+                type: 'post',
+                data: formData,
+            }).done(function (response) {
+                 if (response.status) {
+                 layer.msg(response.message, {icon: 1},function(){
+                     window.location.href = "{:url('pc/login/index')}";
+                 });
+                 } else {
+                 layer.msg(response.message);
+                 }
+            }).fail(function () {
+                console.error('立即报名请求失败！');
+            });
+        });
+
+    });
+</script>
+{/block}

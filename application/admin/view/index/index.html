@@ -1,0 +1,72 @@
+{extend name="public/layout" /}
+{block name="pluginsCss"}{/block}
+{block name="style"}{/block}
+
+{block name="body"}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="widget">
+                <table class="statistical">
+                    <tr>
+                        <td>
+                            <h4 class="statistical-title">用户人数</h4>
+                            <h3 class="statistical-count">{$indexData.userCount|default='0'}</h3>
+                        </td>
+                        <td>
+                            <i class="fa fa-desktop text-primary"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="widget">
+                <table class="statistical">
+                    <tr>
+                        <td>
+                            <h4 class="statistical-title">专业数</h4>
+                            <h3 class="statistical-count">{$indexData.majorCount|default='0'}</h3>
+                        </td>
+                        <td>
+                            <i class="fa fa-book text-danger"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="widget">
+                <table class="statistical">
+                    <tr>
+                        <td>
+                            <h4 class="statistical-title">课程数</h4>
+                            <h3 class="statistical-count">{$indexData.courseCount|default='0'}</h3>
+                        </td>
+                        <td>
+                            <i class="fa fa-paperclip text-info"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="widget">
+                <table class="statistical">
+                    <tr>
+                        <td>
+                            <h4 class="statistical-title">试题数</h4>
+                            <h3 class="statistical-count">{$indexData.questionCount|default='0'}</h3>
+                        </td>
+                        <td>
+                            <i class="fa fa-paper-plane text-warning"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="pluginsJs"}{/block}
+{block name="script"}{/block}

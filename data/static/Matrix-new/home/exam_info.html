@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>考试信息页</title>
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../css/plugins.reset.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/icon.css">
+    <link rel="stylesheet" href="../css/home.css">
+</head>
+<body class="loaded bg-gray">
+<div class="wrapper">
+    <header class="header">
+        <div class="logo pull-left">
+            <a href="index.html" target="_self" title="首页">
+                LOGO
+            </a>
+        </div>
+        <div class="header-signin pull-right">
+            <a href="#" id="js-signin-btn">登录</a>
+            /
+            <a href="#" id="js-signup-btn">注册</a>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="path">
+                    <a href="#">首页</a>
+                    <i class="path-split">\</i><a href="#">专业</a>
+                    <i class="path-split">\</i><a href="#">课程</a>
+                    <i class="path-split">\</i><a href="#"><span>考试名</span></a>
+                </div>
+                <div class="exam-info-wrapper clearfix">
+                    <div class="exam-info-top-wrapper">
+                        <h2>ES6快速入门</h2>
+                        <div class="statics clearfix">
+                            <a href="#" class="start-exam pull-left">立即报名</a>
+                            <div class="static-item pull-left">
+                                <span class="meta">报名人数</span>
+                                <span class="meta-value">3246</span>
+                            </div>
+                            <div class="static-item pull-left">
+                                <span class="meta">考试总分</span>
+                                <span class="meta-value">100分</span>
+                                <em></em>
+                            </div>
+                            <div class="static-item pull-left">
+                                <span class="meta">考试时长</span>
+                                <span class="meta-value">60分钟</span>
+                                <em></em>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exam-info-content">
+                        <p>简介：ES6增加了很多新的语法，很多同学学习起来感觉很别扭，有时候也不理解新增加的语法有什么用，对ES6的学习也没有兴趣进而动力不足、学习效率不高。本课程通过ES3、ES5、ES6的对比去实现同一个问题，学员可以非常容易的理解和掌握ES6的强大并产生学习的兴趣。</p>
+                        <p>简介：ES6增加了很多新的语法，很多同学学习起来感觉很别扭，有时候也不理解新增加的语法有什么用，对ES6的学习也没有兴趣进而动力不足、学习效率不高。本课程通过ES3、ES5、ES6的对比去实现同一个问题，学员可以非常容易的理解和掌握ES6的强大并产生学习的兴趣。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="site-map">
+                    <ul>
+                        <li><a href="javascript:">系统简介</a></li>
+                        <li><a href="javascript:">广告服务</a></li>
+                        <li><a href="javascript:">试用洽谈</a></li>
+                        <li><a href="javascript:">网站地图</a></li>
+                        <li><a href="javascript:">联系方式</a></li>
+                        <li><a href="javascript:">关于我们</a></li>
+                    </ul>
+                </div>
+                <div class="copyright">
+                    Copyright © 2017 <a href="javascript:">Gallonce</a> , Inc. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="../plugins/jquery/jquery.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="../plugins/layui/layui.all.js"></script>
+<script src="../plugins/validator/validator.min.js"></script>
+<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
+
+<script src="../js/common.js"></script>
+<script>
+    $(function () {
+        $(window).on('resize', function () {
+            $('.exam-info-wrapper').css('min-height', ($(window).height() - 220) + 'px')
+        }).trigger('resize');
+    })
+</script>
+</body>
+</html>

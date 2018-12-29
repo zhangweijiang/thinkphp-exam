@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>考试信息后台管理系统</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/static/css/plugins.reset.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/icon.css">
+    <link rel="stylesheet" href="/static/css/admin.login.css">
+
+</head>
+<body class="bg-dark">
+<div class="wrapper">
+    <form id="loginForm">
+        <div class="form-group logo-group">
+            <h3><img src="/static/images/logo.png" alt="Logo"></h3>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon bg_lg"><i class="fa fa-user"></i></span>
+                <input class="form-control" name="username" type="text" placeholder="请输入用户名">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon bg_ly"><i class="fa fa-lock"></i></span>
+                <input class="form-control" name="password" type="password" placeholder="请输入密码">
+            </div>
+        </div>
+        <div class="form-actions">
+            <a class="btn btn-info pull-left" href="javascript:">网站前台</a>
+            <button class="btn btn-success pull-right" id="btn-login" type="button">登录</button>
+        </div>
+    </form>
+</div>
+
+<script src="/static/plugins/jquery/jquery.min.js"></script>
+<script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/plugins/layui/layui.all.js"></script>
+<script src="/static/plugins/validator/validator.min.js"></script>
+<script src="/static/plugins/sweetalert/sweetalert2.all.min.js"></script>
+
+<script src="/static/js/common.js"></script>
+<script>
+    (function () {
+        var validator = new Validator('loginForm', [
+            {
+                name: 'username',
+                display: '请输入用户名',
+                rules: 'required'
+            },
+            {
+                name: 'password',
+                display: '请输入密码',
+                rules: 'required'
+            }
+        ], function (obj, evt) {
+            //如果errors具有内容则表示验证不通过
+            if (obj.errors.length) {
+                $.each(obj.errors, function (index, item) {
+                    layer.tips(item.message, $('#loginForm').find('[name="' + item.name + '"]'), {
+                        tips: [2, '#00B4E9'],
+                        tipsMore: true
+                    });
+                });
+            }
+        });
+
+        // 登录验证
+        $('#btn-login').on('click', function () {
+            if (!validator.validate().errors.length) {
+                var username = $('#loginForm input[name="username"]').val();
+                var password = $('#loginForm input[name="password"]').val();
+                $.ajax({
+                    url: "{:url('login/login')}",
+                    type: "post",
+                    data: {
+                        username: username,
+                        password: password
+                    }
+                }).done(function (response) {
+                    if (response.status) {
+                        window.location.href= "{:url('index/index')}";
+                    } else {
+                        layer.msg(response.message);
+                    }
+                }).fail(function () {
+                    console.error('登录错误！');
+                });
+            }
+        });
+
+        // 重置密码
+        $('#resetPassword').on('click', function () {
+            var email = $('#resetEmail').val();
+            if (email !== null && email !== "") {
+                $.post("{:url('login/resetPassword')}", {data: {email: email}}).done(function (response) {
+                    if (response.status) {
+                        $('#to-login').trigger('click');
+                        swal({
+                            text: '重置密码已发送【' + response.data.email + '】，请注意查收！',
+                            type: 'success',
+                            confirmButtonText: '确定'
+                        });
+                    } else {
+                        alert(response.messsage);
+                    }
+                }).fail(function () {
+                    console.error('重置密码有误');
+                });
+            } else {
+                console.error('请输入邮箱地址');
+            }
+        });
+    })();
+</script>
+</body>
+</html>

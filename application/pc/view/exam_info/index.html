@@ -1,0 +1,107 @@
+{extend name="public/layout" /}
+{block name="pluginsCss"}{/block}
+{block name="style"}{/block}
+
+{block name="body"}
+<div class="content-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="path">
+                    <a href="#">首页</a>
+                    <i class="path-split">\</i><a href="#">{$data.major_name}</a>
+                    <i class="path-split">\</i><a href="#">{$data.course_name}</a>
+                    <i class="path-split">\</i><a href="#"><span>{$data.title}</span></a>
+                </div>
+                <div class="exam-info-wrapper clearfix">
+                    <div class="exam-info-top-wrapper">
+                        <h2>{$data.title}</h2>
+                        <div class="statics clearfix">
+                            {if condition="$data.status eq 1"}
+                                {if condition="$status eq 1"}
+                                <a href="javascript:" class="start-exam pull-left disabled" >已报名</a>
+                                {else/}
+                                <a href="javascript:" class="start-exam pull-left" id="sign_up">立即报名</a>
+                                {/if}
+                            {elseif condition="$data.status eq 2"/}
+                            {if condition="$status eq 1"}
+                            <a href="{:url('pc/exam/index')}?id={$data.id}" class="start-exam pull-left" >进入考试</a>
+                            {else/}
+                            <a href="javascript:" class="start-exam pull-left disabled" >未报名</a>
+                            {/if}
+                            {/if}
+                            <div class="static-item pull-left">
+                                <span class="meta">报名人数</span>
+                                <span class="meta-value">{$data.count}</span>
+                            </div>
+                            <div class="static-item pull-left">
+                                <span class="meta">考试总分</span>
+                                <span class="meta-value">{$data.score}分</span>
+                                <em></em>
+                            </div>
+                            <div class="static-item pull-left">
+                                <span class="meta">考试时长</span>
+                                <span class="meta-value">{$data.time|Sec2Time}</span>
+                                <em></em>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exam-info-content">
+                       <p>{$data.rule}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--ajax提交转圈圈-->
+<link rel="stylesheet" href="/static/css/loading.css" />
+<div class="loading_div" style="display: none">
+    <img src="/static/images/loading.png" alt="" class="loading">
+</div>
+
+{/block}
+{block name="pluginsJs"}{/block}
+{block name="script"}
+<script>
+    $(function () {
+        //报名点击事件
+        $('#sign_up').click(function(){
+            var id = "{$Think.GET.id}";
+
+            layer.confirm('是否立即报名？', {
+                btn: ['确定','取消'] //按钮
+            }, function(){ //确定
+                $.ajax({
+                    url: "{:url('exam_info/sign_up')}",
+                    type: 'post',
+                    data: {id:id},
+                    beforeSend:function(){
+                        $('.loading_div').show();
+                    }
+                }).done(function (response) {
+                    $('.loading_div').hide();
+                    if (response.status) {
+                        layer.msg(response.message, {icon: 1});
+                    } else {
+                        layer.msg(response.message);
+                        if(response.url != null) {
+                            setTimeout(function () {
+                                window.location.href = response.url;
+                            }, 2000);
+                        }
+                    }
+                }).fail(function () {
+                    $('.loading_div').hide();
+                    console.error('立即报名请求失败！');
+                });
+
+            }, function(){ //取消
+
+            });
+        });
+        $(window).on('resize', function () {
+            $('.exam-info-wrapper').css('min-height', ($(window).height() - 220) + 'px')
+        }).trigger('resize');
+    })
+</script>
+{/block}

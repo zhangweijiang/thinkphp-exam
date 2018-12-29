@@ -1,0 +1,76 @@
+{extend name="public/layout" /}
+{block name="pluginsCss"}{/block}
+{block name="style"}{/block}
+
+{block name="body"}
+    <div class="content-wrapper">
+        <div class="personal-wrapper container">
+            <div class="row">
+                <div class="personal-sideBar">
+                    <div class="avatar">
+                        <img src="/static/images/home-index-bg.png" alt="">
+                    </div>
+                    <ul>
+                        <li><a href="{:url('pc/personal_setting/index')}"><i class="fa fa-user-o"></i>个人信息</a></li>
+                        <li><a href="{:url('pc/personal_password/index')}"><i class="fa fa-book"></i>修改密码</a></li>
+                        <li><a href="{:url('pc/personal_upload/index')}"><i class="fa fa-bell-o"></i>上传头像</a></li>
+                        <li class="active"><a href="{:url('pc/personal_score/index')}"><i class="fa fa-desktop"></i>查看成绩</a></li>
+                    </ul>
+                </div>
+                <div class="personal-content">
+                    <div class="user-wrapper">
+                        <div class="user-wrapper-header cf">
+                            <div class="user-related">
+                                <a class="name" href="#">{$data.username}</a>
+                                <span>考试场次<em>{$data.exam_count}</em></span>
+                                <span>通过场次<em>{$data.pass_count}</em></span>
+                            </div>
+                            <div class="user-wrapper-btn">
+                                <a id="userSettingBtn" href="javascript:" class="btn-userSetting"><i class="fa fa-pencil"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-wrapper-content clearfix">
+
+                        {volist name="UserExamList" id="vo"}
+                        <div class="exam-card-container">
+                            <a target="_blank" href="#" class="exam-card">
+                                <div class="exam-card-top">
+                                    <img class="exam-banner lazy" src="/upload/{$vo.exam.img}" style="display: inline;">
+                                    <div class="exam-label">
+                                        <label>
+                                            {if condition="$vo.pass eq 1"}
+                                            考试通过
+                                            {/if}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="exam-card-content">
+                                    <h3 class="exam-card-name">{$vo.exam.title}</h3>
+                                    <div class="clearfix exam-card-bottom">
+                                        <div class="exam-card-info">
+                                            <span>总分：{$vo.exam.score}分</span><span>得分：<em class="text-danger">{$vo.score}分</em></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {/volist}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}
+{block name="pluginsJs"}{/block}
+{block name="script"}
+<script>
+    $(function () {
+        // 屏幕缩放监听
+        $(window).on('resize', function () {
+            $('.personal-content').css('min-height', ($(window).height() - 189) + 'px')
+        }).trigger('resize');
+    });
+</script>
+{/block}

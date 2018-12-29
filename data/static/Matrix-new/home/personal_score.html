@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看成绩</title>
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+
+    <link rel="stylesheet" href="../css/plugins.reset.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/icon.css">
+    <link rel="stylesheet" href="../css/home.css">
+</head>
+<body class="loaded bg-gray">
+<div class="wrapper">
+    <header class="header">
+        <div class="logo pull-left">
+            <a href="index.html" target="_self" title="首页">
+                LOGO
+            </a>
+        </div>
+        <div class="header-signin pull-right">
+            <a href="#" id="js-signin-btn">登录</a>
+            /
+            <a href="#" id="js-signup-btn">注册</a>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <div class="personal-wrapper container">
+            <div class="row">
+                <div class="personal-sideBar">
+                    <div class="avatar">
+                        <img src="../images/home-index-bg.png" alt="">
+                    </div>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-user-o"></i>个人信息</a></li>
+                        <li><a href="#"><i class="fa fa-book"></i>修改密码</a></li>
+                        <li><a href="#"><i class="fa fa-bell-o"></i>上传头像</a></li>
+                        <li class="active"><a href="#"><i class="fa fa-desktop"></i>查看成绩</a></li>
+                    </ul>
+                </div>
+                <div class="personal-content">
+                    <div class="user-wrapper">
+                        <div class="user-wrapper-header cf">
+                            <div class="user-related">
+                                <a class="name" href="#">书友20171106094000990</a>
+                                <span>考试场次<em>3</em></span>
+                                <span>通过场次<em>5</em></span>
+                            </div>
+                            <div class="user-wrapper-btn">
+                                <a id="userSettingBtn" href="#" class="btn-userSetting"><i class="fa fa-pencil"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-wrapper-content clearfix">
+                        <div class="exam-card-container">
+                            <a target="_blank" href="#" class="exam-card">
+                                <div class="exam-card-top">
+                                    <img class="exam-banner lazy" src="//img2.mukewang.com/5a9e334d0001c8be05400300-240-135.jpg" style="display: inline;">
+                                    <div class="exam-label">
+                                        <label>考试通过</label>
+                                    </div>
+                                </div>
+                                <div class="exam-card-content">
+                                    <h3 class="exam-card-name">React响应用户输入</h3>
+                                    <div class="clearfix exam-card-bottom">
+                                        <div class="exam-card-info">
+                                            <span>总分：100分</span><span>得分：<em class="text-danger">60分</em></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="site-map">
+                    <ul>
+                        <li><a href="javascript:">系统简介</a></li>
+                        <li><a href="javascript:">广告服务</a></li>
+                        <li><a href="javascript:">试用洽谈</a></li>
+                        <li><a href="javascript:">网站地图</a></li>
+                        <li><a href="javascript:">联系方式</a></li>
+                        <li><a href="javascript:">关于我们</a></li>
+                    </ul>
+                </div>
+                <div class="copyright">
+                    Copyright © 2017 <a href="javascript:">Gallonce</a> , Inc. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="../plugins/jquery/jquery.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="../plugins/layui/layui.all.js"></script>
+<script src="../plugins/validator/validator.min.js"></script>
+<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+<script src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<script src="../js/common.js"></script>
+<script>
+    $(function () {
+        // 屏幕缩放监听
+        $(window).on('resize', function () {
+            $('.personal-content').css('min-height', ($(window).height() - 189) + 'px')
+        }).trigger('resize');
+    });
+</script>
+</body>
+</html>

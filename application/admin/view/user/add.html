@@ -1,0 +1,167 @@
+<div id="addUserWrapper" style="width: 500px; padding-top: 15px;">
+    <form class="form-horizontal" id="addUserForm" data-id="{$user.id|default=''}">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">账号 :</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="账号" id="username" name="username" value="{$user.username|default=''}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">真实姓名 :</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="账号" id="truename" name="truename" value="{$user.truename|default=''}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">密码 :</label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" placeholder="密码" id="password" name="password" value="{$user.password|default=''}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">出生年月 :</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="出生年月" id="birth" name="birth" value="{$user.birth|default=''}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">性别 :</label>
+            <div class="col-sm-9">
+                <input class="radio-primary" type="radio" name="sex" value="1" {if condition="!isset($user) || $user.sex==1"}checked{/if}>男
+                <input class="radio-primary" type="radio" name="sex" value="2" {if condition="isset($user) && $user.sex==2"}checked{/if}>女
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">手机号 :</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="手机号" id="phone" name="phone" value="{$user.phone|default=''}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">状态 :</label>
+            <div class="col-sm-9" id="radio" style="padding-top: 3px;">
+                <input class="switch-button switch-primary" type="checkbox" id="status" name="status" {if condition="(isset($user) && $user.status==1) || !isset($user)" } checked {/if} />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">头像 :</label>
+            <div class="col-sm-3"  style="padding-top: 3px;">
+                <input id="file-img" class="hide" type="file" name="avatar" accept="image/*">
+                <a href="javascript:" class="btn btn-primary" id="uploadBtn">选择图片</a>
+            </div>
+            <div class="col-sm-6">
+                <img src="{$user.avatar|default='/static/images/avatar.png'}" alt="" id="avatar" name="avatar" style="width:130px;height:130px;">
+            </div>
+        </div>
+        <!--<div class="form-group">-->
+            <!--<div class="col-sm-3"></div>-->
+            <!--<div class="col-sm-3">-->
+                <!--<img src="/static/images/avatar.png" alt="" id="avatar" style="width:85px;height:95px;">-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div class="form-actions">
+            <a id="saveUser" class="btn btn-primary" style="float:right">保存</a>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    (function () {
+        //图片选择
+        $('#uploadBtn').on('click', function () {
+            $('#file-img').trigger('click');
+        });
+        function getObjectURL(file) {
+            var url = null ;
+            if (window.createObjectURL!=undefined) { // basic
+                url = window.createObjectURL(file) ;
+            } else if (window.URL!=undefined) { // mozilla(firefox)
+                url = window.URL.createObjectURL(file) ;
+            } else if (window.webkitURL!=undefined) { // webkit or chrome
+                url = window.webkitURL.createObjectURL(file) ;
+            }
+            return url ;
+        }
+
+        $('#file-img').change(function() {
+            var eImg = $('#avatar');
+            eImg.attr('src', getObjectURL($(this)[0].files[0])); // 或 this.files[0] this->input
+            //$(this).after(eImg);
+        });
+
+        // 前端校验
+        var validator = new Validator('addUserForm', [
+            {
+                name: 'username',
+                display: '请输入用户名',
+                rules: 'required'
+            },
+            {
+                name: 'password',
+                display: '请输入密码|密码不能少于6位',
+                rules: 'required|min:6'
+            },
+            {
+                name: 'phone',
+                display: '请输入正确的手机格式',
+                rules: 'is_phone'
+            }
+        ], function (obj, evt) {
+            //如果errors具有内容则表示验证不通过
+            if (obj.errors.length) {
+                $.each(obj.errors, function (index, item) {
+                    layer.tips(item.message, $('#addUserForm').find('[name="' + item.name + '"]'), {
+                        tips: [2, '#00B4E9'],
+                        tipsMore: true
+                    });
+                });
+            }
+        });
+
+        // 保存
+        $('#saveUser').on('click', function () {
+            if (!validator.validate().errors.length) {
+                var form = $('#addUserForm'),
+                    id = form.data('id'),url = "", success = "添加成功！";
+                var formData = new FormData(document.getElementById('addUserForm'));
+                var status = $('#addUserForm').find('[name="status"]').is(':checked') ? 1 : 0;
+
+                if (id != null && id !== "") {
+                    url = "{:url('user/editUser')}";
+                    formData.append('id', id);
+                    success = "编辑成功！";
+                } else {
+                    url = "{:url('user/addUser')}";
+                }
+                formData.append('status', status);
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: formData,
+                    processData: false,                // jQuery不要去处理发送的数据
+                    contentType: false,                // jQuery不要去设置Content-Type请求头
+                }).done(function (response) {
+                    if (response.status) {
+                        layer.closeAll();
+                        layer.msg(success);
+                    } else {
+                        layer.msg(response.message);
+                    }
+                }).fail(function () {
+                    console.error('请求失败！');
+                });
+            }
+        });
+
+        // 时间选择控件初始化
+        $('#birth').val() === "" ? $('#birth').val(new Date().toLocaleDateString()) : true;
+        $('#birth').datetimepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            language: 'zh-CN',
+            minView: 'month'
+        });
+    })();
+</script>
