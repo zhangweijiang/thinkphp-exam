@@ -1,0 +1,65 @@
+/* Custom Icon CSS */
+.title-icon {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 56px;
+    height: 36px;
+    background: url("../images/icon.png") no-repeat;
+    background-size: 100%;
+}
+
+.title-icon-l {
+    margin-right: 24px;
+}
+
+.title-icon-r {
+    margin-left: 24px;
+}
+
+.title-icon-1-l {
+    background-position: center 0;
+}
+
+.title-icon-1-r {
+    background-position: center -36px;
+}
+
+.title-icon-2-l {
+    background-position: center -72px;
+}
+
+.title-icon-2-r {
+    background-position: center -108px;
+}
+
+.title-icon-3-l {
+    background-position: center -144px;
+}
+
+.title-icon-3-r {
+    background-position: center -180px;
+}
+
+.title-icon-4-l {
+    background-position: center -216px;
+}
+
+.title-icon-4-r {
+    background-position: center -252px;
+}
+
+.title-icon-5-l {
+    background-position: center -288px;
+}
+
+.title-icon-5-r {
+    background-position: center -324px;
+}
+
+.title-icon-6-l {
+    background-position: center -360px;
+}
+
+.title-icon-6-r {
+    background-position: center -396px;
+}

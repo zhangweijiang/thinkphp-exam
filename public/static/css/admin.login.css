@@ -1,0 +1,76 @@
+html,
+body,
+.wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper {
+    position: relative;
+}
+
+.bg-dark {
+    background-color: #2E363F;
+}
+
+.bg_lg {
+    background: #28b779;
+}
+
+.bg_ly {
+    background: #ffb848;
+}
+
+#loginForm {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 450px;
+    margin-top: -161px;
+    margin-left: -225px;
+    text-align: center;
+}
+
+#loginForm .form-group {
+    margin: 0;
+    padding: 20px 0;
+}
+
+#loginForm .input-group {
+    padding: 0 30px;
+}
+
+#loginForm .input-group-addon {
+    padding: 9px;
+    border: 0;
+    color: #fff;
+    font-size: 14px;
+}
+
+#loginForm .input-group-addon i {
+    width: 30px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+}
+
+#loginForm .form-control {
+    height: auto;
+    padding: 9px 12px;
+}
+
+#loginForm .logo-group {
+    border-top: 1px solid #3f4954;
+}
+
+#loginForm .logo-group h3 {
+    margin: 10px auto;
+}
+
+#loginForm .form-actions {
+    margin-top: 20px;
+    padding: 20px 15px 0;
+    border-top: 1px solid #3f4954;
+    overflow: hidden;
+}

@@ -1,0 +1,1451 @@
+.bg-gray {
+    background: #f8fafc;
+}
+
+.header {
+    position: relative;
+    padding-right: 10px;
+    height: 72px;
+    background: #fff;
+    z-index: 900;
+    box-shadow: 0 4px 8px 0 rgba(7, 17, 27, .1);
+}
+
+.header .logo {
+    margin: 0 28px 0 24px;
+    line-height: 72px;
+}
+
+.header .logo img {
+    height: 50px;
+}
+
+.header .nav-item {
+    float: left;
+}
+
+.header .nav-item a {
+    padding: 0 20px;
+    display: block;
+    height: 72px;
+    color: #4D555D;
+    text-align: center;
+    font-size: 16px;
+    line-height: 72px;
+    -webkit-transition: background-color .3s;
+    -moz-transition: background-color .3s;
+    transition: background-color .3s;
+}
+
+.header .nav-item a:hover {
+    color: #07111b!important;
+    background: 0 0;
+}
+
+.content-wrapper section {
+    padding: 36px 0 48px;
+}
+
+.content-wrapper .bg-fff {
+    background: #fff;
+    box-shadow: 0 2px 8px 0 rgba(7, 17, 27, .06);
+}
+
+.content-wrapper .bg-000 {
+    box-shadow: 0 2px 4px 0 rgba(7, 17, 27, .06);
+}
+
+.section-title {
+    position: relative;
+    letter-spacing: .6px;
+    line-height: 36px;
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #4D555D;
+
+}
+
+.per-20-div {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    float: left;
+    width: 20%;
+}
+
+.exam-widget {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin-bottom: 10px;
+}
+
+.exam-widget-heading {
+    position: relative;
+    height: 105px;
+    background: #29aad0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.exam-widget-heading img{
+    height: 100%;
+    width: 100%;
+}
+
+.exam-widget-heading .exam-widget-tag {
+    position: absolute;
+    bottom: 6px;
+    left: 8px;
+    font-size: 12px;
+    color: #FFF;
+    line-height: 16px;
+}
+
+.exam-widget-heading .exam-widget-tag label {
+    display: inline-block;
+    background: rgba(7, 17, 27, .4);
+    border-radius: 12px;
+    padding: 4px 8px;
+    margin-bottom: 2px;
+    margin-right: 0;
+    font-weight: 200;
+}
+
+.exam-widget-body {
+    padding: 12px 8px;
+}
+
+.exam-widget-title {
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 24px;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    max-height: 44px;
+}
+
+.exam-widget-title a {
+    color: #07111B;
+}
+
+.exam-widget-title a:hover {
+    color: #F01414;
+}
+
+.exam-widget-info {
+    color: #666;
+    font-size: 12px;
+}
+
+.banner-wrapper {
+    position: relative;
+    height: 444px;
+    overflow: hidden;
+    margin: auto;
+    border-radius: 8px;
+    background-color: #FFF; /* 93999f */
+    box-shadow: 0 12px 24px 0 rgba(7, 17, 27, .2);
+}
+
+.menu-wrapper {
+    position: relative;
+    float: left;
+    width: 216px;
+    height: 444px;
+    z-index: 2;
+    padding-top: 12px;
+    background: #2b333b;
+    border-bottom-left-radius: 4px;
+    font-weight: 400;
+}
+
+.menu .item {
+    height: 60px;
+    line-height: 60px;
+    font-size: 12px;
+    cursor: pointer;
+    padding-left: 12px;
+    position: relative;
+}
+
+.menu .item a {
+    display: block;
+    color: rgba(255, 255, 255, .6);
+    padding: 0 16px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    height: 60px;
+    line-height: 60px;
+    transition: all .1s;
+}
+
+.menu .item a .group {
+    font-size: 16px;
+}
+
+.menu .item a .fa {
+    position: absolute;
+    right: 16px;
+    top: 21px;
+    color: rgba(255, 255, 255, .5);
+    font-size: 16px;
+}
+
+.menu .item.active a {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .3);
+}
+
+.submenu {
+    position: absolute;
+    top: 0;
+    left: 216px;
+    height: 444px;
+    background: #F8FAFC;
+    width: 768px;
+    z-index: 581;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1);
+    display: none;
+}
+
+.submenu .innerBox {
+    background-color: #fff;
+    padding: 12px 48px 32px;
+    position: relative;
+    height: 50%;
+}
+
+.submenu .recomment-box {
+    height: 50%;
+    padding: 36px 0 48px 48px;
+}
+
+.submenu .recomment-box .banner-course-card {
+    width: 312px;
+    height: 60px;
+    margin-right: 48px;
+    margin-bottom: 36px;
+}
+
+.submenu .recomment-box a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.submenu .recomment-box .banner-course-card img {
+    width: 64px;
+    height: 42px;
+    border-radius: 4px;
+    background-color: #ccc;
+}
+
+.recomment-box .banner-course-card .course-card {
+    margin-left: 16px;
+}
+
+.recomment-box .banner-course-card .course-card-name {
+    width: 232px;
+    font-size: 12px;
+    color: #07111B;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.recomment-box .banner-course-card .course-card-info, .recomment-box .banner-course-card .course-card-price {
+    font-size: 12px;
+    color: #4D555D;
+    line-height: 20px;
+}
+
+.submenu .banner-line {
+    position: relative;
+    height: 1px;
+    margin: 35px 0 23px;
+    background-color: rgba(77, 85, 93, .08);
+}
+
+.submenu .banner-line span {
+    position: absolute;
+    top: -12px;
+    left: 0;
+    width: 36px;
+    font-size: 12px;
+    color: #07111B;
+    line-height: 24px;
+    background-color: #fff;
+}
+
+.submenu .tag-box a {
+    font-size: 14px;
+    color: #4D555D;
+    line-height: 24px;
+    margin-right: 24px;
+}
+
+.submenu .tag-box a:hover {
+    color: #f01414;
+}
+
+.banner-content {
+    position: relative;
+    float: left;
+    width: calc(100% - 216px);
+    height: 100%;
+}
+
+.banner-images {
+    width: 100%;
+    height: 100%;
+}
+
+.banner-images img {
+    width: 100%;
+    height: 100%;
+}
+
+body .bk {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    height: 180px;
+    opacity: .3;
+    -webkit-filter: blur(100px);
+    -moz-filter: blur(100px);
+    -o-filter: blur(100px);
+    -ms-filter: blur(100px);
+    filter: blur(100px);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='100');
+    transition: all .3s;
+}
+
+.header-signin a {
+    display: inline-block;
+    width: auto;
+    padding: 0 12px;
+    color: #4D555D;
+    font-size: 14px;
+    text-align: center;
+    height: 72px;
+    line-height: 72px;
+}
+
+.header-signin a:hover {
+    color: #F01414;
+}
+
+.footer {
+    background-color: #222;
+    color: #676767;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.footer a {
+    color: #676767;
+    transition: color .3s ease;
+}
+
+.footer a:hover {
+    color: #eee;
+}
+
+.footer .site-map {
+    margin: 10px 0;
+}
+
+.footer .site-map ul {
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    list-style: none;
+}
+
+.footer .site-map ul > li {
+    display: inline-block;
+    padding: 0 15px;
+    border-left: 1px solid #676767;
+    font-size: 12px;
+}
+
+.footer .site-map ul > li:first-child {
+    border-left: none;
+}
+
+.footer .copyright {
+    font-size: 13px;
+}
+
+.footer .copyright a {
+    position: relative;
+    white-space: nowrap;
+}
+
+.footer .copyright a::after {
+    position: absolute;
+    bottom: -2px;
+    left: 100%;
+    width: 0;
+    border-bottom: 1px solid #fff;
+    content: "";
+    transition: width 350ms, left 350ms;
+}
+
+.footer .copyright a:hover::after {
+    left: 0;
+    transition: width 350ms ease 0s;
+    width: 100%;
+}
+
+/* exam.html 试卷页 */
+.exam-title {
+    font-size: 36px;
+    line-height: 48px;
+    color: #387ef5;
+    padding: 65px 0 14px;
+    text-align: center;
+}
+
+.exam-toolbar {
+    position: relative;
+    width: 960px;
+    height: 28px;
+    margin: 0 auto;
+    line-height: 28px;
+    color: #aaa;
+}
+
+.exam-toolbar a {
+    color: #aaa;
+}
+
+.exam-toolbar a:hover {
+    color: #ED5565;
+}
+
+.exam-toolbar i {
+    margin-right: 8px;
+}
+
+.exam-toolbar .questions-card {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 38px;
+    width: 500px;
+    min-height: 150px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 5px 16px 0 rgba(7, 17, 27, 0.1);
+    z-index: 100;
+}
+
+.exam-toolbar .questions-card:before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 24px;
+    border: 10px solid transparent;
+    border-bottom-color: #e4e4e4;
+}
+
+.exam-toolbar .questions-card:after {
+    content: '';
+    position: absolute;
+    top: -18px;
+    left: 25px;
+    border: 9px solid transparent;
+    border-bottom-color: #fff;
+}
+
+.exam-toolbar .questions-card .title {
+    color: #aaa;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.exam-toolbar .questions-card ul li {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.exam-toolbar .questions-card ul li a {
+    display: block;
+    height: 26px;
+    width: 26px;
+    line-height: 26px;
+    border-radius: 26px;
+    text-align: center;
+    color: #aaa;
+    background-color: #e4e4e4;
+}
+
+.exam-toolbar .questions-card ul li a:hover,
+.exam-toolbar .questions-card ul li.active a {
+    color: #fff;
+    background-color: #ED5565;
+}
+
+.exam-toolbar .questions-card .btn-close {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    transform: rotate(0);
+    text-align: center;
+}
+
+.exam-toolbar .questions-card .btn-close:hover {
+    transform: rotate(90deg);
+}
+
+.exam-score,
+.exam-time {
+    margin-left: 15px;
+}
+
+.time-wrapper {
+    color: #aaa;
+    font-size: 16px;
+    margin-right: 15px;
+}
+
+.time-wrapper .time {
+    color: #ED5565;
+}
+
+.exam-toolbar .btn {
+    vertical-align: middle;
+    padding: 3px 10px;
+}
+
+.exam-box {
+    width: 960px;
+    margin: 35px auto 0;
+    border-radius: 15px;
+    background: #fff;
+    padding: 35px 35px 20px;
+    box-sizing: border-box;
+    box-shadow: 0 8px 16px 0 rgba(7, 17, 27, 0.1);
+}
+
+.question-item {
+    display: none;
+    position: relative;
+    padding-top: 10px;
+}
+
+.question-item.active {
+    display: block;
+}
+
+.question-item:before {
+    content: attr(data-index);
+    position: absolute;
+    display: inline-block;
+    top: -26px;
+    left: -26px;
+    height: 26px;
+    line-height: 26px;
+    width: 26px;
+    border-radius: 26px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    background: #ED5565;
+}
+
+.question-item .question-type-label {
+    position: absolute;
+    top: -20px;
+    left: 15px;
+}
+
+.score-text {
+    color: #666;
+    font-weight: normal;
+}
+
+.question-title {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.answer-wrapper {
+    padding-top: 15px;
+}
+
+.answer-wrapper textarea {
+    height: 100px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border-color: #e4e4e4;
+    resize: none;
+}
+
+.exam-box .button-wrapper {
+    margin-top: 25px;
+    overflow: hidden;
+}
+
+.exam-box .button-wrapper a {
+    color: #aaa;
+}
+
+.exam-box .button-wrapper a:hover {
+    color: #ED5565;
+}
+
+.exam-box .button-wrapper a.question-prev:hover {
+    transform: translate(-5px, 0);
+}
+
+.exam-box .button-wrapper a.question-next:hover {
+    transform: translate(5px, 0);
+}
+
+.exam-box .button-wrapper a i {
+    margin: 0 8px;
+}
+
+.exam-box .button-wrapper .btn-submit {
+    display: none;
+}
+
+.question-item:first-child.active .button-wrapper .question-prev {
+    display: none;
+}
+
+.question-item:last-child.active .button-wrapper .question-next {
+    display: none;
+}
+
+.question-item:last-child.active .button-wrapper .btn-submit {
+    display: block;
+}
+
+/* 列表页 list.html */
+.course-content {
+    padding-top: 12px;
+    float: none;
+    width: 100%;
+    box-shadow: none;
+}
+
+.course-nav-row {
+    padding: 16px 0 5px;
+}
+
+.course-nav-row .hd {
+    width: 52px;
+    height: 20px;
+    line-height: 30px;
+    font-weight: 700;
+    font-size: 14px;
+    color: #07111b;
+    text-align: right;
+}
+
+.course-nav-row .bd {
+    margin-left: 64px;
+}
+
+.course-nav-item {
+    display: inline-block;
+    margin: 0 4px;
+}
+
+.course-nav-item a {
+    display: block;
+    line-height: 14px;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 14px;
+    color: #14191e;
+}
+
+.course-nav-item a:hover {
+    color: #ec1500;
+}
+
+.course-nav-item.active a {
+    background: #2b333b;
+    color: #fff;
+    border-radius: 2px;
+}
+
+.exam-list-wrapper {
+    background: #fff;
+}
+
+.exams-tool-bar {
+    position: relative;
+    padding-top: 26px;
+    padding-bottom: 16px;
+    overflow: hidden;
+    margin-top: -1px;
+    padding-right: 15px;
+    font-size: 12px;
+}
+
+.exams-tool-bar a {
+    margin: 0 12px;
+    line-height: 14px;
+    font-size: 14px;
+    color: #787d82;
+}
+
+.exams-tool-bar a.active {
+    color: #f01414;
+}
+
+.exam-list {
+    padding: 10px 0 20px;
+}
+
+.exam-card-container {
+    float: left;
+    margin: 0 0 18px 18px;
+    height: 200px;
+    width: calc(20% - 18px);
+    position: relative;
+    transition: .3s all linear;
+}
+
+
+.exam-card-container .exam-card-top {
+    width: 100%;
+    height: 120px;
+    position: relative;
+    border-radius: 8px;
+    transition: all .3s;
+}
+
+.exam-card-container .exam-card-top .exam-banner {
+    width: 100%;
+    height: 100%;
+    background-color: #f3f5f7;
+    border-radius: 8px;
+}
+
+.exam-card-container .exam-card-top .exam-label {
+    position: absolute;
+    bottom: 6px;
+    left: 8px;
+    font-size: 12px;
+    color: #FFF;
+    line-height: 16px;
+}
+
+.exam-card-container .exam-card-top .exam-label label {
+    display: inline-block;
+    background: rgba(7, 17, 27, .4);
+    border-radius: 12px;
+    padding: 4px 8px;
+    margin-bottom: 2px;
+    margin-right: 0;
+    font-weight: 200;
+}
+
+.exam-card-container .exam-card-content {
+    padding: 12px 8px;
+}
+
+.exam-card-container .exam-card-content .exam-card-name {
+    font-size: 16px;
+    color: #07111B;
+    line-height: 24px;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    max-height: 46px;
+    transition: all .3s;
+}
+
+.exam-card-container .exam-card-content .exam-card-info {
+    font-size: 12px;
+    color: #93999F;
+    line-height: 24px;
+    font-weight: 400;
+    margin-top: 2px;
+}
+
+.exam-card-container .exam-card-content .exam-card-info span {
+    display: inline-block;
+    margin-right: 12px;
+}
+
+.exam-card-container .exam-card-content .exam-card-info .fa {
+    margin-right: 2px;
+}
+
+/* 考试详情页 exam_info.html */
+.path {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    line-height: 13px;
+    font-size: 13px;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.path a,
+.path span {
+    color: #787d82;
+}
+
+.path a:hover {
+    color: #f01414;
+}
+
+.path .path-split {
+    margin: 0 8px;
+}
+
+.exam-info-wrapper {
+    background: #FFF;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1);
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.exam-info-wrapper:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .1);
+}
+
+.exam-info-top-wrapper {
+    padding: 50px 35px;
+    background: url("../images/exam_info_banner.jpg") center center/cover no-repeat;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.exam-info-top-wrapper h2 {
+    position: relative;
+    margin-bottom: 32px;
+    line-height: 31px;
+    font-weight: 700;
+    font-size: 32px;
+    color: #fff;
+}
+
+.exam-info-top-wrapper .disabled {
+    pointer-events: none;
+    cursor: default;
+    color: #a6a6a6 !important;
+    border-color: #1c84c6 !important;
+    background-color:#1c84c6 !important;
+}
+
+.exam-info-top-wrapper .statics {
+    color: #fff;
+    font-size: 0;
+    white-space: nowrap;
+}
+
+.statics .static-item {
+    display: inline-block;
+    position: relative;
+    padding: 0 36px;
+    height: 48px;
+    font-size: 12px;
+    top: 6px;
+}
+
+.statics .static-item .meta {
+    display: block;
+    opacity: .7;
+    filter: alpha(opacity=70);
+    line-height: 12px;
+    font-size: 12px;
+}
+
+.statics .static-item .meta-value {
+    display: block;
+    margin-top: 10px;
+    opacity: .7;
+    font-size: 16px;
+    line-height: 16px;
+    filter: alpha(opacity=70);
+}
+
+.statics .static-item em {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 36px;
+    width: 1px;
+    background-color: rgba(147, 153, 159, .4);
+    zoom: 1;
+}
+
+.statics .start-exam {
+    position: relative;
+    margin-right: 36px;
+    font-size: 16px;
+    line-height: 16px;
+    padding: 16px 24px;
+    font-weight: 700;
+    font-family: "微软雅黑";
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    background-color: #f20d0d;
+    border-radius: 18px;
+}
+
+.statics .start-exam:hover {
+    background-color: #c20a0a;
+}
+
+.exam-info-content {
+    font-size: 14px;
+    color: #4d555d;
+    line-height: 28px;
+    margin: 36px 0 40px;
+    word-break: break-all;
+    padding: 0 24px;
+}
+
+/* 个人中心 personal系列 */
+.modify {
+    display: none;
+}
+
+.personal-wrapper {
+    height: 100%;
+    padding-top: 25px;
+    padding-bottom: 15px;
+}
+
+.personal-sideBar {
+    float: left;
+    width: 174px;
+    height: 100%;
+    padding: 10px;
+    margin-right: 35px;
+}
+
+.personal-sideBar h4 {
+    font-size: 16px;
+    padding: 10px 0;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.personal-sideBar .avatar {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+    background: #fff;
+    border: 4px solid #fff;
+    margin: 0 auto;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 8px 0 rgba(7, 17, 27, .3);
+}
+
+.personal-sideBar .avatar img {
+    height: 100%;
+    width: 100%;
+    border-radius: 50px;
+}
+
+.personal-sideBar li {
+    font-size: 14px;
+    line-height: 36px;
+    position: relative;
+    cursor: pointer;
+    color: #3e3d43;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.personal-sideBar li a {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding: 0 20px;
+    color: #93999f;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-radius: 4px;
+}
+
+.personal-sideBar li.active a {
+    background: #213451;
+    color: #fff; /* ee4259 */
+    font-weight: 600;
+}
+
+.personal-sideBar li.active i,
+.personal-sideBar li.active a:hover {
+    color: #fff;
+}
+
+.personal-sideBar li.active a:after {
+    position: absolute;
+    display: block;
+    content: "";
+    bottom: 0;
+    right: 0;
+    width: 0;
+    border-left: 10px solid transparent;
+    height: 0;
+    border-top: 18px solid #F8FAFC;
+    border-bottom: 18px solid #F8FAFC;
+}
+
+.personal-sideBar li:hover a {
+    /*background: #213451;*/
+    color: #14191e;
+    font-weight: 600;
+}
+
+.personal-sideBar li a i {
+    margin: 0 12px 0 0;
+    font-size: 16px;
+    font-weight: 400;
+    color: #93999f;
+}
+
+.personal-content {
+    float: left;
+    width: calc(100% - 239px);
+    border: 1px solid #e6e6e6;
+    background: #fff;
+    border-radius: 5px;
+    box-sizing: content-box;
+}
+
+.personal-content .personal-title {
+    margin: 15px 0 10px 15px;
+    font-size: 16px;
+    padding: 3px 0 3px 10px;
+    border-left: 3px solid #ee4259;
+}
+
+.user-wrapper-header {
+    position: relative;
+    padding: 20px 0 5px 0;
+    background: #fff url("../images/home-index-bg.png") center center/cover no-repeat;
+    border-radius: 5px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.user-wrapper-header .user-related {
+    font-size: 20px;
+    font-weight: 600;
+    padding: 13px 20px 20px 0;
+    margin: 10px 0 10px 40px;
+    color: #fff;
+}
+
+.user-wrapper-header .user-related .name {
+    display: block;
+    width: 400px;
+    color: #fff;
+    padding: 0 10px 15px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #fff;
+}
+
+.user-wrapper-header .user-related span {
+    font-size: 15px;
+    font-weight: normal;
+    margin-left: 10px;
+}
+
+.user-wrapper-header .user-related span em {
+    color: #ccc;
+    margin-left: 5px;
+}
+
+.user-wrapper-header .user-wrapper-btn {
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
+}
+
+.user-wrapper-header .user-wrapper-btn a {
+    font-size: 16px;
+    line-height: 1;
+    padding: 5px;
+    display: inline-block;
+    margin: 0 0 0 16px;
+    transition: background .15s, border-color .15s;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, .5);
+    border-radius: 100%;
+    background: rgba(0, 0, 0, .2);
+    text-align: center;
+}
+
+.user-wrapper-header .user-wrapper-btn a:hover {
+    border-color: #ee4259;
+    background: #ee4259;
+}
+
+.user-wrapper-header .user-wrapper-btn a i {
+    display: block;
+    height: 16px;
+    width: 16px;
+    text-align: center;
+}
+
+.user-wrapper-content {
+    padding: 25px 40px 40px;
+    color: #3e3d43;
+}
+
+.user-wrapper-content dl {
+    margin: 0;
+    padding: 15px 0;
+}
+
+.user-wrapper-content dl.higher {
+    padding: 10px 0;
+}
+
+.user-wrapper-content dt {
+    display: inline-block;
+    min-width: 100px;
+    text-align: right;
+    vertical-align: top;
+    color: #a6a6a6;
+}
+
+.user-wrapper-content dl.higher dt {
+    line-height: 36px;
+}
+
+.user-wrapper-content dd {
+    display: inline-block;
+    margin: 0 0 0 35px;
+    vertical-align: top;
+}
+
+.user-wrapper-content dd input[type=text],
+.user-wrapper-content dd input[type=password] {
+    font-size: 14px;
+    line-height: 20px;
+    height: 20px;
+    padding: 7px 8px;
+    color: #3e3d43;
+    border: 1px solid #e0deda;
+    outline: 0;
+    background-color: #fff;
+    -webkit-transition: border-color .15s, background-color .15s;
+    transition: border-color .15s, background-color .15s;
+    box-sizing: content-box;
+}
+
+.user-wrapper-content dd p {
+    width: 400px;
+}
+
+.user-wrapper-content dd button {
+    padding: 5px 20px;
+}
+
+.user-wrapper-content dd input:hover,
+.user-wrapper-content .count-text:hover {
+    border-color: #ababaf;
+}
+
+.user-wrapper-content .count-text {
+    position: relative;
+    z-index: 1;
+    height: 88px;
+    border: 1px solid #e6e6e6;
+    background: #fff;
+    width: 400px;
+    margin-bottom: 12px;
+    padding-top: 8px;
+}
+
+.user-wrapper-content .count-text .count {
+    font: 12px/14px PingFangSC-Regular, '-apple-system', Simsun;
+    position: absolute;
+    z-index: 1;
+    right: 5px;
+    bottom: 5px;
+    color: #bfbfbf;
+}
+
+.user-wrapper-content .count-text textarea {
+    font-family: PingFangSC-Regular, '-apple-system', Simsun;
+    font-size: 12px;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 58px;
+    line-height: 1.8;
+    padding: 0 12px;
+    color: #666;
+    border: none;
+    resize: none;
+}
+
+.button {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 0;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    text-decoration: none;
+    box-sizing: border-box;
+    background-image: none;
+    border-radius: 0;
+    -webkit-appearance: none;
+    white-space: nowrap;
+    outline: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #545c63;
+    background-color: transparent;
+    border-color: #545c63;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    -weibkit-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+    opacity: .6;
+    padding: 7px 24px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 18px;
+}
+
+.button-blue,
+.button-blue:focus {
+    color: #fff;
+    background-color: #1481b8;
+    border-color: #1481b8;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    -weibkit-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+    opacity: 1;
+}
+
+.button-blue:hover {
+    color: #fff;
+    background-color: #0f618a;
+    border-color: #0f618a;
+    opacity: 1;
+}
+
+.button-normal,
+.button-normal:focus {
+    color: #545c63;
+    background-color: transparent;
+    border-color: #545c63;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    -weibkit-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+    opacity: .6;
+}
+
+.button-normal:hover {
+    color: #545c63;
+    background-color: transparent;
+    border-color: #545c63;
+    opacity: 1;
+}
+
+.file {
+    position: relative;
+    width: 200px;
+    height: 39px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.user-wrapper-content .preview p {
+    color: #333;
+    font-size: 14px;
+    position: relative;
+    top: -10px;
+}
+
+.user-wrapper-content .preview .preview-box {
+    background: #f5f5f5;
+    height: 196px;
+    padding-top: 47px;
+    box-sizing: content-box;
+}
+
+.user-wrapper-content .preview .preview-box .box-w {
+    width: 445px;
+}
+
+.user-wrapper-content .preview .preview-box .box-w div {
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: content-box;
+}
+
+.user-wrapper-content .preview .preview-box .preview-3x {
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    margin-right: 50px;
+    margin-left: 35px;
+}
+
+.user-wrapper-content .preview .preview-box .preview-2x {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    margin-right: 50px;
+}
+
+.user-wrapper-content .preview .preview-box .preview-1x {
+    width: 34px;
+    height: 34px;
+    overflow: hidden;
+}
+
+.user-wrapper-content .preview .preview-box .preview-3x img,
+.user-wrapper-content .preview .preview-box .preview-2x img,
+.user-wrapper-content .preview .preview-box .preview-1x img {
+    width: 100%;
+    height: 100%;
+}
+
+.user-wrapper-content .preview .preview-box span {
+    display: inline-block;
+    width: 120px;
+    text-align: center;
+    margin-left: 35px;
+    padding-top: 15px;
+}
+
+.user-wrapper-content .preview .preview-box span.text-1 {
+    width: 100px;
+    margin-left: 0;
+}
+
+.user-wrapper-content .suc {
+    display: none;
+}
+
+.user-wrapper-content .suc .button {
+    margin: 20px 0;
+}
+
+.user-wrapper-content .exam-card-container {
+    width: calc(25% - 18px);
+}
+
+/* 登录注册页 login、register.html */
+.sign-wrapper {
+    position: relative;
+    background: url("../images/login-bg.png") center center/cover no-repeat;
+}
+
+.login-wrapper {
+    position: absolute;
+    top: 100px;
+    right: 100px;
+    width: 398px;
+    border: 1px solid #E6E6E6;
+    padding: 0 25px 35px;
+    background: #fff;
+}
+
+.login-wrapper .login-header {
+    width: 100%;
+    border-bottom: 2px solid #E6E6E6;
+}
+
+.login-header .login-title {
+    width: 108px;
+    height: 45px;
+    font-size: 16px;
+    line-height: 48px;
+    text-align: center;
+    color: #1A1A1A;
+    border-bottom: 2px solid #52b8f2;
+    margin-bottom: -2px;
+}
+
+.login-wrapper .login-body {
+    padding: 40px 38px 18px;
+}
+
+.login-body .input-group {
+    width: 100%;
+}
+
+.login-body .input-group,
+.login-body .form-inline {
+    margin-bottom: 15px;
+}
+
+.login-body .input-group .input-group-addon {
+    padding: 6px 0 6px 10px;
+    width: 20px;
+    color: #A6A6A6;
+    background: transparent;
+    border-color: #e6e6e6;
+}
+
+.login-body .input-group input {
+    border-left: none;
+    border-color: #e6e6e6;
+
+}
+
+.login-body .input-group input:focus {
+    border-color: #e6e6e6;
+    box-shadow: none;
+}
+
+.login-footer {
+    margin-top: 10px;
+}
+
+.login-footer a {
+    color: #666;
+}
+
+.login-footer a:hover {
+    color: inherit;
+}
