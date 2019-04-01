@@ -104,29 +104,50 @@ class UserQuestionApi
 
     /**
      * 获取考生-试题信息列表
-     * @param string $where  条件
-     * @param string $order  排序
+     * @param string $where 条件
+     * @param string $order 排序
+     * @param string $limit 分页
      * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
-    public function getList($where='',$order='id asc',$limit=''){
+    public function getList($where = '', $order = 'id asc', $limit = '')
+    {
         $list = Db::name('UserQuestion')->where($where)->order($order)->limit($limit)->select();
 
         return $list;
     }
 
     /**
-     * 获取试题信息-单条
-     * @param string $where查询条件
-     * @return array|false|\PDOStatement|string|\think\Model
+     * 获取考生-试题信息列表
+     * @param string $where 条件
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
-    public function getData($where='')
+    public function getListByWhere($where = '')
+    {
+        $list = Db::name('UserQuestion')->where($where)->order('order','asc')->select();
+
+        return $list;
+    }
+
+    /**
+     * 获取试题信息-单条
+     * @param string $where 查询条件
+     * @return array|false|\PDOStatement|string|\think\Model
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getData($where = '')
     {
         $UserQuestion = Db::name('UserQuestion')->where($where)->find();
 
         return $UserQuestion;
     }
-
-
 
 
 }

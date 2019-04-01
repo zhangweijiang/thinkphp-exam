@@ -17,7 +17,7 @@ return [
     // 应用调试模式
     'app_debug'              => true,
     // 应用Trace
-    'app_trace'              => true,
+    'app_trace'              => false,
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -283,7 +283,7 @@ return [
         'host'        => 'smtp.qq.com',     //SMTP 服务器
         'port'    => '465',    //SMTP 端口, 一般为25, QQ为465或587
         'username'    =>'397036186@qq.com', //邮箱帐号
-        'psw' => 'tmibjsfkqunsbiec', //邮箱密码 QQ使用SMTP授权码 tmibjsfkqunsbiec
+        'psw' => 'ihfacsgbdacvbgfh', //邮箱密码 QQ使用SMTP授权码 tmibjsfkqunsbiec
         'From' => '397036186@qq.com', //发件人地址
         'FromName' => '在线考试系统', //发件人姓名
     ),

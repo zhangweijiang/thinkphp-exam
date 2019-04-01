@@ -3,34 +3,36 @@
 {block name="style"}{/block}
 
 {block name="body"}
-    <div class="content-wrapper">
-        <div class="personal-wrapper container">
-            <div class="row">
-                <div class="personal-sideBar">
-                    <div class="avatar">
-                        <img src="{$data.avatar}" alt="">
-                    </div>
-                    <ul>
-                        <li class="active"><a href="{:url('pc/personal_setting/index')}"><i class="fa fa-user-o"></i>个人信息</a></li>
-                        <li><a href="{:url('pc/personal_password/index')}"><i class="fa fa-book"></i>修改密码</a></li>
-                        <li><a href="{:url('pc/personal_upload/index')}"><i class="fa fa-bell-o"></i>上传头像</a></li>
-                        <li><a href="{:url('pc/personal_score/index')}"><i class="fa fa-desktop"></i>查看成绩</a></li>
-                    </ul>
+<div class="content-wrapper">
+    <div class="personal-wrapper container">
+        <div class="row">
+            <div class="personal-sideBar">
+                <div class="avatar">
+                    <img src="{$data.avatar}" alt="">
                 </div>
-                <div class="personal-content">
-                    <div class="user-wrapper">
-                        <div class="user-wrapper-header cf">
-                            <div class="user-related">
-                                <a class="name" href="#">{$data.username}</a>
-                                <span>考试场次<em>{$data.exam_count|default=0}</em></span>
-                                <span>通过场次<em>{$data.pass_count|default=0}</em></span>
-                            </div>
-                            <div class="user-wrapper-btn">
-                                <a id="userSettingBtn" href="javascript:" class="btn-userSetting"><i class="fa fa-pencil"></i></a>
-                            </div>
+                <ul>
+                    <li class="active">
+                        <a href="{:url('pc/personal_setting/index')}"><i class="fa fa-user-o"></i>个人信息</a></li>
+                    <li><a href="{:url('pc/personal_password/index')}"><i class="fa fa-book"></i>修改密码</a></li>
+                    <li><a href="{:url('pc/personal_upload/index')}"><i class="fa fa-bell-o"></i>上传头像</a></li>
+                    <li><a href="{:url('pc/personal_score/index')}"><i class="fa fa-desktop"></i>查看成绩</a></li>
+                </ul>
+            </div>
+            <div class="personal-content">
+                <div class="user-wrapper">
+                    <div class="user-wrapper-header cf">
+                        <div class="user-related">
+                            <a class="name" href="#">{$data.username}</a>
+                            <span>考试场次<em>{$data.exam_count|default=0}</em></span>
+                            <span>通过场次<em>{$data.pass_count|default=0}</em></span>
+                        </div>
+                        <div class="user-wrapper-btn">
+                            <a id="userSettingBtn" href="javascript:" class="btn-userSetting"><i class="fa fa-pencil"></i></a>
                         </div>
                     </div>
-                    <div class="user-wrapper-content">
+                </div>
+                <div class="user-wrapper-content">
+                    <form id="userInfoForm">
                         <dl>
                             <dt>ID</dt>
                             <dd>{$data.id}</dd>
@@ -46,7 +48,7 @@
                             <dd>
                             <span class="modify">
                                 <input id="idInput" type="hidden" value="{$data.id}">
-                                <input id="usernameInput" type="text" value="{$data.username}">
+                                <input id="usernameInput" name="usernameInput" type="text" value="{$data.username}">
                             </span>
                             </dd>
                         </dl>
@@ -60,7 +62,21 @@
                             <dt>真实姓名</dt>
                             <dd>
                             <span class="modify">
-                                <input id="truenameInput" type="text" value="{$data.truename}">
+                                <input id="truenameInput" name="truenameInput" type="text" value="{$data.truename}">
+                            </span>
+                            </dd>
+                        </dl>
+                        <dl class="saved">
+                            <dt>邮箱地址</dt>
+                            <dd>
+                                <p id="email">{$data.email}</p>
+                            </dd>
+                        </dl>
+                        <dl class="higher modify">
+                            <dt>邮箱地址</dt>
+                            <dd>
+                            <span class="modify">
+                                <input id="emailInput" name="emailInput" type="text" value="{$data.email}">
                             </span>
                             </dd>
                         </dl>
@@ -74,7 +90,7 @@
                             <dt>手机号码</dt>
                             <dd>
                             <span class="modify">
-                                <input id="phoneInput" type="text" value="{$data.phone}">
+                                <input id="phoneInput" name="phoneInput" type="text" value="{$data.phone}">
                             </span>
                             </dd>
                         </dl>
@@ -97,7 +113,7 @@
                                 <input class="radio-danger" type="radio" name="sex" value="1" checked>男
                                 <input class="radio-danger" type="radio" name="sex" value="2">女
                                 {else/}
-                                <input class="radio-danger" type="radio" name="sex" value="1" >男
+                                <input class="radio-danger" type="radio" name="sex" value="1">男
                                 <input class="radio-danger" type="radio" name="sex" value="2" checked>女
                                 {/if}
                             </dd>
@@ -136,19 +152,57 @@
                                 <button id="cancelInfoBtn" class="button button-normal">取消</button>
                             </dd>
                         </dl>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 {/block}
 {block name="pluginsJs"}{/block}
 {block name="script"}
 <script>
     $(function () {
+        // 前端校验
+        var validator = new Validator('addExamForm', [
+            {
+                name: 'usernameInput',
+                display: '请输入昵称',
+                rules: 'required',
+                width: 220
+            },
+            {
+                name: 'truenameInput',
+                display: '请输入真实姓名',
+                rules: 'required',
+                width: 220
+            },
+            {
+                name: 'emailInput',
+                display: '请输入邮箱地址|请输入正确的邮箱地址',
+                rules: 'required|is_email'
+            },
+            {
+                name: 'phoneInput',
+                display: '请输入手机号|请输入正确的手机号码',
+                rules: 'required|is_phone'
+            }
+        ], function (obj, evt) {
+            //如果errors具有内容则表示验证不通过
+            if (obj.errors.length) {
+                $.each(obj.errors, function (index, item) {
+                    layer.tips(item.message, $('#userInfoForm').find('[name="' + item.name + '"]'), {
+                        tips: [2, '#00B4E9'],
+                        tipsMore: true
+                    });
+                });
+            }
+        });
+
         var oldName = $('#usernameInput').val(),
             oldTrueName = $('#truenameInput').val(),
             oldPhone = $('#phoneInput').val(),
+            oldEmail = $('#emailInput').val(),
             oldSex = $('.user-wrapper-content input[type=radio][name="sex"]').val(),
             oldBirthday = $('#userBirthdayInput').val(),
             oldDesc = $('#userDescInput').val();
@@ -167,39 +221,42 @@
 
         // 保存
         $('#saveInfoBtn').on('click', function () {
-            $('#username').text($('#usernameInput').val());
-            $('#truename').text($('#truenameInput').val());
-            $('#phone').text($('#phoneInput').val());
-            $('#userBirthday').text($('#userBirthdayInput').val());
-            $('#userDesc').text($('#userDescInput').val());
-            //console.log($('.user-wrapper-content input[type=radio][name="sex"]:checked').val());
-            $('#sex').text($('.user-wrapper-content input[type=radio][name="sex"]:checked').val() == 1 ? '男' : '女');
+            if (!validator.validate().errors.length) {
+                $('#username').text($('#usernameInput').val());
+                $('#truename').text($('#truenameInput').val());
+                $('#phone').text($('#phoneInput').val());
+                $('#email').text($('#emailInput').val());
+                $('#userBirthday').text($('#userBirthdayInput').val());
+                $('#userDesc').text($('#userDescInput').val());
+                //console.log($('.user-wrapper-content input[type=radio][name="sex"]:checked').val());
+                $('#sex').text($('.user-wrapper-content input[type=radio][name="sex"]:checked').val() == 1 ? '男' : '女');
 
-            //保存数据
-            $.ajax({
-                url: "{:url('personal_setting/save')}",
-                type: 'post',
-                data: {
-                    id:$('#idInput').val(),
-                    username:$('#usernameInput').val(),
-                    truename:$('#truenameInput').val(),
-                    phone:$('#phoneInput').val(),
-                    birth:$('#userBirthdayInput').val(),
-                    desc:$('#userDescInput').val(),
-                    sex:$('.user-wrapper-content input[type=radio][name="sex"]:checked').val(),
-                },
-            }).done(function (response) {
-                $('.user-wrapper-content').find('.modify').hide();
-                $('.user-wrapper-content').find('.saved').show();
-                if (response.status) {
-                    layer.msg(response.message, {icon: 1});
-                } else {
-                    layer.msg(response.message);
-                }
-            }).fail(function () {
-                console.error('立即报名请求失败！');
-            });
-
+                //保存数据
+                $.ajax({
+                    url: "{:url('personal_setting/save')}",
+                    type: 'post',
+                    data: {
+                        id: $('#idInput').val(),
+                        username: $('#usernameInput').val(),
+                        truename: $('#truenameInput').val(),
+                        phone: $('#phoneInput').val(),
+                        email: $('#emailInput').val(),
+                        birth: $('#userBirthdayInput').val(),
+                        desc: $('#userDescInput').val(),
+                        sex: $('.user-wrapper-content input[type=radio][name="sex"]:checked').val(),
+                    },
+                }).done(function (response) {
+                    $('.user-wrapper-content').find('.modify').hide();
+                    $('.user-wrapper-content').find('.saved').show();
+                    if (response.status) {
+                        layer.msg(response.message, {icon: 1});
+                    } else {
+                        layer.msg(response.message);
+                    }
+                }).fail(function () {
+                    console.error('立即报名请求失败！');
+                });
+            }
         });
 
         // 取消保存
@@ -208,6 +265,7 @@
             $('#usernameInput').val(oldName);
             $('#truenameInput').val(oldTrueName);
             $('#phoneInput').val(oldPhone);
+            $('#emailInput').val(oldEmail);
             $('.user-wrapper-content input[type=radio][name="sex"]').val(oldSex);
             $('#userBirthdayInput').val(oldBirthday);
             $('#userDescInput').val(oldDesc);

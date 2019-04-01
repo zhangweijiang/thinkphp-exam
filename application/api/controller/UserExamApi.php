@@ -43,6 +43,17 @@ class UserExamApi
     }
 
     /**
+     * 获取考生-考试信息列表(带考试信息)
+     * @return \think\response\Json
+     */
+    public function getUserExamListWithExam()
+    {
+        $list = Db::query("SELECT T.*, E.title,E.is_check, u.username FROM user_exam T LEFT JOIN exam E ON T.exam_id = E.ID LEFT JOIN user u ON T.user_id = u.id");
+
+        return json($list);
+    }
+
+    /**
      * 添加考生-考试信息
      * @param $data
      * @return \think\response\Json
@@ -79,6 +90,26 @@ class UserExamApi
     }
 
     /**
+     * 更新考生-考试信息
+     * @param $where
+     * @param $data
+     * @return \think\response\Json
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
+    public function updateUserExamByWhere($where, $data)
+    {
+        $result = Db::name('UserExam')->where($where)->update($data);
+
+        $response = [
+            "status" => true,
+            "message" => ""
+        ];
+
+        return json($response);
+    }
+
+    /**
      * 删除考生-考试信息
      * @param $id
      * @return \think\response\Json
@@ -104,11 +135,12 @@ class UserExamApi
 
     /**
      * 获取考生-考试信息列表
-     * @param string $where  条件
-     * @param string $order  排序
+     * @param string $where 条件
+     * @param string $order 排序
      * @return false|\PDOStatement|string|\think\Collection
      */
-    public function getList($where='',$order='id asc',$limit=''){
+    public function getList($where = '', $order = 'id asc', $limit = '')
+    {
         $list = Db::name('UserExam')->where($where)->order($order)->limit($limit)->select();
 
         return $list;
@@ -116,17 +148,30 @@ class UserExamApi
 
     /**
      * 获取考试信息-单条
-     * @param string $where查询条件
+     * @param string $where 查询条件
      * @return array|false|\PDOStatement|string|\think\Model
      */
-    public function getData($where='')
+    public function getData($where = '')
     {
         $UserExam = Db::name('UserExam')->where($where)->find();
 
         return $UserExam;
     }
 
+    /**
+     * 结束审卷
+     * @param $examid
+     * @param $pass_score
+     * @return mixed
+     */
+    public function checkOver($examid, $pass_score)
+    {
 
+//        $result = Db::query("update user_question t set t.final_score = t.score where t.exam_id ='".$examid."' and t.final_score = 0");
+        $result = Db::query("UPDATE user_exam t SET t.score = ( SELECT sum(q.final_score) FROM user_question q WHERE q.exam_id = '" . $examid . "' AND q.user_id = t.user_id ), t.pass = ( CASE WHEN t.score > '" . $pass_score . "' THEN 1 ELSE 0 END ),t.status = 5 WHERE t.exam_id = '" . $examid . "'");
+
+        return $result;
+    }
 
 
 }

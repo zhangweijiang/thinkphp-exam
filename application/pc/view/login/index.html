@@ -1,6 +1,60 @@
 {extend name="public/layout" /}
 {block name="pluginsCss"}{/block}
-{block name="style"}{/block}
+{block name="style"}
+<style>
+    .windowForm {
+        padding: 20px;
+        display: none;
+    }
+
+    .windowForm p {
+        font-size: 14px;
+        text-align: left;
+        color: #858585;
+    }
+
+    .windowForm input.longInput {
+        display: block;
+        border: 1px solid #DDD;
+        width: 311px;
+        height: 28px;
+        margin: 8px auto;
+        font: 14px/28px Arial;
+        text-indent: 5px;
+        color: #858585;
+        background: #FFF;
+    }
+    .windowForm .confirmBtn {
+        padding-top: 15px;
+    }
+
+    .windowForm .button-confirm {
+        position: relative;
+        border: 1px solid #1FA9FF;
+        border-radius: 2px;
+        text-align: center;
+        color: #FFF;
+        background: #1FA9FF;
+        box-sizing: content-box;
+    }
+
+    .windowForm .button-confirm:hover {
+        color: #FFF;
+        background: #3D8CD9;
+    }
+
+    .windowForm .confirmBtn a {
+        display: inline-block;
+        border-radius: 3px;
+        width: 100%;
+        height: 34px;
+        font: 14px/34px "PingFangSC-Regular", "HelveticaNeue-Light", "Helvetica Neue Light", "Microsoft YaHei", "sans-serif";
+        vertical-align: middle;
+        letter-spacing: normal;
+        word-spacing: normal;
+    }
+</style>
+{/block}
 
 {block name="body"}
     <div class="content-wrapper">
@@ -31,10 +85,21 @@
                         <button class="btn btn-info form-control" id="login">登 录</button>
                         <div class="login-footer">
                             <a class="pull-left" href="{:url('pc/register/index')}">立即注册</a>
-                            <a class="pull-right" href="#">忘记密码？</a>
+                            <a id="forget-password" class="pull-right" href="#">忘记密码？</a>
                         </div>
                     </div>
                 </form>
+                <div id="sendEmailWrapper" class="windowForm">
+                    <form id="sendEmailForm">
+                        <p>邮箱地址</p>
+                        <p class="mb20">
+                            <input class="longInput" type="email" name="email" value="">
+                        </p>
+                        <div class="confirmBtn">
+                            <a id="sendEmailConfirm" class="button-confirm" href="javascript:">确定</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -83,6 +148,57 @@
             }).fail(function () {
                 console.error('立即报名请求失败！');
             });
+        });
+
+        // 忘记密码
+        $('#forget-password').on('click', function () {
+            layer.open({
+                type: 1,
+                title: '重置密码将发送至邮箱中',
+                area: ['auto'],
+                content: layui.jquery('#sendEmailWrapper')
+            });
+        });
+
+        var validator = new Validator('sendEmailForm', [
+            {
+                name: 'email',
+                display: '请输入邮箱地址|请输入正确的邮箱地址',
+                rules: 'required|is_email',
+            },
+        ], function (obj, evt) {
+            //如果errors具有内容则表示验证不通过
+            if (obj.errors.length) {
+                $.each(obj.errors, function (index, item) {
+                    layer.tips(item.message, $('#sendEmailForm').find('[name="' + item.name + '"]'), {
+                        tips: [2, '#00B4E9'],
+                        tipsMore: true
+                    });
+                });
+            }
+        });
+
+        $('#sendEmailWrapper').on('click', '#sendEmailConfirm', function () {
+            if(!validator.validate().errors.length) {
+                var email = $('#sendEmailWrapper').find('[name="email"]').val();
+                $.ajax({
+                    url: "{:url('pc/login/resetPassword')}",
+                    type: 'post',
+                    data: {
+                        email: email
+                    }
+                }).done(function (response) {
+                    if (response.status) {
+                        layer.closeAll();
+                        layer.msg('发送成功！');
+                        $('#sendEmailWrapper').find('[name="email"]').val('');
+                    } else {
+                        layer.msg(response.message);
+                    }
+                }).fail(function () {
+                    console.error('重置密码发送失败！');
+                });
+            }
         });
 
     });

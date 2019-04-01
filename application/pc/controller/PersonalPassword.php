@@ -50,18 +50,8 @@ class PersonalPassword extends BaseController
         //创建考试api接口的实例
         $UserApi = new UserApi();
         //更新考生的个人信息
-        $result = $UserApi->updateUser($data);
-        if($result!==FALSE){
-            $response = [
-                "status" => true,
-                "message" => "保存成功"
-            ];
-        }else{
-            $response = [
-                "status" => false,
-                "message" => "保存失败"
-            ];
-        }
-        return json($response);
+        $response = $UserApi->updateUser($data);
+
+        return $response;
     }
 }

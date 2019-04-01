@@ -21,6 +21,13 @@
         <div class="search-panel">
             <button class="btn btn-primary" id="btn-add" title="添加"><i class="fa fa-plus"></i>添加考试</button>
             <select id="statusSelector" style="width: 120px">
+                <option value="">考试状态</option>
+                <option value="未开始">未开始</option>
+                <option value="进行中">进行中</option>
+                <option value="审卷中">审卷中</option>
+                <option value="已结束">已结束</option>
+            </select>
+            <select id="stateSelector" style="width: 120px">
                 <option value="">状态</option>
                 <option value="禁用">禁用</option>
                 <option value="正常">正常</option>
@@ -47,7 +54,7 @@
             },
             columns: [
                 {
-                    title: 'ID', data: 'id', visible: true
+                    title: 'ID', data: 'id', visible: false
                 },
                 {title: '名称', data: 'title', visible: true},
                 {title: '开始时间', data: 'start_date', visible: true},
@@ -59,15 +66,37 @@
                     }
                 },
                 {
-                    title: '是否显示解析', data: 'is_analysis', visible: true,
+                    title: '显示解析', data: 'is_analysis', visible: true,
                     render: function (v) {
                         return v === 1 ? '是' : '否';
                     }
                 },
                 {
-                    title: '是否人工审卷', data: 'is_check', visible: true,
+                    title: '人工审卷', data: 'is_check', visible: true,
                     render: function (v) {
                         return v === 1 ? '是' : '否';
+                    }
+                },
+                {
+                    title: '考试状态', data: 'status', visible: true,
+                    render: function (value) {
+                        var str;
+                        switch (value) {
+                            case 1:
+                                str = "未开始";
+                                break;
+                            case 2:
+                                str = "进行中";
+                                break;
+                            case 3:
+                                str = "审卷中";
+                                break;
+                            case 4:
+                                str = "已结束";
+                                break;
+
+                        }
+                        return str;
                     }
                 },
                 {
@@ -83,9 +112,13 @@
                     }
                 },
                 {
-                    title: '操作', data: null, visible: true,
+                    title: '操作', data: null, visible: true, width: '80',
                     render: function (v, type, row) {
-                        return '<a class="update-button" data-id="' + row.id + '" href="javascript:" style="margin-right:30px;"><i class="fa fa-pencil"></i></a><a class="delete-button" data-id="' + row.id + '" href="javascript:"><i class="fa fa-trash"></i></a>'
+                        if (row.status === 3 && row.is_check === 1) {
+                            return '<a data-id="' + row.id + '" href="javascript:" style="margin-right:10px;" title="成绩列表"><i class="fa fa-bars"></i></a><a class="update-button" data-id="' + row.id + '" href="javascript:" style="margin-right:10px;"><i class="fa fa-pencil"></i></a><a class="check-button" data-id="' + row.id + '" href="javascript:" style="margin-right:10px;" title="审卷结束"><i class="fa fa-check-square-o"></i></a><a class="delete-button" data-id="' + row.id + '" href="javascript:"><i class="fa fa-trash"></i></a>'
+                        } else {
+                            return '<a class="update-button" data-id="' + row.id + '" href="javascript:" style="margin-right:10px;"><i class="fa fa-pencil"></i></a><a class="delete-button" data-id="' + row.id + '" href="javascript:"><i class="fa fa-trash"></i></a>'
+                        }
                     }
                 }
             ],
@@ -117,7 +150,7 @@
                 id = that.data('id');
             swal({
                 title: '警告',
-                text: "确定删除考试" + name + "的所有信息吗",
+                text: "确定删除该考试信息吗",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -185,6 +218,27 @@
             });
         });
 
+        // 结束审卷按钮
+        $('#table').on('click', '.check-button', function () {
+            var id = $(this).data('id');
+            layer.confirm('确认该考试审卷结束？', {
+                icon: 3, title: '提示',
+                end: function () {
+                    table.ajax.reload();
+                }
+            }, function (index) {
+                $.post("{:url('exam/checkOver')}", {id: id}).then(function (response) {
+                    if (response.status) {
+                        layer.closeAll();
+                        layer.msg('审卷结束');
+                    } else {
+                        layer.msg(response.message);
+                    }
+                });
+                layer.close(index);
+            });
+        });
+
         // 搜索框事件
         $('#search-text').on('keyup', function () {
             var val = $(this).val();
@@ -226,6 +280,11 @@
         $('#statusSelector').on('change', function () {
             var val = $(this).val();
             table.column(7).search(val).draw();
+        });
+
+        $('#stateSelector').on('change', function () {
+            var val = $(this).val();
+            table.column(8).search(val).draw();
         });
 
         $('#statusSelector').SumoSelect();

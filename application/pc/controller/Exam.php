@@ -8,9 +8,14 @@ use app\api\controller\UserExamApi;
 use think\Db;
 class Exam extends BaseController
 {
+    private $first = true;
+
     /**
-     * 考试报名页面
+     * 考试页面
      * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function index()
     {
@@ -22,6 +27,19 @@ class Exam extends BaseController
             $this->redirect('login/index');
         }
 
+        $userId = session('user')["id"];
+        $UserExamApi = new UserExamApi();
+        if(session("first-{$id}-{$userId}") == null) {
+            $userExam["exam_id"] = $id;
+            $userExam["user_id"] = $userId;
+            $time = (new \DateTime())->format('Y-m-d H:i:s');
+            $UserExamApi->updateUserExamByWhere($userExam, ["exam_time" => $time]);
+
+            session("first-{$id}-{$userId}", $time);
+        }
+
+
+
         /*获取考试的基本信息*/
         $ExamApi = new ExamApi();
         $exam = $ExamApi->getExam($id);
@@ -31,8 +49,10 @@ class Exam extends BaseController
             $this->redirect('Index/index');
         }
 
+        $firstTime = session("first-{$id}-{$userId}");
         //获取考试的结束时间
-        $exam['max_end_date'] = strtotime($exam['start_date']) + $exam['time']*60;
+        $endTime = strtotime($firstTime) + $exam['time']*60;
+        $exam['end_time'] = $endTime >= strtotime($exam['max_end_date']) ? strtotime($exam['max_end_date']) : $endTime;
         //定义exam的模板变量，传输到模板视图中
         $this->assign('exam',$exam);
 
@@ -73,19 +93,20 @@ class Exam extends BaseController
         $ExamApi = new ExamApi();
         //获取考试基本信息
         $exam = $ExamApi->getExam($id);
+
         //创建试卷-试题api接口的基本信息
         $PaperQuestionApi = new PaperQuestionApi();
-
 
         //考生-试题表信息插入
         //创建考试-试题API接口的实例
         $UserQuestionApi = new UserQuestionApi();
         $total_score = 0;//考试总分
         foreach ($data as $v) {
-            $PaperQuestion = array();
+//            $PaperQuestion = array();
             //通过试卷试题id获取试卷-试题基本信息
             $PaperQuestion = $PaperQuestionApi->getPaperQuestion($v['id']);
             $insert = array();
+            $insert['name'] = $PaperQuestion['name'];//试题名称
             $insert['title'] = $PaperQuestion['title'];//试题题目
             $insert['score'] = $PaperQuestion['score'];//试题分数
             $insert['analysis'] = $PaperQuestion['analysis'];//试题分析
@@ -134,6 +155,7 @@ class Exam extends BaseController
                 $insert['user_score'] = $userKeywordScore+$userKeywordImpScore;
 
             }
+            $insert["final_score"] = $insert["user_score"];
             //考生的试卷分数
             $total_score += $insert['user_score'];
             $result = $UserQuestionApi->addUserQuestion($insert);
@@ -149,11 +171,14 @@ class Exam extends BaseController
 
 
         //考生-试卷表信息修改
-        $UserExamApi = new UserExamApi();
         $update = array();
         $update['exam_id'] = $id; //试卷id
         $update['user_id'] = session('user')['id']; //考生id
-        $update['status'] = 3; //状态:1表示未开始,2表示进行中,3表示已完成
+        if($exam["is_check"] == 0) {
+            $update['status'] = 5; //状态:1表示未开始,2表示进行中,3表示考试完成,4-缺考,5-批改完成
+        }else {
+            $update['status'] = 3;
+        }
         $update['score'] = $total_score;  //试卷总分
         //创建考试api接口的实例
         $ExamApi = new ExamApi();
@@ -162,8 +187,9 @@ class Exam extends BaseController
         //获取试卷id
         $paper_id = $ExamApi->getExam($id)['paper_id'];
         //获取及格分数
-        $pass_score = $PaperApi->getPaper($paper_id)['pass_score'];//及格分数
-        if($total_score>=$pass_score){
+        $paper = $PaperApi->getPaper($paper_id); //及格分数
+        $pass_score = $paper["pass_score"];
+        if($total_score >= $pass_score){
             $update['pass'] = 1; //考试通过
         }else{
             $update['pass'] = 0; //考试不通过
@@ -194,7 +220,7 @@ class Exam extends BaseController
         $user_id = session('user')['id'];
         //获取考生-考试的基本信息
         $UserExam = Db::name('user_exam')->where(['user_id'=>$user_id,'exam_id'=>$exam_id])->find();
-        if($UserExam['status']==3){
+        if($UserExam['status']==3 || $UserExam['status']==5){
             $response = [
                 "status" => false,
                 "message" => "您已交卷"

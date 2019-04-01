@@ -75,6 +75,21 @@ class UserApi
     }
 
     /**
+     * 获取用户信息（根据Email获取）
+     * @param $email
+     * @return array|false|\PDOStatement|string|\think\Model
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getUserByEmail($email)
+    {
+        $user = Db::name('user')->field('password',true)->where('email', $email)->find();
+
+        return $user;
+    }
+
+    /**
      * 获取用户列表
      * @return \think\response\Json
      * @throws \think\db\exception\DataNotFoundException

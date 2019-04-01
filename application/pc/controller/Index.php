@@ -34,8 +34,8 @@ class Index extends BaseController
         }
 
         // 最新、最热推荐
-        $newExam = $ExamApi->getList(['status'=>['neq',3],'state'=>1], 'create_time desc' ,4);
-        $hotExam = $ExamApi->getList(['status'=>['neq',3],'state'=>1], 'count desc' ,4);
+        $newExam = $ExamApi->getList(['status'=>[['neq',3],['neq',4]],'state'=>1], 'create_time desc' ,4);
+        $hotExam = $ExamApi->getList(['status'=>[['neq',3],['neq',4]],'state'=>1], 'count desc' ,4);
 
         //定义模板变量ExamList，传输到模板视图中
         $this->assign('ExamList',$ExamList);

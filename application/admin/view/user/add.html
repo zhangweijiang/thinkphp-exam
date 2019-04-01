@@ -32,6 +32,12 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-sm-3 control-label">邮箱地址 :</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="邮箱地址" id="Email" name="email" value="{$user.email|default=''}" />
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-sm-3 control-label">手机号 :</label>
             <div class="col-sm-9">
                 <input type="text" class="form-control" placeholder="手机号" id="phone" name="phone" value="{$user.phone|default=''}" />
@@ -102,6 +108,11 @@
                 name: 'password',
                 display: '请输入密码|密码不能少于6位',
                 rules: 'required|min:6'
+            },
+            {
+                name: 'email',
+                display: '请输入邮箱地址|请输入正确的邮箱地址',
+                rules: 'required|is_email'
             },
             {
                 name: 'phone',

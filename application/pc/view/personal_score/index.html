@@ -34,22 +34,30 @@
 
                         {volist name="UserExamList" id="vo"}
                         <div class="exam-card-container">
-                            <a target="_blank" href="#" class="exam-card">
+                            <a href="{if condition="$vo.exam.is_analysis eq 1"}{:url('personal_score/analysis')}?examId={$vo.exam.id}{else /}javascript:{/if}" class="exam-card">
                                 <div class="exam-card-top">
-                                    <img class="exam-banner lazy" src="/upload/{$vo.exam.img}" style="display: inline;">
+                                    <img class="exam-banner lazy" src="{$vo.exam.img}" style="display: inline;">
                                     <div class="exam-label">
-                                        <label>
-                                            {if condition="$vo.pass eq 1"}
-                                            考试通过
-                                            {/if}
-                                        </label>
+                                        {if condition="$vo.status eq 1"}<label>已报名</label>{/if}
+                                        {if condition="$vo.status eq 2"}<label>考试中</label>{/if}
+                                        {if condition="$vo.status eq 3"}<label>待审卷</label>{/if}
+                                        {if condition="$vo.status eq 4"}<label>缺考</label>{/if}
+                                        {if condition="$vo.status eq 5 && $vo.pass eq 1"}
+                                            <label>通过</label>
+                                        {elseif condition="$vo.status eq 5 && $vo.pass eq 0"}
+                                            <label>未通过</label>
+                                        {/if}
+                                        {if condition="$vo.exam.is_analysis eq 1"}<label>查看解析</label>{/if}
                                     </div>
                                 </div>
                                 <div class="exam-card-content">
                                     <h3 class="exam-card-name">{$vo.exam.title}</h3>
                                     <div class="clearfix exam-card-bottom">
                                         <div class="exam-card-info">
-                                            <span>总分：{$vo.exam.score}分</span><span>得分：<em class="text-danger">{$vo.score}分</em></span>
+                                            <span>总分：{$vo.exam.score|default='0'}分</span>
+                                            {if condition="$vo.status neq 1 || $vo.status neq 2 || $vo.status neq 3"}
+                                            <span>得分：<em class="text-danger">{if condition="$vo.status eq 4"}0{else/}{$vo.score}{/if}分</em></span>
+                                            {/if}
                                         </div>
                                     </div>
                                 </div>

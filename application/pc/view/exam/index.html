@@ -14,7 +14,7 @@
 <body class="loaded bg-gray">
 <div class="wrapper">
     <div class="exam-wrapper">
-        <h1 class="exam-title">适合人群及技术储备要求</h1>
+        <h1 class="exam-title">{$exam.title}</h1>
         <div class="exam-toolbar">
             <a class="pull-left btn-show-questions" href="javascript:"><i class="fa fa-calendar"></i>答题卡</a>
             <div class="questions-card">
@@ -42,7 +42,7 @@
             <div class="question-wrapper">
                 {volist name="PaperQuestionList" id="vo" key="kk"}
                 {if condition="$vo.type eq 1"}
-                    <div class="question-item active" data-type="{$vo.type}" data-index="{$kk}" data-id="{$vo.id}">
+                    <div class="question-item {if condition="$kk eq 1"} active {/if}" data-type="{$vo.type}" data-index="{$kk}" data-id="{$vo.id}">
                         <label class="label label-danger question-type-label">判断题</label>
                         <div class="question-title">
                             <span class="score-text">（<em class="text">{$vo.score}</em>分）</span><span class="text">{$vo.title}</span>
@@ -202,18 +202,16 @@
             if (isWhitePaper) {
                 layer.confirm('有试题尚未答题，是否现在交卷？', {icon: 3, title: '提示'}, function (index) {
                     if (index) {
-
-                        // TODO:提交学生试卷结果
                         $.ajax({
                             url: "{:url('pc/exam/submit')}",
                             type: 'post',
                             data: {
                                 data:list,
-                                id:"{$Think.GET.id}",
+                                id:"{$Think.GET.id}"
                             },
                             beforeSend:function(){
                                 $('.loading_div').show();
-                            },
+                            }
                         }).done(function (response) {
                             $('.loading_div').hide();
                             if (response.status) {
@@ -235,8 +233,6 @@
             } else {
                 layer.confirm('是否现在交卷？', {icon: 3, title: '提示'}, function (index) {
                     if (index) {
-
-                        // TODO:提交学生试卷结果
                         $.ajax({
                             url: "{:url('pc/exam/submit')}",
                             type: 'post',
@@ -424,15 +420,13 @@
         // 初始化考试页
         function initExamPage() {
             var now = new Date(), endTime;
-
-            if (localStorage.getItem('endTime')) {
+            if (localStorage.getItem('endTime:{$Think.GET.id}')) {
                 endTime = localStorage.getItem('endTime');
             } else {
-                endTime = parseInt("{$exam.max_end_date}")*1000;
-                localStorage.setItem('endTime', endTime);
+                endTime = parseInt("{$exam.end_time}")*1000;
+                localStorage.setItem('endTime:{$Think.GET.id}', endTime);
             }
             var temp = (endTime - now.getTime()) / 1000;
-
             setNoOperateEvent();
 
             if(temp <= 0) {
@@ -477,8 +471,8 @@
         }
 
         function clearLocalStorage() {
-            if(localStorage.getItem('endTime'))
-                localStorage.removeItem('endTime');
+            if(localStorage.getItem('endTime:{$Think.GET.id}'))
+                localStorage.removeItem('endTime:{$Think.GET.id}');
         }
 
 
@@ -488,7 +482,7 @@
             type: 'post',
             data: {
                 id:"{$Think.GET.id}"
-            },
+            }
         }).done(function (response) {
             if (response.status) {
                 initExamPage();

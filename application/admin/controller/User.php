@@ -95,6 +95,7 @@ class User extends BaseController
         $user["password"] = sha256(trim(input('post.password')));
         $user["birth"] = trim(input('post.birth'));
         $user["sex"] = trim(input('post.sex'));
+        $user["email"] = trim(input('post.email'));
         $user["phone"] = trim(input('post.phone'));
         $user["status"] = trim(input('post.status'));
 
@@ -166,6 +167,7 @@ class User extends BaseController
         $user["password"] = trim(input('post.password'));
         $user["birth"] = trim(input('post.birth'));
         $user["sex"] = trim(input('post.sex'));
+        $user["email"] = trim(input('post.email'));
         $user["phone"] = trim(input('post.phone'));
         $user["status"] = trim(input('post.status'));
 

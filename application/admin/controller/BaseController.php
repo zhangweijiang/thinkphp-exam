@@ -9,6 +9,7 @@
 namespace app\admin\controller;
 
 
+use app\api\controller\ManagerApi;
 use think\Controller;
 
 class BaseController extends Controller
@@ -43,6 +44,25 @@ class BaseController extends Controller
             return true;
         }
 
+    }
+
+    /**
+     * 修改密码
+     * @return \think\response\Json
+     */
+    public function editPassword() {
+        //获取前台post的表单数据
+        $password = input('post.password');
+        $admin = session('admin');
+        //通过sha2进行加密
+        $data["password"] = $password;
+        $data["id"] = $admin["id"];
+        //创建考试api接口的实例
+        $ManagerApi = new ManagerApi();
+        //更新管理员的密码
+        $response = $ManagerApi->updatePassword($data);
+
+        return $response;
     }
 
     /**

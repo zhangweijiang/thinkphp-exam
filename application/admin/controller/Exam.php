@@ -12,6 +12,7 @@ use app\api\controller\ExamApi;
 use app\api\controller\CourseApi;
 use app\api\controller\MajorApi;
 use app\api\controller\PaperApi;
+use app\api\controller\UserExamApi;
 
 class Exam extends BaseController
 {
@@ -79,6 +80,7 @@ class Exam extends BaseController
     {
         // 分别创建考试API接口的实例
         $ExamApi = new ExamApi();
+        $PaperApi = new PaperApi();
 
         // 整理所有前台传过来的数据
         $exam["title"] = trim(input('post.title'));
@@ -95,6 +97,9 @@ class Exam extends BaseController
         $exam["is_analysis"] = trim(input('post.is_analysis'));
         $exam["is_check"] = trim(input('post.is_check'));
         $exam["state"] = trim(input('post.state'));
+
+        $paper = $PaperApi->getPaper($exam["paper_id"]);
+        $exam["score"] = $paper["score"];
 
         // 获取表单上传文件 例如上传了001.jpg
         $file = request()->file('avatar');
@@ -163,6 +168,7 @@ class Exam extends BaseController
     {
         // 创建考试API接口的实例
         $ExamApi = new ExamApi();
+        $PaperApi = new PaperApi();
 
         // 获取前台传过来的更新数据，并整合
         $exam["id"] = trim(input('post.id'));
@@ -180,6 +186,9 @@ class Exam extends BaseController
         $exam["is_analysis"] = trim(input('post.is_analysis'));
         $exam["is_check"] = trim(input('post.is_check'));
         $exam["state"] = trim(input('post.state'));
+
+        $paper = $PaperApi->getPaper($exam["paper_id"]);
+        $exam["score"] = $paper["score"];
 
         // 获取表单上传文件 例如上传了001.jpg
         $file = request()->file('avatar');
@@ -257,6 +266,29 @@ class Exam extends BaseController
         // 获取前台传来的ID和状态，并整合
         $data["id"] = trim(input('post.id'));
         $data["state"] = trim(input('post.state'));
+
+        // 向数据库更新考试的状态
+        $response = $ExamApi->updateExam($data);
+
+        // 返回更新数据的结果
+        return $response;
+    }
+
+    public function checkOver() {
+        // 创建考试API接口的实例
+        $ExamApi = new ExamApi();
+        $PaperApi = new PaperApi();
+        $userExamApi = new UserExamApi();
+
+        // 获取前台传来的ID和状态，并整合
+        $data["id"] = trim(input('post.id'));
+        $data["status"] = 4;
+
+        $exam = $ExamApi->getExam($data["id"]);
+        $paper = $PaperApi->getPaper($exam["paper_id"]);
+
+        // 更新学生成绩
+        $userExamApi->checkOver($data["id"], $paper["pass_score"]);
 
         // 向数据库更新考试的状态
         $response = $ExamApi->updateExam($data);

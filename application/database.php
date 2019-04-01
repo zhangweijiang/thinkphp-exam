@@ -17,9 +17,9 @@ return [
     // 数据库名
     'database'        => 'exam',
     // 用户名
-    'username'        => 'root',
+    'username'        => 'root', 
     // 密码
-    'password'        => 'root',
+    'password'        => 'root', 
     // 端口
     'hostport'        => '3306',
     // 连接dsn

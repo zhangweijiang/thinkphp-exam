@@ -86,12 +86,12 @@
                 $('.user-wrapper-content').find('.modify').hide();
                 $('.user-wrapper-content').find('.saved').show();
                 if (response.status) {
-                    layer.msg(response.message, {icon: 1});
+                    layer.msg('修改成功', {icon: 1});
                 } else {
-                    layer.msg(response.message);
+                    layer.msg('修改密码失败！');
                 }
             }).fail(function () {
-                console.error('立即报名请求失败！');
+                console.error('修改密码失败！');
             });
 
         });

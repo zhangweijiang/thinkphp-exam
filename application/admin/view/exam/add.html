@@ -189,7 +189,7 @@
         $('#saveExam').on('click', function () {
             if (!validator.validate().errors.length) {
                 var form = $('#addExamForm'),
-                    id = form.data('id'), success = "添加成功！";
+                    id = form.data('id'), success = "添加成功！", url;
 
                 var formData = new FormData(document.getElementById('addExamForm'));
 
@@ -206,7 +206,6 @@
                 } else {
                     url = "{:url('exam/addExam')}";
                 }
-
 
                 $.ajax({
                     url: url,

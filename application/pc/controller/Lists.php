@@ -32,7 +32,9 @@ class Lists extends BaseController
             $where['course_id'] = $course_id;
         }
         if ($exam_state) {
-            $where['status'] = $exam_state;
+            $where['status'] = [['eq', $exam_state], ['neq', 3], ['neq', 4]];
+        } else {
+            $where['status'] = [['neq', 3], ['neq', 4]];
         }
         $where['state'] = 1;
 

@@ -44,7 +44,7 @@
                                         {volist name="ExamList[$k-1]" id="vo2"}
                                         <div class="pull-left banner-course-card">
                                             <a href="{:url('pc/exam_info/index')}?id={$vo2.id}" target="_blank" title="{$vo2.title}" class="clearfix">
-                                                <img src="/upload/{$vo2.img}" class="pull-left">
+                                                <img src="{$vo2.img}" class="pull-left">
                                                 <div class="pull-left course-card">
                                                     <h3 class="course-card-name">{$vo2.title}</h3>
                                                     <div class="course-card-info">
@@ -86,7 +86,7 @@
                 <div class="per-20-div">
                     <div class="exam-widget">
                         <div class="exam-widget-heading">
-                            <img src="/upload/{$vo.img}" alt="">
+                            <img src="{$vo.img}" alt="">
                             <span class="exam-widget-tag">
                                 <label>{$vo.course_name}</label>
                             </span>
@@ -124,7 +124,7 @@
                 <div class="per-20-div">
                     <div class="exam-widget">
                         <div class="exam-widget-heading">
-                            <img src="/upload/{$vo.img}" alt="">
+                            <img src="{$vo.img}" alt="">
                             <span class="exam-widget-tag">
                                 <label>{$vo.course_name}</label>
                             </span>

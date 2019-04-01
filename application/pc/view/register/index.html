@@ -43,28 +43,61 @@
 {block name="script"}
 <script>
     $(function () {
+        var a = "{:sha256('123456')}";
+        console.log(a);
         // 屏幕缩放监听
         $(window).on('resize', function () {
             $('.sign-wrapper').css('min-height', ($(window).height() - 147) + 'px')
         }).trigger('resize');
+        // 前端校验
+        var validator = new Validator('form', [
+            {
+                name: 'username',
+                display: '请输入用户名',
+                rules: 'required',
+            },
+            {
+                name: 'truename',
+                display: '请输入真实姓名',
+                rules: 'required',
+            },
+            {
+                name: 'password',
+                display: '请输入密码|密码为6~16位字符|密码为6~16位字符',
+                rules: 'required|min_length(6)|max_length(16)',
+            }
+        ], function (obj, evt) {
+            //如果errors具有内容则表示验证不通过
+            if (obj.errors.length) {
+                $.each(obj.errors, function (index, item) {
+                    layer.tips(item.message, $('#form').find('[name="' + item.name + '"]'), {
+                        tips: [2, '#00B4E9'],
+                        tipsMore: true
+                    });
+                });
+            }
+        });
+
         //注册点击事件
         $('#register').click(function(){
-           var formData = $('#form').serialize();
-            $.ajax({
-                url: "{:url('pc/register/save')}",
-                type: 'post',
-                data: formData,
-            }).done(function (response) {
-                 if (response.status) {
-                 layer.msg(response.message, {icon: 1},function(){
-                     window.location.href = "{:url('pc/login/index')}";
-                 });
-                 } else {
-                 layer.msg(response.message);
-                 }
-            }).fail(function () {
-                console.error('立即报名请求失败！');
-            });
+           if(!validator.validate().errors.length) {
+               var formData = $('#form').serialize();
+               $.ajax({
+                   url: "{:url('pc/register/save')}",
+                   type: 'post',
+                   data: formData,
+               }).done(function (response) {
+                   if (response.status) {
+                       layer.msg(response.message, {icon: 1},function(){
+                           window.location.href = "{:url('pc/login/index')}";
+                       });
+                   } else {
+                       layer.msg(response.message);
+                   }
+               }).fail(function () {
+                   console.error('立即报名请求失败！');
+               });
+           }
         });
 
     });

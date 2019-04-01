@@ -5,6 +5,7 @@ use app\api\controller\UserApi;
 use app\api\controller\UserExamApi;
 class ExamInfo extends BaseController
 {
+
     /**
      * 考试报名页面
      * @return mixed

@@ -109,6 +109,10 @@ class Question extends BaseController
 
             // 将answer(答案)中`||`字符串替换为`,`赋值给answerString
             $question['answerString'] = str_replace('||', ',', $question['answer']);
+        } else if ($question['type'] == 4) { // 如果当前试题的类型为填空题
+
+            // 将answer(答案)中`||`字符串替换为`,`赋值给answerString
+            $question['answerString'] = explode('||',  $question['answer']);
         }
 
         // 定义question模板变量，用于在模板视图中展示数据
@@ -168,6 +172,38 @@ class Question extends BaseController
 
         // 返回删除数据的结果
         return $response;
+    }
+
+    function saveImage()
+    {
+
+        // 获取表单上传文件 例如上传了001.jpg
+        $file = request()->file('file');
+
+        $response = [
+            'status'  => true,
+            'result'  => "",
+            'message' => "文件上传成功",
+        ];
+
+        // 移动到框架应用根目录/public/uploads/ 目录下
+        if ($file) {
+            $info = $file->move(ROOT_PATH . 'public' . DS . 'upload');
+            if ($info) {
+                // 成功上传后 获取上传信息;
+                // 输出 20171224/42a79759f284b767dfcb2a0197904287.jpg
+                $response['result'] = "/upload/" . $info->getSaveName();
+            } else {
+                // 上传失败获取错误信息
+                $response['status'] = false;
+                $response['message'] = "文件信息错误";
+            }
+        } else {
+            $response['status'] = false;
+            $response['message'] = "请选择文件！";
+        }
+
+        return json($response);
     }
 
 }

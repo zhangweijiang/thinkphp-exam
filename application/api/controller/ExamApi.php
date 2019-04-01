@@ -127,6 +127,7 @@ class ExamApi
      * @throws \think\exception\DbException
      */
     public function getList($where='',$order='id asc',$limit=''){
+
         $list = Db::name('exam')->where($where)->order($order)->limit($limit)->select();
 
         return $list;
@@ -159,7 +160,7 @@ class ExamApi
         $user_exam['user_id'] = $data['user_id'];
         $user_exam['username'] = $data['username'];
         $ExamInfo = Db::name('exam')->where(['id'=>$data['id']])->find();
-        $user_exam['exam_time'] = $ExamInfo['start_date'];//考试开始时间
+//        $user_exam['exam_time'] = $ExamInfo['start_date'];//考试开始时间
         $user_exam['status'] = 1;//状态（未报名则无记录，1-已报名 2-考试中 3-考试完成 4-缺考）
         $user_exam['create_time'] = date('Y-m-d H:i:s');
         $flag2 = Db::name('UserExam')->insert($user_exam);
