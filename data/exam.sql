@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 127.0.0.1
-Source Server Version : 50553
-Source Host           : localhost:3306
+Source Server         : 111.231.142.160
+Source Server Version : 50637
+Source Host           : 111.231.142.160:3306
 Source Database       : exam
 
 Target Server Type    : MYSQL
-Target Server Version : 50553
+Target Server Version : 50637
 File Encoding         : 65001
 
-Date: 2018-12-29 15:49:10
+Date: 2019-04-09 13:09:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -134,12 +134,12 @@ CREATE TABLE `manager` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COMMENT='管理员表';
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COMMENT='管理员表';
 
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('34', 'zwj', 'aaffebecec560fec66e75f24062224ffa4e07696d2ae9a1fee3707c3f8fd9373', '1', null, null);
+INSERT INTO `manager` VALUES ('34', 'zwj', '51a815f31d0881ceea1d98ec697366757360657f2ca221a53e0a86f20099b316', '1', null, null);
 
 -- ----------------------------
 -- Table structure for paper
@@ -232,8 +232,8 @@ CREATE TABLE `user` (
   `username` varchar(50) DEFAULT NULL COMMENT '用户登录名',
   `truename` varchar(50) DEFAULT NULL,
   `password` varchar(500) DEFAULT NULL COMMENT '密码',
-  `sex` tinyint(1) unsigned DEFAULT '1' COMMENT '性别：1男,2女',
-  `birth` varchar(20) DEFAULT NULL COMMENT '生日',
+  `sex` tinyint(1) DEFAULT '1' COMMENT '性别：1男,2女',
+  `birth` datetime DEFAULT NULL COMMENT '生日',
   `age` int(10) DEFAULT '0' COMMENT '年龄',
   `phone` varchar(20) DEFAULT NULL,
   `status` int(5) DEFAULT '1',
@@ -241,19 +241,44 @@ CREATE TABLE `user` (
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   `avatar` varchar(500) DEFAULT NULL COMMENT '头像',
   `desc` varchar(500) DEFAULT NULL COMMENT '描述',
+  `email` varchar(50) DEFAULT NULL COMMENT '邮箱地址',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COMMENT='考生表';
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8 COMMENT='考生表';
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('22', '张先生', '张某某', 'aaffebecec560fec66e75f24062224ffa4e07696d2ae9a1fee3707c3f8fd9373', '1', '2017-04-15', '0', '13665994204', '1', '2018-03-08 11:00:00', '2018-03-10 01:00:00', '20180309\\8e8125942bdcd13f16480bb6689301eb.png', '名');
-INSERT INTO `user` VALUES ('25', 'aaa', '张大师', 'aaffebecec560fec66e75f24062224ffa4e07696d2ae9a1fee3707c3f8fd9373', null, null, '0', null, '1', '2018-03-10 02:02:31', null, null, null);
-INSERT INTO `user` VALUES ('26', 'admin', '管理员', '0d81684688d4057da4d9f6df64b28154b68afc2f1946a756302613c92fdd4986', null, null, '0', null, '1', '2018-03-10 06:33:22', null, null, null);
-INSERT INTO `user` VALUES ('27', 'hyb', '何艺宝', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', null, null, '0', null, '1', '2018-03-16 09:30:47', null, null, null);
-INSERT INTO `user` VALUES ('28', 'yjt', '严净汀', '19de6b5645734410950bbaaddc92e87df7e1ee9824ec959f4fa16ec3f4fcc6e2', null, null, '0', null, '1', '2018-03-16 09:34:49', null, null, null);
-INSERT INTO `user` VALUES ('29', 'zwj', '13665994204', '0db533b171518482d345d3315d2d5951550b19927dfda99b734d3d4a185786c6', null, null, '0', null, '1', '2018-03-19 14:44:49', null, null, null);
-INSERT INTO `user` VALUES ('30', '', 'hbz', '60a37c69716b54c33dffc94cbcd14569cd588fd5b97775209fc9375053bab1a7', null, null, '0', null, '1', '2018-03-20 20:37:15', null, null, null);
+INSERT INTO `user` VALUES ('22', '酱油党', '酱油党', '231321', '1', '2017-04-15 00:00:00', '0', '13665994204', '1', '2018-03-08 11:00:00', '2018-03-10 01:00:00', '/upload/20190321/76a991ccd6b7e8242aac059f8e2b5b81.jpg', '名', 'hacker@hacker.net');
+INSERT INTO `user` VALUES ('25', 'aaa', '张大师', 'aaffebecec560fec66e75f24062224ffa4e07696d2ae9a1fee3707c3f8fd9373', null, null, '0', null, '1', '2018-03-10 02:02:31', null, null, null, null);
+INSERT INTO `user` VALUES ('26', 'admin', '管理员', 'admin888', '2', '2017-04-06 00:00:00', '0', '18000000000', '1', '2018-03-10 06:33:22', '2018-04-26 15:08:38', '/upload/20180322\\ae4399a2336cf9dcc4964df64717878b.jpg', '', '1561302459@qq.com');
+INSERT INTO `user` VALUES ('27', 'hyb', '何艺宝', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', null, null, '0', null, '1', '2018-03-16 09:30:47', null, null, null, null);
+INSERT INTO `user` VALUES ('28', 'yjt', '严净汀', '19de6b5645734410950bbaaddc92e87df7e1ee9824ec959f4fa16ec3f4fcc6e2', null, null, '0', null, '1', '2018-03-16 09:34:49', null, null, null, null);
+INSERT INTO `user` VALUES ('29', 'zwj', '13665994204', '51a815f31d0881ceea1d98ec697366757360657f2ca221a53e0a86f20099b316', null, null, '0', null, '1', '2018-03-19 14:44:49', null, null, null, null);
+INSERT INTO `user` VALUES ('30', '', 'hbz', '60a37c69716b54c33dffc94cbcd14569cd588fd5b97775209fc9375053bab1a7', null, null, '0', null, '1', '2018-03-20 20:37:15', null, null, null, null);
+INSERT INTO `user` VALUES ('36', 'hades', 'hades', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1', null, '0', null, '1', '2018-03-29 11:08:56', null, null, null, null);
+INSERT INTO `user` VALUES ('37', 'hjl', 'hjl', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1', null, '0', null, '1', '2018-03-29 11:09:11', null, null, null, null);
+INSERT INTO `user` VALUES ('38', 'cdn', 'cdn', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2018-03-29 11:10:08', null, null, null, null);
+INSERT INTO `user` VALUES ('39', 'qq', 'qq', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-01-01 14:17:20', null, null, null, null);
+INSERT INTO `user` VALUES ('40', 'suiky', 'suiky', '1b4c9133da73a711322404314402765ab0d23fd362a167d6f0c65bb215113d94', '1', null, '0', null, '1', '2019-01-06 23:51:04', null, null, null, null);
+INSERT INTO `user` VALUES ('41', 'aaaaa', 'aaaaa', 'ed02457b5c41d964dbd2f2a609d63fe1bb7528dbe55e1abf5b52c249cd735797', '1', null, '0', null, '1', '2019-01-09 16:17:13', null, '20190109/e843ff1577049c6e99e9cf18bfcaa1ee.jpg', null, null);
+INSERT INTO `user` VALUES ('42', 'admin123', 'admin123', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', '1', null, '0', null, '1', '2019-01-12 17:17:09', null, null, null, null);
+INSERT INTO `user` VALUES ('43', '123456', 'Jax', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-01-14 16:44:58', null, null, null, null);
+INSERT INTO `user` VALUES ('44', '222', 'liuliu', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-01-25 10:03:29', null, null, null, null);
+INSERT INTO `user` VALUES ('45', 'root', 'root', 'e14cb9e5c0eeee0ea313a4e04fbd10aa17ac17aa33a3cad4bdfe74b87ca18ef8', '1', null, '0', null, '1', '2019-02-23 00:11:04', null, null, null, null);
+INSERT INTO `user` VALUES ('46', 'fkfkfk', 'fkfkfk', 'dd0e116d48d677f3fa6e7f885d35022d472bb5bba0d75a22f72df62d523ae3f3', '1', null, '0', null, '1', '2019-02-24 00:16:06', null, null, null, null);
+INSERT INTO `user` VALUES ('47', 'de', 'ldd', '96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e', '1', null, '0', null, '1', '2019-03-04 10:45:55', null, null, null, null);
+INSERT INTO `user` VALUES ('48', 'test', 'test', '85fd7c889f71cf105375595cddc06b9d38fc562cb69c54f8c165aa751d81b3d9', '1', null, '0', null, '1', '2019-03-05 16:32:51', null, null, null, null);
+INSERT INTO `user` VALUES ('49', 'zj', '123456', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-03-08 11:17:01', null, null, null, null);
+INSERT INTO `user` VALUES ('50', 'test1111', 'test1111', 'ff966b1eff052fd37622d1442e6612c02c06621268c19c3d55af000128465866', '1', null, '0', null, '1', '2019-03-13 08:22:44', null, null, null, null);
+INSERT INTO `user` VALUES ('51', 'hacker', 'hacker1', 'e7d3685715939842749cc27b38d0ccb9706d4d14a5304ef9eee093780eab5df9', '2', '2019-03-21 00:00:00', '0', '13544489652', '1', null, null, '/upload/20190321/04119127995ca3a4c9a292187888f6bc.jpg', null, 'haceker@hacker.net');
+INSERT INTO `user` VALUES ('52', 'opal', '虎皮', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-03-21 15:35:44', null, null, null, null);
+INSERT INTO `user` VALUES ('53', 'fzkqwlt9', 'fzkqwlt9', '28e186d9bb7817720fc9d9da51fcfd23060f41976963def830fdc91e57c9ac17', '1', null, '0', null, '1', '2019-03-25 15:02:17', null, null, null, null);
+INSERT INTO `user` VALUES ('54', '15540033333', '15540033333', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-03-26 10:09:22', null, null, null, null);
+INSERT INTO `user` VALUES ('55', '1111', '1111', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', '1', null, '0', null, '1', '2019-03-26 18:16:26', null, null, null, null);
+INSERT INTO `user` VALUES ('56', 'zrt43824870', 'kane33', 'e74fdfc08a456bf3167f79f3befef3dbe65f47e061d9ce86c581bf509a223f80', '1', null, '0', null, '1', '2019-03-29 23:12:02', null, null, null, null);
+INSERT INTO `user` VALUES ('57', 'qwe', 'qwe', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-03-31 12:36:43', null, null, null, null);
+INSERT INTO `user` VALUES ('58', 'hbh112233abc', 'hbh112233abc', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-04-02 14:31:45', null, null, null, null);
+INSERT INTO `user` VALUES ('59', 'wfd', '我都', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-04-03 11:44:29', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for user_exam
@@ -358,14 +383,23 @@ BEGIN
               WHERE `status` = 2 AND SYSDATE() >= max_end_date)
     THEN
       UPDATE exam
+      SET `status` = 4
+      WHERE id = (
+        SELECT *
+        FROM (SELECT id
+              FROM exam
+              WHERE `status` = 2 AND `is_check` = 0 AND SYSDATE() >= max_end_date) T
+      );
+			UPDATE exam
       SET `status` = 3
       WHERE id = (
         SELECT *
         FROM (SELECT id
               FROM exam
-              WHERE `status` = 2 AND SYSDATE() >= max_end_date) T
+              WHERE `status` = 2 AND `is_check` = 1 AND SYSDATE() >= max_end_date) T
       );
     END IF;
+			
 END
 ;;
 DELIMITER ;
@@ -375,6 +409,6 @@ DELIMITER ;
 -- ----------------------------
 DROP EVENT IF EXISTS `change_exam_status`;
 DELIMITER ;;
-CREATE DEFINER=`exam`@`%` EVENT `change_exam_status` ON SCHEDULE EVERY 1 SECOND STARTS '2018-01-19 15:58:00' ON COMPLETION NOT PRESERVE ENABLE DO CALL exam_status_change()
+CREATE DEFINER=`root`@`localhost` EVENT `change_exam_status` ON SCHEDULE EVERY 1 SECOND STARTS '2018-01-19 15:58:00' ON COMPLETION NOT PRESERVE ENABLE DO CALL exam_status_change()
 ;;
 DELIMITER ;
