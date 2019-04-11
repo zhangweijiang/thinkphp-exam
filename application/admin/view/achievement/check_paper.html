@@ -1,0 +1,107 @@
+<style>
+    .question-option label {
+        color: black;
+    }
+</style>
+<div class="row-fluid" id="CheckPaperWrapper" data-examid="{$examId}" data-userid="{$userId}">
+    <div class="span12">
+        <div class="widget-box">
+            <div class="widget-content nopadding" style="padding: 15px;">
+                <div class="question-list-wrapper">
+                    {volist name="List" id="vo"}
+                    <div class="question-wrapper" data-id="{$vo.id}" data-order="{$vo.order}" key="key" data-score="{$vo.score}">
+                        <div class="question-inner">
+                            <p class="question-title">{$vo.name}</p>
+                            {if condition="$vo.type eq 5"}
+                            <p class="question-answer">关键词：{$vo.keyword}</p>
+                            <p class="question-answer">重要关键词：{$vo.keyword_imp}</p>
+                            {elseif condition="$vo.type eq 4"/}
+                            <ul class="option">
+                                {volist name="vo['answerList']" id="vo1" key="key1"}
+                                <li class="selected"></li>
+                                {/volist}
+                            </ul>
+                            {elseif condition="$vo.type eq 3"/}
+                            <ul class="option">
+                                {volist name="vo['optionsList']" id="vo1" key="key1"}
+                                <li {if condition="in_array($key1, $vo.answerList) "}class="selected"{/if}>{$letter[$key1 - 1]}.{$vo1}</li>
+                                {/volist}
+                            </ul>
+                            {else}
+                            <ul class="option">
+                                {volist name="vo['optionsList']" id="vo1" key="key1"}
+                                    <li {if condition="$letter[$key1 - 1] eq $vo.answer1"}class="selected"{/if}>{$letter[$key1 - 1]}.{$vo1}</li>
+                                {/volist}
+                            </ul>
+                            {/if}
+                            <p class="question-answer">答案：{$vo.answer1}</p>
+                            <p class="question-analysis">考生答案：{$vo.userAnswer}</p>
+                            <p class="question-analysis">解析：{$vo.analysis}</p>
+                            <div class="question-score-wrapper" style="height: 61px; top: 75px;">
+                                <div style="margin-bottom: 5px;">系统判分：<input type="number" name="user_score" value="{$vo.user_score}" title="试题分数" disabled>分</div>
+                                <div>最终判分：<input type="number" name="final_score" value="{$vo.final_score}" title="试题分数">分</div>
+                            </div>
+                        </div>
+                    </div>
+                    {/volist}
+                </div>
+                <div class="text-right">
+                    <a href="javascript:" id="saveUserQuestionList" class="btn btn-primary btn-save-title">保存</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        // 保存试卷
+        $('#saveUserQuestionList').on('click', function (e) {
+            var selectors = $('#CheckPaperWrapper .question-list-wrapper .question-wrapper');
+            var examId = $('#CheckPaperWrapper').data('examid');
+            var userId = $('#CheckPaperWrapper').data('userid');
+            var questions = [], totalScore = 0;
+            if (selectors.length > 0) {
+                $.each(selectors, function (index, item) {
+                    var score = $(item).find('[name="final_score"]').val();
+                    var questionScore = $(item).data('score');
+                    if(score > questionScore) {
+                        layer.msg('最终分数不得大于试题分数');
+                        return;
+                    }
+                    if(score < 0) {
+                        layer.msg('试题分数必须为数字且不得小于0');
+                        return;
+                    }
+                    var question = {
+                        id: $(item).data('id'),
+                        final_score: score
+                    };
+                    totalScore += parseInt(score);
+                    questions.push(question);
+                });
+
+                var formData = {
+                    examId: examId,
+                    userId: userId,
+                    totalScore: totalScore,
+                    questions: questions
+                };
+
+                $.post("{:url('achievement/saveAchievement')}", {
+                    formData: formData
+                }).then(function (response) {
+                    if(response.status) {
+                        layer.closeAll();
+                        layer.msg("保存成功！");
+                    }else {
+                        layer.msg(response.message);
+                    }
+                });
+            } else {
+                layer.msg('试卷异常:试卷试题至少要有一道题！'); // 提示框
+            }
+        });
+
+    })();
+</script>
