@@ -157,7 +157,6 @@ class Paper extends BaseController
         $question["paper_id"] = trim(input('post.paper_id'));
 
         $this->assign("question", $question);
-        
 
         return $this->fetch();
     }

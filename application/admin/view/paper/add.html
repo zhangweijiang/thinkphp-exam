@@ -1,5 +1,5 @@
 <div id="addPaperWrapper" style="width: 400px; padding-top: 15px;">
-    <form class="form-horizontal" id="addPaperForm" data-id="{$paper.id|default=''}" data-score="{$paper.score|default='0'}">
+    <form class="form-horizontal" id="addPaperForm" data-id="{$paper.id|default=''}" data-score="{$paper.score|default='100'}">
         <div class="form-group">
             <label class="col-sm-3 control-label">试卷名称 :</label>
             <div class="col-sm-9">
@@ -70,7 +70,8 @@
                 formData["pass_score"] = form.find('[name="pass_score"]').val();
                 formData["status"] = form.find('[name="status"]').val();
 
-                if(formData["pass_score"] > score) {
+
+                if(parseInt(formData["pass_score"]) > parseInt(score)) {
                     layer.msg('当前试卷总分为' + score + '分,及格分数不得高于该分数！');
                     return false;
                 }

@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 111.231.142.160
-Source Server Version : 50637
-Source Host           : 111.231.142.160:3306
+Source Server         : 127.0.0.1
+Source Server Version : 50553
+Source Host           : localhost:3306
 Source Database       : exam
 
 Target Server Type    : MYSQL
-Target Server Version : 50637
+Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2019-04-09 13:09:48
+Date: 2019-04-11 22:45:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -78,7 +78,7 @@ CREATE TABLE `exam` (
   `time` int(10) DEFAULT '0' COMMENT '考试时长',
   `is_analysis` tinyint(1) DEFAULT '1' COMMENT '是否显示答案解析',
   `is_check` tinyint(1) DEFAULT '0' COMMENT '是否人工审核',
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT ' 状态（1-未开始 2-进行中 3-已结束）',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT ' 状态（1-未开始 2-进行中 3-审卷中 4-已结束）',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `img` varchar(255) DEFAULT NULL COMMENT '图片',
@@ -86,15 +86,14 @@ CREATE TABLE `exam` (
   `score` int(10) NOT NULL DEFAULT '100' COMMENT '考试总分',
   `state` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0为禁用，1为正常',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='试卷表';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='试卷表';
 
 -- ----------------------------
 -- Records of exam
 -- ----------------------------
-INSERT INTO `exam` VALUES ('5', 'php初级工程师', '4', 'HTML/CSS', '2', '后端开发', '1', '不准作弊', '思', '2018-03-16 10:43:00', '2018-03-30 10:40:00', '60', '1', '0', '2', null, null, '20180309\\b462f7c3de8652b7467699618c88740c.jpg', '19', '100', '1');
-INSERT INTO `exam` VALUES ('6', '伟江0分', '7', 'C', '2', '后端开发', '1', '无', 'w', '2018-03-20 20:45:00', '2018-03-31 14:25:00', '45', '1', '0', '2', null, null, null, '0', '100', '1');
-INSERT INTO `exam` VALUES ('8', '计算机网络', '2', 'JavaScript', '1', '前端开发', '1', '计算机网络', '计算机网络', '2018-03-20 21:15:00', '2018-03-31 23:00:00', '120', '1', '0', '2', null, null, null, '0', '100', '1');
-INSERT INTO `exam` VALUES ('9', '计算机组成原理', '7', 'C', '2', '后端开发', '1', '暂无', '暂无', '2018-03-23 10:00:00', '2018-03-30 10:00:00', '90', '1', '0', '2', null, null, null, '0', '100', '1');
+INSERT INTO `exam` VALUES ('12', '软件设计师', '25', '计算机网络', '8', '信息管理', '4', '不准作弊', '不准作弊', '2018-04-10 05:10:00', '2018-04-30 00:00:00', '60', '1', '0', '4', null, null, '/upload/20180427\\f6ada843629301e205f7fa39899f5e19.jpg', '1', '0', '1');
+INSERT INTO `exam` VALUES ('13', '设计师', '25', '计算机网络', '8', '信息管理', '3', '不准作弊', '不准作弊', '2018-04-27 05:11:00', '2018-04-27 05:18:00', '60', '1', '1', '4', null, null, '/upload/20180427\\fd0144278b62cf75758ce7ba6a09df92.jpg', '1', '20', '1');
+INSERT INTO `exam` VALUES ('14', 'PHP攻城狮', '25', '计算机网络', '8', '信息管理', '5', '不准作弊', '线上考试', '2019-04-10 17:00:00', '2019-04-30 18:00:00', '30', '1', '1', '2', null, null, '/upload/20190411\\bf65918d1462b2670a95b09f7436cb34.jpg', '3', '100', '1');
 
 -- ----------------------------
 -- Table structure for major
@@ -134,12 +133,16 @@ CREATE TABLE `manager` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COMMENT='管理员表';
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COMMENT='管理员表';
 
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('34', 'zwj', '51a815f31d0881ceea1d98ec697366757360657f2ca221a53e0a86f20099b316', '1', null, null);
+INSERT INTO `manager` VALUES ('34', 'zwj', 'aaffebecec560fec66e75f24062224ffa4e07696d2ae9a1fee3707c3f8fd9373', '1', null, null);
+INSERT INTO `manager` VALUES ('40', 'test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', '0', null, null);
+INSERT INTO `manager` VALUES ('41', 'adb', '7e16a033d8a9e716f5572ef0b23b296050bcf72c23a67c1198b995de62701b20', '1', null, null);
+INSERT INTO `manager` VALUES ('42', '13665994204', 'd4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35', '1', null, null);
+INSERT INTO `manager` VALUES ('43', '1', 'd4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35', '1', null, null);
 
 -- ----------------------------
 -- Table structure for paper
@@ -154,22 +157,24 @@ CREATE TABLE `paper` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='试卷表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='试卷表';
 
 -- ----------------------------
 -- Records of paper
 -- ----------------------------
-INSERT INTO `paper` VALUES ('1', 'php初级考试', '100', '60', '0', null, null);
-INSERT INTO `paper` VALUES ('3', '计算机网络', '0', '50', '0', null, null);
+INSERT INTO `paper` VALUES ('3', 'php初级考试', '20', '10', '0', null, null);
+INSERT INTO `paper` VALUES ('4', 'ASP', '0', '0', '0', null, null);
+INSERT INTO `paper` VALUES ('5', 'PHP攻城狮', '100', '60', '0', null, null);
 
 -- ----------------------------
 -- Table structure for paper_question
 -- ----------------------------
 DROP TABLE IF EXISTS `paper_question`;
 CREATE TABLE `paper_question` (
-  `id` int(11) NOT NULL COMMENT '主键id',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `paper_id` int(20) DEFAULT NULL COMMENT '试卷id',
   `question_id` int(10) DEFAULT NULL COMMENT '试题id',
+  `name` varchar(300) DEFAULT NULL COMMENT '试题标题',
   `title` varchar(30) DEFAULT NULL COMMENT '试题标题',
   `type` tinyint(1) DEFAULT NULL COMMENT '试题类型（1-判断题 2-单选题 3-多选题 4-填空题 5-简答题）',
   `options` varchar(300) DEFAULT NULL COMMENT ' 试题选项（用||隔开）',
@@ -178,18 +183,17 @@ CREATE TABLE `paper_question` (
   `keyword` varchar(300) DEFAULT NULL COMMENT ' 试题关键词（简答题判分用）',
   `keyword_imp` varchar(300) DEFAULT NULL COMMENT '试题重点关键词（简答题判分用）',
   `score` float(10,1) DEFAULT '0.0' COMMENT '试题分数',
+  `order` int(10) unsigned DEFAULT '0' COMMENT '试题排序',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='试卷-试题表';
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COMMENT='试卷-试题表';
 
 -- ----------------------------
 -- Records of paper_question
 -- ----------------------------
-INSERT INTO `paper_question` VALUES ('2', '1', '2', '1+1=？', '2', '1||2||3||4', '2', '22', null, null, '10.0', null, null);
-INSERT INTO `paper_question` VALUES ('4', '1', '4', '八()仙过海，各()神通', '4', '', '仙||显', '4', null, null, '10.0', null, null);
-INSERT INTO `paper_question` VALUES ('5', '1', '5', '一加一为什么等于二', '5', null, '因为就是等于2', '55', 'aa||bb', 'cc||dd', '60.0', null, null);
-INSERT INTO `paper_question` VALUES ('6', '1', '6', '1+1=2?', '1', '正确||错误', '1', '6', null, null, '10.0', null, null);
+INSERT INTO `paper_question` VALUES ('34', '3', '53', '1+1为什么等于2', '<p>1+1为什么等于2？</p>', '1', '正确||错误', '1', '1+1=2', '', '', '20.0', '0', null, null);
+INSERT INTO `paper_question` VALUES ('35', '5', '54', '1+1=2？', '<p>1+1=2？<br></p>', '1', '正确||错误', '1', '1', '', '', '100.0', '0', null, null);
 
 -- ----------------------------
 -- Table structure for question
@@ -211,7 +215,7 @@ CREATE TABLE `question` (
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   `order` int(10) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='试题表';
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COMMENT='试题表';
 
 -- ----------------------------
 -- Records of question
@@ -219,9 +223,49 @@ CREATE TABLE `question` (
 INSERT INTO `question` VALUES ('1', '1+1=2', '1', '<p>1+1=2<img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABaAAAAJECAYAAADg0oPSAAAACXBIWXMAAAsTAAALEwEAmpwYAAAKTWlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjanVN3WJP3Fj7f92UPVkLY8LGXbIEAIiOsCMgQWaIQkgBhhBASQMWFiApWFBURnEhVxILVCkidiOKgKLhnQYqIWotVXDjuH9yntX167+3t+9f7vOec5/zOec8PgBESJpHmomoAOVKFPDrYH49PSMTJvYACFUjgBCAQ5svCZwXFAADwA3l4fnSwP/wBr28AAgBw1S4kEsfh/4O6UCZXACCRAOAiEucLAZBSAMguVMgUAMgYALBTs2QKAJQAAGx5fEIiAKoNAOz0ST4FANipk9wXANiiHKkIAI0BAJkoRyQCQLsAYFWBUiwCwMIAoKxAIi4EwK4BgFm2MkcCgL0FAHaOWJAP', '无', '正确||错误', '1', '', '', '1', '10', null, null, '1');
 INSERT INTO `question` VALUES ('2', '试题1', '1', '1+1=？', '无', '正确||错误', '2', '', '', '1', '10', null, null, '0');
 INSERT INTO `question` VALUES ('3', '下列哪些是奇数?', '3', '下列哪些是奇数?', '11', '11||22||33||44', '1||4', '', '', '1', '10', null, null, '2');
-INSERT INTO `question` VALUES ('5', '1+1为什么等于2？', '5', '<p>1+1为什么等于2？<img style=\"width: 295.039px; height: 166px;\" src=\"/upload/20180326\\1cb1c939bf7f90a3aa8fe14017c5cfa5.jpg\"></p>', '无', '', '', '', '', '1', '0', null, null, '1');
+INSERT INTO `question` VALUES ('5', '1+1为什么等于2？', '5', '1+1为什么等于2？', '无', '', '', '', '', '1', '0', null, null, '1');
 INSERT INTO `question` VALUES ('12', '12', '2', '<p>12</p>', '3', '1||2||3||4', '3', '', '', '1', '1', null, null, '1');
-INSERT INTO `question` VALUES ('13', '你自己牛逼吗', '4', '你自己牛逼吗<p></p>', '你不牛逼你过意得去吗，你心不痛吗', '', '', '', '', null, '100', null, null, '1');
+INSERT INTO `question` VALUES ('13', '你自己牛逼吗', '4', '<p>你自己牛逼吗<br></p>', '你不牛逼你过意得去吗，你心不痛吗', 'ads||as', 'ads||as', '', '', null, '100', null, null, '1');
+INSERT INTO `question` VALUES ('15', '下列哪些是奇数?', '3', '下列哪些是奇数?', '', '11||22||33||44', '11||44', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('16', '下列哪些是奇数?', '3', '<p><span style=\"color: rgb(80, 80, 80); font-family: OpenSans, Helvetica, Arial, sans-serif; font-size: 12px; white-space: pre;\">下列哪些是奇数?</span><br></p>', '无', '11||22||33||44', '1||4', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('17', '下列哪些是奇数?', '2', '<p><span style=\"color: rgb(80, 80, 80); font-family: OpenSans, Helvetica, Arial, sans-serif; font-size: 12px; white-space: pre-wrap;\">下列哪些是奇数?</span><br></p>', '无', '11||22||33||44', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('18', '下列哪些是奇数?', '2', '<p><span style=\"color: rgb(80, 80, 80); font-family: OpenSans, Helvetica, Arial, sans-serif; font-size: 12px; white-space: pre-wrap;\">下列哪些是奇数?</span><br></p>', '无', '11||22||33||44', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('19', '下列哪些是奇数?', '2', '<p><span style=\"color: rgb(80, 80, 80); font-family: OpenSans, Helvetica, Arial, sans-serif; font-size: 12px; white-space: pre-wrap;\">下列哪些是奇数?</span><br></p>', '无', '11||22||33||44', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('20', '下列哪些是奇数?', '2', '<p><span style=\"color: rgb(80, 80, 80); font-family: OpenSans, Helvetica, Arial, sans-serif; font-size: 12px; white-space: pre-wrap;\">下列哪些是奇数?</span><br></p>', '无', '11||22||33||44', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('21', '下列哪些是奇数?', '2', '<p><span style=\"color: rgb(80, 80, 80); font-family: OpenSans, Helvetica, Arial, sans-serif; font-size: 12px; white-space: pre-wrap;\">下列哪些是奇数?</span><br></p>', '无', '11||22||33||44', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('22', '下列哪些是奇数?', '2', '<p><span style=\"color: rgb(80, 80, 80); font-family: OpenSans, Helvetica, Arial, sans-serif; font-size: 12px; white-space: pre-wrap;\">下列哪些是奇数?</span><br></p>', '无', '11||22||33||44', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('23', '下列哪些是奇数?', '2', '<p><span style=\"color: rgb(80, 80, 80); font-family: OpenSans, Helvetica, Arial, sans-serif; font-size: 12px; white-space: pre-wrap;\">下列哪些是奇数?</span><br></p>', '无', '11||22||33||44', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('24', '下列哪些是奇数?', '3', '下列哪些是奇数?', '', '11||22||33||44', '11||44', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('25', '下列哪些是奇数?', '3', '下列哪些是奇数?', '', '11||22||33||44', '11||44', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('26', '下列哪些是奇数?', '3', '下列哪些是奇数?', '', '11||22||33||44', '11||44', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('27', '下列哪些是奇数?', '3', '下列哪些是奇数?', '', '11||22||33||44', '11||44', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('28', '下列哪些是奇数?', '2', '<p><span style=\"color: rgb(80, 80, 80); font-family: OpenSans, Helvetica, Arial, sans-serif; font-size: 12px; white-space: pre-wrap;\">下列哪些是奇数?</span><br></p>', '无', '11||22||33||44', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('29', '下列哪些是奇数?', '1', '<p><span style=\"color: rgb(80, 80, 80); font-family: OpenSans, Helvetica, Arial, sans-serif; font-size: 12px; white-space: pre-wrap;\">下列哪些是奇数?</span><br></p>', '无', '正确||错误', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('30', '下列哪些是奇数?', '1', '<p><span style=\"color: rgb(80, 80, 80); font-family: OpenSans, Helvetica, Arial, sans-serif; font-size: 12px; white-space: pre-wrap;\">下列哪些是奇数?</span><br></p>', '1', '正确||错误', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('31', '下列哪些是奇数?', '1', '<p><span style=\"color: rgb(80, 80, 80); font-family: OpenSans, Helvetica, Arial, sans-serif; font-size: 12px; white-space: pre-wrap;\">下列哪些是奇数?</span><br></p>', '1', '正确||错误', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('32', '下列哪些是奇数?', '1', '<p><span style=\"color: rgb(80, 80, 80); font-family: OpenSans, Helvetica, Arial, sans-serif; font-size: 12px; white-space: pre-wrap;\">下列哪些是奇数?</span><br></p>', '1', '正确||错误', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('33', '1+1=2', '1', '<p>1+1=2<br></p>', '无', '正确||错误', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('34', '1+1=2', '1', '<p>1+1=2<br></p>', '1+1=2', '正确||错误', '2', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('35', '1+1=2', '2', '<p>1+1=2<br></p>', '1+1=2', '1||2||3||4', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('36', '1+1=2', '1', '<p>1+1=2<br></p>', '1+1=2', '正确||错误', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('37', '1+1=2', '1', '<p>1+1=2<br></p>', '1+1=2', '正确||错误', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('38', '1+1=3', '1', '<p>1+1=3<br></p>', '1+1=3', '正确||错误', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('39', '1+1=4', '1', '<p>1+1=4<br></p>', '我', '正确||错误', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('40', '1+1=4', '1', '<p>1+1=4<br></p>', '1+1=4', '正确||错误', '2', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('41', '1+1=4', '1', '<p>1+1=4<br></p>', '1+1=4', '正确||错误', '2', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('42', '1+1=2', '1', '<p>1+1=2<br></p>', '1+1=2', '正确||错误', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('43', '1+1 = 2', '1', '<p>1+1 = 2<br></p>', '1+1 = 2', '正确||错误', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('44', '1+1=3', '1', '<p>1+1=3<br></p>', '1+1=3', '正确||错误', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('45', '1+12', '2', '<p>1+12<br></p>', '1+12', '11||22||33||44', '1', '', '', null, '20', null, null, '0');
+INSERT INTO `question` VALUES ('46', '1+22', '1', '<p>1+22<br></p>', '1+22', '正确||错误', '2', '', '', null, '5', null, null, '0');
+INSERT INTO `question` VALUES ('47', '1+1=2', '1', '<p>1+22<br></p>', '1+22', '正确||错误', '1', '', '', null, '5', null, null, '0');
+INSERT INTO `question` VALUES ('48', '1+1=？', '2', '<p>1+1=？<br></p>', '1+1=2', '1||2||3||4', '2', '', '', null, '5', null, null, '0');
+INSERT INTO `question` VALUES ('49', '1+1 =', '3', '<p>1+1 =&nbsp;<br></p>', '无', '2||3||4||5', '1||3', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('50', '1+1', '4', '<p>1+1&nbsp;&nbsp;&nbsp;&nbsp;</p>', '0', '2||3', '2||3', '', '', null, '5', null, null, '0');
+INSERT INTO `question` VALUES ('51', '1+1', '3', '<p>1+1</p>', '是', '2||3||4||5', '1||3', '', '', null, '5', null, null, '0');
+INSERT INTO `question` VALUES ('52', '1+2=3', '4', '<p>1+2=3<br></p>', 'wu', '2222||3333', '2222||3333', '', '', null, '5', null, null, '0');
+INSERT INTO `question` VALUES ('53', '1+1为什么等于2？', '1', '<p>1+1为什么等于2？</p>', '1+1=2', '正确||错误', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('54', '1+1=2？', '1', '<p>1+1=2？<br></p>', '1', '正确||错误', '1', '', '', null, '100', null, null, '0');
 
 -- ----------------------------
 -- Table structure for user
@@ -243,42 +287,21 @@ CREATE TABLE `user` (
   `desc` varchar(500) DEFAULT NULL COMMENT '描述',
   `email` varchar(50) DEFAULT NULL COMMENT '邮箱地址',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8 COMMENT='考生表';
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COMMENT='考生表';
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('22', '酱油党', '酱油党', '231321', '1', '2017-04-15 00:00:00', '0', '13665994204', '1', '2018-03-08 11:00:00', '2018-03-10 01:00:00', '/upload/20190321/76a991ccd6b7e8242aac059f8e2b5b81.jpg', '名', 'hacker@hacker.net');
+INSERT INTO `user` VALUES ('22', '张先生', '张某某', 'aaffebecec560fec66e75f24062224ffa4e07696d2ae9a1fee3707c3f8fd9373', '1', '2017-04-15 00:00:00', '0', '13665994204', '1', '2018-03-08 11:00:00', '2018-03-10 01:00:00', '/upload/20180309\\8e8125942bdcd13f16480bb6689301eb.png', '名', null);
 INSERT INTO `user` VALUES ('25', 'aaa', '张大师', 'aaffebecec560fec66e75f24062224ffa4e07696d2ae9a1fee3707c3f8fd9373', null, null, '0', null, '1', '2018-03-10 02:02:31', null, null, null, null);
-INSERT INTO `user` VALUES ('26', 'admin', '管理员', 'admin888', '2', '2017-04-06 00:00:00', '0', '18000000000', '1', '2018-03-10 06:33:22', '2018-04-26 15:08:38', '/upload/20180322\\ae4399a2336cf9dcc4964df64717878b.jpg', '', '1561302459@qq.com');
+INSERT INTO `user` VALUES ('26', 'admin', '管理员', '0d81684688d4057da4d9f6df64b28154b68afc2f1946a756302613c92fdd4986', '2', '2017-04-06 00:00:00', '0', '123', '1', '2018-03-10 06:33:22', '2018-04-26 15:08:38', '/upload/20180322\\ae4399a2336cf9dcc4964df64717878b.jpg', '', '1561302459@qq.com');
 INSERT INTO `user` VALUES ('27', 'hyb', '何艺宝', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', null, null, '0', null, '1', '2018-03-16 09:30:47', null, null, null, null);
 INSERT INTO `user` VALUES ('28', 'yjt', '严净汀', '19de6b5645734410950bbaaddc92e87df7e1ee9824ec959f4fa16ec3f4fcc6e2', null, null, '0', null, '1', '2018-03-16 09:34:49', null, null, null, null);
-INSERT INTO `user` VALUES ('29', 'zwj', '13665994204', '51a815f31d0881ceea1d98ec697366757360657f2ca221a53e0a86f20099b316', null, null, '0', null, '1', '2018-03-19 14:44:49', null, null, null, null);
+INSERT INTO `user` VALUES ('29', 'zwj', '13665994204', '0db533b171518482d345d3315d2d5951550b19927dfda99b734d3d4a185786c6', null, null, '0', null, '1', '2018-03-19 14:44:49', null, null, null, null);
 INSERT INTO `user` VALUES ('30', '', 'hbz', '60a37c69716b54c33dffc94cbcd14569cd588fd5b97775209fc9375053bab1a7', null, null, '0', null, '1', '2018-03-20 20:37:15', null, null, null, null);
 INSERT INTO `user` VALUES ('36', 'hades', 'hades', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1', null, '0', null, '1', '2018-03-29 11:08:56', null, null, null, null);
 INSERT INTO `user` VALUES ('37', 'hjl', 'hjl', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1', null, '0', null, '1', '2018-03-29 11:09:11', null, null, null, null);
 INSERT INTO `user` VALUES ('38', 'cdn', 'cdn', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2018-03-29 11:10:08', null, null, null, null);
-INSERT INTO `user` VALUES ('39', 'qq', 'qq', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-01-01 14:17:20', null, null, null, null);
-INSERT INTO `user` VALUES ('40', 'suiky', 'suiky', '1b4c9133da73a711322404314402765ab0d23fd362a167d6f0c65bb215113d94', '1', null, '0', null, '1', '2019-01-06 23:51:04', null, null, null, null);
-INSERT INTO `user` VALUES ('41', 'aaaaa', 'aaaaa', 'ed02457b5c41d964dbd2f2a609d63fe1bb7528dbe55e1abf5b52c249cd735797', '1', null, '0', null, '1', '2019-01-09 16:17:13', null, '20190109/e843ff1577049c6e99e9cf18bfcaa1ee.jpg', null, null);
-INSERT INTO `user` VALUES ('42', 'admin123', 'admin123', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', '1', null, '0', null, '1', '2019-01-12 17:17:09', null, null, null, null);
-INSERT INTO `user` VALUES ('43', '123456', 'Jax', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-01-14 16:44:58', null, null, null, null);
-INSERT INTO `user` VALUES ('44', '222', 'liuliu', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-01-25 10:03:29', null, null, null, null);
-INSERT INTO `user` VALUES ('45', 'root', 'root', 'e14cb9e5c0eeee0ea313a4e04fbd10aa17ac17aa33a3cad4bdfe74b87ca18ef8', '1', null, '0', null, '1', '2019-02-23 00:11:04', null, null, null, null);
-INSERT INTO `user` VALUES ('46', 'fkfkfk', 'fkfkfk', 'dd0e116d48d677f3fa6e7f885d35022d472bb5bba0d75a22f72df62d523ae3f3', '1', null, '0', null, '1', '2019-02-24 00:16:06', null, null, null, null);
-INSERT INTO `user` VALUES ('47', 'de', 'ldd', '96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e', '1', null, '0', null, '1', '2019-03-04 10:45:55', null, null, null, null);
-INSERT INTO `user` VALUES ('48', 'test', 'test', '85fd7c889f71cf105375595cddc06b9d38fc562cb69c54f8c165aa751d81b3d9', '1', null, '0', null, '1', '2019-03-05 16:32:51', null, null, null, null);
-INSERT INTO `user` VALUES ('49', 'zj', '123456', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-03-08 11:17:01', null, null, null, null);
-INSERT INTO `user` VALUES ('50', 'test1111', 'test1111', 'ff966b1eff052fd37622d1442e6612c02c06621268c19c3d55af000128465866', '1', null, '0', null, '1', '2019-03-13 08:22:44', null, null, null, null);
-INSERT INTO `user` VALUES ('51', 'hacker', 'hacker1', 'e7d3685715939842749cc27b38d0ccb9706d4d14a5304ef9eee093780eab5df9', '2', '2019-03-21 00:00:00', '0', '13544489652', '1', null, null, '/upload/20190321/04119127995ca3a4c9a292187888f6bc.jpg', null, 'haceker@hacker.net');
-INSERT INTO `user` VALUES ('52', 'opal', '虎皮', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-03-21 15:35:44', null, null, null, null);
-INSERT INTO `user` VALUES ('53', 'fzkqwlt9', 'fzkqwlt9', '28e186d9bb7817720fc9d9da51fcfd23060f41976963def830fdc91e57c9ac17', '1', null, '0', null, '1', '2019-03-25 15:02:17', null, null, null, null);
-INSERT INTO `user` VALUES ('54', '15540033333', '15540033333', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-03-26 10:09:22', null, null, null, null);
-INSERT INTO `user` VALUES ('55', '1111', '1111', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a', '1', null, '0', null, '1', '2019-03-26 18:16:26', null, null, null, null);
-INSERT INTO `user` VALUES ('56', 'zrt43824870', 'kane33', 'e74fdfc08a456bf3167f79f3befef3dbe65f47e061d9ce86c581bf509a223f80', '1', null, '0', null, '1', '2019-03-29 23:12:02', null, null, null, null);
-INSERT INTO `user` VALUES ('57', 'qwe', 'qwe', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-03-31 12:36:43', null, null, null, null);
-INSERT INTO `user` VALUES ('58', 'hbh112233abc', 'hbh112233abc', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-04-02 14:31:45', null, null, null, null);
-INSERT INTO `user` VALUES ('59', 'wfd', '我都', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '1', null, '0', null, '1', '2019-04-03 11:44:29', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for user_exam
@@ -291,19 +314,18 @@ CREATE TABLE `user_exam` (
   `exam_id` int(20) DEFAULT NULL COMMENT '考试id',
   `exam_time` datetime DEFAULT NULL COMMENT '考试开始时间',
   `score` int(10) NOT NULL DEFAULT '0' COMMENT '考试成绩',
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态（未报名则无记录，1-已报名 2-考试中 3-考试完成 4-缺考）',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态（未报名则无记录，1-已报名 2-考试中 3-考试完成 4-缺考 5-批改完成）',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `pass` tinyint(1) DEFAULT '0' COMMENT '是否通过,1通过,0未通过',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='考试-考试表';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='考试-考试表';
 
 -- ----------------------------
 -- Records of user_exam
 -- ----------------------------
-INSERT INTO `user_exam` VALUES ('1', '22', '张先生', '5', '2018-03-13 11:00:00', '100', '3', '2018-03-13 09:30:45', '1');
-INSERT INTO `user_exam` VALUES ('3', '28', 'yjt', '5', '2018-03-16 09:40:00', '0', '3', '2018-03-16 09:39:38', '0');
-INSERT INTO `user_exam` VALUES ('5', '26', 'admin', '5', '2018-03-16 10:43:00', '0', '3', '2018-03-16 10:42:43', '0');
-INSERT INTO `user_exam` VALUES ('6', '26', 'admin', '7', '2018-03-21 13:20:00', '0', '1', '2018-03-20 21:50:41', '0');
+INSERT INTO `user_exam` VALUES ('10', '26', 'admin', '12', '2018-04-27 05:10:38', '20', '5', '2018-04-27 05:09:38', '1');
+INSERT INTO `user_exam` VALUES ('11', '26', 'admin', '13', '2018-04-27 05:15:31', '60', '3', '2018-04-27 05:10:34', '1');
+INSERT INTO `user_exam` VALUES ('14', '29', 'zwj', '14', null, '0', '3', '2019-04-11 22:25:49', '0');
 
 -- ----------------------------
 -- Table structure for user_question
@@ -313,6 +335,7 @@ CREATE TABLE `user_question` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `user_id` int(10) DEFAULT NULL COMMENT '考生id',
   `exam_id` int(20) DEFAULT NULL COMMENT '试卷id',
+  `name` varchar(300) DEFAULT NULL COMMENT '试题名称',
   `title` varchar(500) DEFAULT NULL COMMENT '题目',
   `type` tinyint(1) DEFAULT NULL COMMENT '试题类型（1-判断题 2-单选题 3-多选题 4-填空题 5-简答题）',
   `options` varchar(500) DEFAULT NULL COMMENT '试题选项（用||隔开）',
@@ -320,49 +343,31 @@ CREATE TABLE `user_question` (
   `analysis` varchar(500) DEFAULT NULL COMMENT '试题解析',
   `keyword` varchar(300) DEFAULT NULL COMMENT '试题关键词（简答题判分用',
   `keyword_imp` varchar(300) DEFAULT NULL COMMENT '试题重点关键词（简答题判分用）',
+  `final_score` int(10) unsigned DEFAULT '0' COMMENT '最终成绩',
+  `order` int(10) unsigned DEFAULT '0' COMMENT '排序',
   `score` int(10) DEFAULT '0' COMMENT '试题分数',
   `user_question_answer` varchar(300) DEFAULT NULL COMMENT '考生回答试题答案',
   `user_score` int(10) DEFAULT '0' COMMENT '考生得到分数',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='考试-试题表';
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COMMENT='考试-试题表';
 
 -- ----------------------------
 -- Records of user_question
 -- ----------------------------
-INSERT INTO `user_question` VALUES ('1', null, null, '1+1=2?', '1', null, '1', '6', null, null, '10', '1', '10', null, null);
-INSERT INTO `user_question` VALUES ('2', null, null, '1+1=？', '2', null, '2', '22', null, null, '10', '2', '10', null, null);
-INSERT INTO `user_question` VALUES ('3', null, null, '下列哪些是奇数', '3', null, '1||3', '33', null, null, '10', '1||3', '10', null, null);
-INSERT INTO `user_question` VALUES ('4', null, null, '八()仙过海，各()神通', '4', null, '仙||显', '4', null, null, '10', '仙||显', '10', null, null);
-INSERT INTO `user_question` VALUES ('5', null, null, '一加一为什么等于二', '5', null, '因为就是等于2', '55', 'aa||bb', 'cc||dd', '60', 'aabbccdd', '60', null, null);
-INSERT INTO `user_question` VALUES ('6', null, null, '1+1=2?', '1', null, '1', '6', null, null, '10', '1', '10', null, null);
-INSERT INTO `user_question` VALUES ('7', null, null, '1+1=？', '2', null, '2', '22', null, null, '10', '1', '0', null, null);
-INSERT INTO `user_question` VALUES ('8', null, null, '八()仙过海，各()神通', '4', null, '仙||显', '4', null, null, '10', '仙||显', '10', null, null);
-INSERT INTO `user_question` VALUES ('9', null, null, '一加一为什么等于二', '5', null, '因为就是等于2', '55', 'aa||bb', 'cc||dd', '60', '不知道', '0', null, null);
-INSERT INTO `user_question` VALUES ('10', null, null, '1+1=2?', '1', null, '1', '6', null, null, '10', '1', '10', null, null);
-INSERT INTO `user_question` VALUES ('11', null, null, '1+1=？', '2', null, '2', '22', null, null, '10', '2', '10', null, null);
-INSERT INTO `user_question` VALUES ('12', null, null, '八()仙过海，各()神通', '4', null, '仙||显', '4', null, null, '10', '仙||显', '10', null, null);
-INSERT INTO `user_question` VALUES ('13', null, null, '一加一为什么等于二', '5', null, '因为就是等于2', '55', 'aa||bb', 'cc||dd', '60', '你猜呀', '0', null, null);
-INSERT INTO `user_question` VALUES ('14', null, null, '1+1=2?', '1', null, '1', '6', null, null, '10', '', '0', null, null);
-INSERT INTO `user_question` VALUES ('15', null, null, '1+1=？', '2', null, '2', '22', null, null, '10', '', '0', null, null);
-INSERT INTO `user_question` VALUES ('16', null, null, '八()仙过海，各()神通', '4', null, '仙||显', '4', null, null, '10', ' || ', '0', null, null);
-INSERT INTO `user_question` VALUES ('17', null, null, '一加一为什么等于二', '5', null, '因为就是等于2', '55', 'aa||bb', 'cc||dd', '60', '', '0', null, null);
-INSERT INTO `user_question` VALUES ('18', '26', '5', '1+1=2?', '1', '正确||错误', '1', '6', null, null, '10', '', '0', '0000-00-00 00:00:00', null);
-INSERT INTO `user_question` VALUES ('19', '26', '5', '1+1=？', '2', '1||2||3||4', '2', '22', null, null, '10', '', '0', '0000-00-00 00:00:00', null);
-INSERT INTO `user_question` VALUES ('20', '26', '5', '八()仙过海，各()神通', '4', '', '仙||显', '4', null, null, '10', ' || ', '0', '0000-00-00 00:00:00', null);
-INSERT INTO `user_question` VALUES ('21', '26', '5', '一加一为什么等于二', '5', null, '因为就是等于2', '55', 'aa||bb', 'cc||dd', '60', '', '0', '0000-00-00 00:00:00', null);
-INSERT INTO `user_question` VALUES ('22', '28', '5', '1+1=2?', '1', '正确||错误', '1', '6', null, null, '10', '', '0', '0000-00-00 00:00:00', null);
-INSERT INTO `user_question` VALUES ('23', '28', '5', '1+1=？', '2', '1||2||3||4', '2', '22', null, null, '10', '', '0', '0000-00-00 00:00:00', null);
-INSERT INTO `user_question` VALUES ('24', '28', '5', '八()仙过海，各()神通', '4', '', '仙||显', '4', null, null, '10', ' || ', '0', '0000-00-00 00:00:00', null);
-INSERT INTO `user_question` VALUES ('25', '28', '5', '一加一为什么等于二', '5', null, '因为就是等于2', '55', 'aa||bb', 'cc||dd', '60', '', '0', '0000-00-00 00:00:00', null);
+INSERT INTO `user_question` VALUES ('27', '26', '12', '', '<p>1+1为什么等于2？</p>', '1', '正确||错误', '1', '1+1=2', '', '', '20', '0', '20', '1', '20', '0000-00-00 00:00:00', null);
+INSERT INTO `user_question` VALUES ('30', '26', '13', '', '<p>1+1为什么等于2？</p>', '1', '正确||错误', '1', '1+1=2', '', '', '20', '0', '20', '1', '20', '0000-00-00 00:00:00', null);
+INSERT INTO `user_question` VALUES ('31', '29', '14', '1+1为什么等于2？', '<p>1+1为什么等于2？</p>', '1', '正确||错误', '1', '1+1=2', '', '', '0', '0', '20', '1', '0', '0000-00-00 00:00:00', null);
+INSERT INTO `user_question` VALUES ('32', '29', '14', '1+1=2？', '<p>1+1=2？<br></p>', '1', '正确||错误', '1', '1', '', '', '0', '0', '100', '1', '0', '0000-00-00 00:00:00', null);
+INSERT INTO `user_question` VALUES ('33', '29', '14', '1+1=2？', '<p>1+1=2？<br></p>', '1', '正确||错误', '1', '1', '', '', '0', '0', '100', '2', '0', '0000-00-00 00:00:00', null);
 
 -- ----------------------------
 -- Procedure structure for exam_status_change
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `exam_status_change`;
 DELIMITER ;;
-CREATE DEFINER=`exam`@`%` PROCEDURE `exam_status_change`()
+CREATE DEFINER=`root`@`%` PROCEDURE `exam_status_change`()
 BEGIN
 	#Routine body goes here...
 	IF EXISTS(SELECT id
@@ -371,7 +376,7 @@ BEGIN
     THEN
       UPDATE exam
       SET `status` = 2
-      WHERE id = (
+      WHERE id in (
         SELECT *
         FROM (SELECT id
               FROM exam
@@ -384,7 +389,7 @@ BEGIN
     THEN
       UPDATE exam
       SET `status` = 4
-      WHERE id = (
+      WHERE id in (
         SELECT *
         FROM (SELECT id
               FROM exam
@@ -392,7 +397,7 @@ BEGIN
       );
 			UPDATE exam
       SET `status` = 3
-      WHERE id = (
+      WHERE id in (
         SELECT *
         FROM (SELECT id
               FROM exam
@@ -409,6 +414,6 @@ DELIMITER ;
 -- ----------------------------
 DROP EVENT IF EXISTS `change_exam_status`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` EVENT `change_exam_status` ON SCHEDULE EVERY 1 SECOND STARTS '2018-01-19 15:58:00' ON COMPLETION NOT PRESERVE ENABLE DO CALL exam_status_change()
+CREATE DEFINER=`root`@`%` EVENT `change_exam_status` ON SCHEDULE EVERY 1 SECOND STARTS '2018-01-19 15:58:00' ON COMPLETION NOT PRESERVE ENABLE DO CALL exam_status_change()
 ;;
 DELIMITER ;
