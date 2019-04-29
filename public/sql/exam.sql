@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
+Source Server         : 127.0.0.1
 Source Server Version : 50553
-Source Host           : 127.0.0.1:3306
+Source Host           : localhost:3306
 Source Database       : exam
 
 Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-04-27 19:42:06
+Date: 2019-04-11 22:45:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -86,13 +86,14 @@ CREATE TABLE `exam` (
   `score` int(10) NOT NULL DEFAULT '100' COMMENT '考试总分',
   `state` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0为禁用，1为正常',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='试卷表';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='试卷表';
 
 -- ----------------------------
 -- Records of exam
 -- ----------------------------
-INSERT INTO `exam` VALUES ('12', '软件设计师', '25', '计算机网络', '8', '信息管理', '3', '不准作弊', '不准作弊', '2018-04-27 05:10:00', '2018-04-30 00:00:00', '60', '1', '0', '2', null, null, '/upload/20180427\\f6ada843629301e205f7fa39899f5e19.jpg', '1', '20', '1');
+INSERT INTO `exam` VALUES ('12', '软件设计师', '25', '计算机网络', '8', '信息管理', '4', '不准作弊', '不准作弊', '2018-04-10 05:10:00', '2018-04-30 00:00:00', '60', '1', '0', '4', null, null, '/upload/20180427\\f6ada843629301e205f7fa39899f5e19.jpg', '1', '0', '1');
 INSERT INTO `exam` VALUES ('13', '设计师', '25', '计算机网络', '8', '信息管理', '3', '不准作弊', '不准作弊', '2018-04-27 05:11:00', '2018-04-27 05:18:00', '60', '1', '1', '4', null, null, '/upload/20180427\\fd0144278b62cf75758ce7ba6a09df92.jpg', '1', '20', '1');
+INSERT INTO `exam` VALUES ('14', 'PHP攻城狮', '25', '计算机网络', '8', '信息管理', '5', '不准作弊', '线上考试', '2019-04-10 17:00:00', '2019-04-30 18:00:00', '30', '1', '1', '2', null, null, '/upload/20190411\\bf65918d1462b2670a95b09f7436cb34.jpg', '3', '100', '1');
 
 -- ----------------------------
 -- Table structure for major
@@ -137,7 +138,7 @@ CREATE TABLE `manager` (
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('34', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1', null, null);
+INSERT INTO `manager` VALUES ('34', 'zwj', 'aaffebecec560fec66e75f24062224ffa4e07696d2ae9a1fee3707c3f8fd9373', '1', null, null);
 INSERT INTO `manager` VALUES ('40', 'test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', '0', null, null);
 INSERT INTO `manager` VALUES ('41', 'adb', '7e16a033d8a9e716f5572ef0b23b296050bcf72c23a67c1198b995de62701b20', '1', null, null);
 INSERT INTO `manager` VALUES ('42', '13665994204', 'd4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35', '1', null, null);
@@ -156,13 +157,14 @@ CREATE TABLE `paper` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='试卷表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='试卷表';
 
 -- ----------------------------
 -- Records of paper
 -- ----------------------------
 INSERT INTO `paper` VALUES ('3', 'php初级考试', '20', '10', '0', null, null);
 INSERT INTO `paper` VALUES ('4', 'ASP', '0', '0', '0', null, null);
+INSERT INTO `paper` VALUES ('5', 'PHP攻城狮', '100', '60', '0', null, null);
 
 -- ----------------------------
 -- Table structure for paper_question
@@ -185,12 +187,13 @@ CREATE TABLE `paper_question` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COMMENT='试卷-试题表';
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COMMENT='试卷-试题表';
 
 -- ----------------------------
 -- Records of paper_question
 -- ----------------------------
-INSERT INTO `paper_question` VALUES ('34', '3', '53', '1+1为什么等于2？', '<p>1+1为什么等于2？</p>', '1', '正确||错误', '1', '1+1=2', '', '', '20.0', '0', null, null);
+INSERT INTO `paper_question` VALUES ('34', '3', '53', '1+1为什么等于2', '<p>1+1为什么等于2？</p>', '1', '正确||错误', '1', '1+1=2', '', '', '20.0', '0', null, null);
+INSERT INTO `paper_question` VALUES ('35', '5', '54', '1+1=2？', '<p>1+1=2？<br></p>', '1', '正确||错误', '1', '1', '', '', '100.0', '0', null, null);
 
 -- ----------------------------
 -- Table structure for question
@@ -212,7 +215,7 @@ CREATE TABLE `question` (
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   `order` int(10) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COMMENT='试题表';
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COMMENT='试题表';
 
 -- ----------------------------
 -- Records of question
@@ -262,6 +265,7 @@ INSERT INTO `question` VALUES ('50', '1+1', '4', '<p>1+1&nbsp;&nbsp;&nbsp;&nbsp;
 INSERT INTO `question` VALUES ('51', '1+1', '3', '<p>1+1</p>', '是', '2||3||4||5', '1||3', '', '', null, '5', null, null, '0');
 INSERT INTO `question` VALUES ('52', '1+2=3', '4', '<p>1+2=3<br></p>', 'wu', '2222||3333', '2222||3333', '', '', null, '5', null, null, '0');
 INSERT INTO `question` VALUES ('53', '1+1为什么等于2？', '1', '<p>1+1为什么等于2？</p>', '1+1=2', '正确||错误', '1', '', '', null, '10', null, null, '0');
+INSERT INTO `question` VALUES ('54', '1+1=2？', '1', '<p>1+1=2？<br></p>', '1', '正确||错误', '1', '', '', null, '100', null, null, '0');
 
 -- ----------------------------
 -- Table structure for user
@@ -314,13 +318,14 @@ CREATE TABLE `user_exam` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `pass` tinyint(1) DEFAULT '0' COMMENT '是否通过,1通过,0未通过',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='考试-考试表';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='考试-考试表';
 
 -- ----------------------------
 -- Records of user_exam
 -- ----------------------------
 INSERT INTO `user_exam` VALUES ('10', '26', 'admin', '12', '2018-04-27 05:10:38', '20', '5', '2018-04-27 05:09:38', '1');
 INSERT INTO `user_exam` VALUES ('11', '26', 'admin', '13', '2018-04-27 05:15:31', '60', '3', '2018-04-27 05:10:34', '1');
+INSERT INTO `user_exam` VALUES ('14', '29', 'zwj', '14', null, '0', '3', '2019-04-11 22:25:49', '0');
 
 -- ----------------------------
 -- Table structure for user_question
@@ -346,20 +351,23 @@ CREATE TABLE `user_question` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COMMENT='考试-试题表';
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COMMENT='考试-试题表';
 
 -- ----------------------------
 -- Records of user_question
 -- ----------------------------
 INSERT INTO `user_question` VALUES ('27', '26', '12', '', '<p>1+1为什么等于2？</p>', '1', '正确||错误', '1', '1+1=2', '', '', '20', '0', '20', '1', '20', '0000-00-00 00:00:00', null);
 INSERT INTO `user_question` VALUES ('30', '26', '13', '', '<p>1+1为什么等于2？</p>', '1', '正确||错误', '1', '1+1=2', '', '', '20', '0', '20', '1', '20', '0000-00-00 00:00:00', null);
+INSERT INTO `user_question` VALUES ('31', '29', '14', '1+1为什么等于2？', '<p>1+1为什么等于2？</p>', '1', '正确||错误', '1', '1+1=2', '', '', '0', '0', '20', '1', '0', '0000-00-00 00:00:00', null);
+INSERT INTO `user_question` VALUES ('32', '29', '14', '1+1=2？', '<p>1+1=2？<br></p>', '1', '正确||错误', '1', '1', '', '', '0', '0', '100', '1', '0', '0000-00-00 00:00:00', null);
+INSERT INTO `user_question` VALUES ('33', '29', '14', '1+1=2？', '<p>1+1=2？<br></p>', '1', '正确||错误', '1', '1', '', '', '0', '0', '100', '2', '0', '0000-00-00 00:00:00', null);
 
 -- ----------------------------
 -- Procedure structure for exam_status_change
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `exam_status_change`;
 DELIMITER ;;
-CREATE DEFINER=`exam`@`%` PROCEDURE `exam_status_change`()
+CREATE DEFINER=`root`@`%` PROCEDURE `exam_status_change`()
 BEGIN
 	#Routine body goes here...
 	IF EXISTS(SELECT id
@@ -368,7 +376,7 @@ BEGIN
     THEN
       UPDATE exam
       SET `status` = 2
-      WHERE id = (
+      WHERE id in (
         SELECT *
         FROM (SELECT id
               FROM exam
@@ -381,7 +389,7 @@ BEGIN
     THEN
       UPDATE exam
       SET `status` = 4
-      WHERE id = (
+      WHERE id in (
         SELECT *
         FROM (SELECT id
               FROM exam
@@ -389,7 +397,7 @@ BEGIN
       );
 			UPDATE exam
       SET `status` = 3
-      WHERE id = (
+      WHERE id in (
         SELECT *
         FROM (SELECT id
               FROM exam
@@ -406,6 +414,6 @@ DELIMITER ;
 -- ----------------------------
 DROP EVENT IF EXISTS `change_exam_status`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` EVENT `change_exam_status` ON SCHEDULE EVERY 1 SECOND STARTS '2018-01-19 15:58:00' ON COMPLETION NOT PRESERVE ENABLE DO CALL exam_status_change()
+CREATE DEFINER=`root`@`%` EVENT `change_exam_status` ON SCHEDULE EVERY 1 SECOND STARTS '2018-01-19 15:58:00' ON COMPLETION NOT PRESERVE ENABLE DO CALL exam_status_change()
 ;;
 DELIMITER ;
