@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2019-04-11 22:45:46
+Date: 2020-04-26 12:50:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -93,7 +93,7 @@ CREATE TABLE `exam` (
 -- ----------------------------
 INSERT INTO `exam` VALUES ('12', '软件设计师', '25', '计算机网络', '8', '信息管理', '4', '不准作弊', '不准作弊', '2018-04-10 05:10:00', '2018-04-30 00:00:00', '60', '1', '0', '4', null, null, '/upload/20180427\\f6ada843629301e205f7fa39899f5e19.jpg', '1', '0', '1');
 INSERT INTO `exam` VALUES ('13', '设计师', '25', '计算机网络', '8', '信息管理', '3', '不准作弊', '不准作弊', '2018-04-27 05:11:00', '2018-04-27 05:18:00', '60', '1', '1', '4', null, null, '/upload/20180427\\fd0144278b62cf75758ce7ba6a09df92.jpg', '1', '20', '1');
-INSERT INTO `exam` VALUES ('14', 'PHP攻城狮', '25', '计算机网络', '8', '信息管理', '5', '不准作弊', '线上考试', '2019-04-10 17:00:00', '2019-04-30 18:00:00', '30', '1', '1', '2', null, null, '/upload/20190411\\bf65918d1462b2670a95b09f7436cb34.jpg', '3', '100', '1');
+INSERT INTO `exam` VALUES ('14', 'PHP攻城狮', '25', '计算机网络', '8', '信息管理', '5', '不准作弊', '线上考试', '2020-04-25 17:00:00', '2021-04-30 18:00:00', '30', '1', '1', '2', null, null, '/upload/20190411\\bf65918d1462b2670a95b09f7436cb34.jpg', '4', '100', '1');
 
 -- ----------------------------
 -- Table structure for major
@@ -138,7 +138,7 @@ CREATE TABLE `manager` (
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('34', 'zwj', 'aaffebecec560fec66e75f24062224ffa4e07696d2ae9a1fee3707c3f8fd9373', '1', null, null);
+INSERT INTO `manager` VALUES ('34', 'admin', 'aaffebecec560fec66e75f24062224ffa4e07696d2ae9a1fee3707c3f8fd9373', '1', null, null);
 INSERT INTO `manager` VALUES ('40', 'test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', '0', null, null);
 INSERT INTO `manager` VALUES ('41', 'adb', '7e16a033d8a9e716f5572ef0b23b296050bcf72c23a67c1198b995de62701b20', '1', null, null);
 INSERT INTO `manager` VALUES ('42', '13665994204', 'd4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35', '1', null, null);
@@ -318,14 +318,12 @@ CREATE TABLE `user_exam` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `pass` tinyint(1) DEFAULT '0' COMMENT '是否通过,1通过,0未通过',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='考试-考试表';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='考试-考试表';
 
 -- ----------------------------
 -- Records of user_exam
 -- ----------------------------
-INSERT INTO `user_exam` VALUES ('10', '26', 'admin', '12', '2018-04-27 05:10:38', '20', '5', '2018-04-27 05:09:38', '1');
-INSERT INTO `user_exam` VALUES ('11', '26', 'admin', '13', '2018-04-27 05:15:31', '60', '3', '2018-04-27 05:10:34', '1');
-INSERT INTO `user_exam` VALUES ('14', '29', 'zwj', '14', null, '0', '3', '2019-04-11 22:25:49', '0');
+INSERT INTO `user_exam` VALUES ('15', '29', 'zwj', '14', '2020-04-26 12:40:54', '0', '1', '2020-04-26 12:33:36', '0');
 
 -- ----------------------------
 -- Table structure for user_question
@@ -367,7 +365,7 @@ INSERT INTO `user_question` VALUES ('33', '29', '14', '1+1=2？', '<p>1+1=2？<b
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `exam_status_change`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `exam_status_change`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `exam_status_change`()
 BEGIN
 	#Routine body goes here...
 	IF EXISTS(SELECT id
@@ -414,6 +412,6 @@ DELIMITER ;
 -- ----------------------------
 DROP EVENT IF EXISTS `change_exam_status`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` EVENT `change_exam_status` ON SCHEDULE EVERY 1 SECOND STARTS '2018-01-19 15:58:00' ON COMPLETION NOT PRESERVE ENABLE DO CALL exam_status_change()
+CREATE DEFINER=`root`@`localhost` EVENT `change_exam_status` ON SCHEDULE EVERY 1 SECOND STARTS '2018-01-19 15:58:00' ON COMPLETION NOT PRESERVE ENABLE DO CALL exam_status_change()
 ;;
 DELIMITER ;
