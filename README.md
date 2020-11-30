@@ -13,8 +13,8 @@
 ##使用说明
 *   根目录配置到thinkphp-exam/public/下
 *   新建一个数据库exam,将thinkphp-exam/data/exam.sql导入到数据库中
-*   修改thinkphp-exam/application/database.php的配置，默认数据库账号：root,密码:root,数据库：house
-*   后台访问地址：http://域名地址/admin 账号:zwj 密码:admin888
+*   修改thinkphp-exam/application/database.php的配置，默认数据库账号：root,密码:root,数据库：exam
+*   后台访问地址：http://域名地址/admin 账号:admin 密码:admin888
 *   如果喜欢我的项目请给我一个星哦，q(≧▽≦q)
 
 
@@ -184,3 +184,5 @@ ThinkPHP® 商标和著作权所有者为上海顶想信息科技有限公司。
 │  │  ├─Reservations.php        预约看房列表
 │  │  ├─SellingHouse.php        房屋出售列表
 
+
+~~~
