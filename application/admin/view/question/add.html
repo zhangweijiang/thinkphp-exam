@@ -115,6 +115,21 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-sm-3 control-label">专业/课程 :</label>
+            <div class="col-sm-9">
+                <select id="majorSelector" name="major_id" style="width: 160px" class="btn-group">
+                    {foreach name="majors" item="vo"}
+                    <option value="{$vo.id}" {if condition="isset($question) && $question.major_id == $vo['id']" } selected="selected" {/if}>{$vo.name}</option>
+                    {/foreach}
+                </select>
+                <select id="courseSelector" name="course_id" style="width: 160px">
+                    {foreach name="courses" item="vo"}
+                    <option value="{$vo.id}" {if condition="isset($question) && $question.course_id == $vo['id']" } selected="selected" {/if}>{$vo.name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-sm-3 control-label">试题题目 :</label>
             <div class="col-sm-9">
                 <!--<input type="text" class="form-control" placeholder="试题题目" name="title" value="{$question.title|default=''}"/>-->
@@ -324,6 +339,8 @@
                 formData["order"] = form.find('[name="order"]').val() || 0;
                 formData["type"] = form.find('[name="type"]').val();
                 formData["analysis"] = form.find('[name="analysis"]').val();
+                formData["major_id"] = form.find('[name="major_id"] option:checked').val();
+                formData["course_id"] = form.find('[name="course_id"] option:checked').val();
                 console.log(formData);
                 $.ajax({
                     url: url,
@@ -431,6 +448,29 @@
                 }
             });
         }
+
+
+        $('#majorSelector').SumoSelect();
+        $('#courseSelector').SumoSelect();
+        $('#majorSelector').on('change', function () {
+            var that = this,
+                id = $(that).val(), formData = {};
+            formData["major_id"] = id;
+            $.ajax({
+                url: "{:url('exam/getCourseListByMajor')}",
+                type: 'post',
+                data: formData
+            }).done(function (response) {
+                var str = "";
+                $.each(response, function (index, item) {
+                    str += '<option value="' + item.id + '">' + item.name + '</option>';
+                });
+                $('#courseSelector').html(str);
+                $('#courseSelector')[0].sumo.reload();
+            }).fail(function () {
+                console.error('请求失败！');
+            });
+        });
 
 
     })();

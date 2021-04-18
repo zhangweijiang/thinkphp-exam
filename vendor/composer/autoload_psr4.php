@@ -14,5 +14,8 @@ return array(
     'think\\captcha\\' => array($vendorDir . '/topthink/think-captcha/src'),
     'think\\' => array($baseDir . '/thinkphp/library/think', $vendorDir . '/topthink/think-image/src', $vendorDir . '/topthink/think-queue/src'),
     'app\\' => array($baseDir . '/application'),
+    'PhpOffice\\PhpWord\\' => array($vendorDir . '/phpoffice/phpword/src/PhpWord'),
     'Phinx\\' => array($vendorDir . '/topthink/think-migration/phinx/src/Phinx'),
+    'Laminas\\ZendFrameworkBridge\\' => array($vendorDir . '/laminas/laminas-zendframework-bridge/src'),
+    'Laminas\\Escaper\\' => array($vendorDir . '/laminas/laminas-escaper/src'),
 );

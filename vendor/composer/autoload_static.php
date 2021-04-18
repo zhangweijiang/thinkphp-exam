@@ -7,10 +7,11 @@ namespace Composer\Autoload;
 class ComposerStaticInitc94282066b37db717bd33a803010a46a
 {
     public static $files = array (
+        '7e9bd612cc444b3eed788ebbe46263a0' => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src/autoload.php',
         '9b552a3cc426e3287cc811caefa3cf53' => __DIR__ . '/..' . '/topthink/think-helper/src/helper.php',
         '1cfd2761b63b0a29ed23657ea394cb2d' => __DIR__ . '/..' . '/topthink/think-captcha/src/helper.php',
-        'cc56288302d9df745d97c934d6a6e5f0' => __DIR__ . '/..' . '/topthink/think-queue/src/common.php',
         'ddc3cd2a04224f9638c5d0de6a69c7e3' => __DIR__ . '/..' . '/topthink/think-migration/src/config.php',
+        'cc56288302d9df745d97c934d6a6e5f0' => __DIR__ . '/..' . '/topthink/think-queue/src/common.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -30,7 +31,13 @@ class ComposerStaticInitc94282066b37db717bd33a803010a46a
         ),
         'P' => 
         array (
+            'PhpOffice\\PhpWord\\' => 18,
             'Phinx\\' => 6,
+        ),
+        'L' => 
+        array (
+            'Laminas\\ZendFrameworkBridge\\' => 28,
+            'Laminas\\Escaper\\' => 16,
         ),
     );
 
@@ -69,9 +76,21 @@ class ComposerStaticInitc94282066b37db717bd33a803010a46a
         array (
             0 => __DIR__ . '/../..' . '/application',
         ),
+        'PhpOffice\\PhpWord\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/phpword/src/PhpWord',
+        ),
         'Phinx\\' => 
         array (
             0 => __DIR__ . '/..' . '/topthink/think-migration/phinx/src/Phinx',
+        ),
+        'Laminas\\ZendFrameworkBridge\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src',
+        ),
+        'Laminas\\Escaper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laminas/laminas-escaper/src',
         ),
     );
 

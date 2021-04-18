@@ -8,7 +8,10 @@
 
 namespace app\admin\controller;
 
+use app\api\controller\CourseApi;
+use app\api\controller\MajorApi;
 use app\api\controller\QuestionApi;
+use think\Collection;
 
 class Question extends BaseController
 {
@@ -36,9 +39,41 @@ class Question extends BaseController
 
         // 获取数据库中所有试题信息
         $list = $QuestionApi->getQuestionList();
-
+        $courseApi = new CourseApi();
+        $majorApi = new MajorApi();
+        $list = $list->getData();
+        foreach($list as &$val){
+            if(!empty($val['major_id'])){
+                $val['major'] = $majorApi->getMajor($val['major_id'])['name'];
+            }else{
+                $val['major'] = '无';
+            }
+            if(!empty($val['course_id'])){
+                $val['course'] = $courseApi->getCourse($val['course_id'])['name'];
+            }else{
+                $val['course'] = '无';
+            }
+        }
         // 返回数据
-        return $list;
+        return json($list);
+    }
+
+    /**
+     * 专业/课程
+     * @return mixed
+     */
+    public function major_course(){
+        // 分别创建专业、课程和试卷API接口的实例
+        $majorApi = new MajorApi();
+        $courseApi = new CourseApi();
+
+        // 获取所有的试卷信息，获取所有专业信息，根据列表第一条专业的ID获取课程信息
+        $majors = $majorApi->getMajorList();
+        $course = $courseApi->getCourseListByMajor($majors[0]['id']);
+
+        // 将获取的数据分别定义majors、courses、papers的模板变量
+        $this->assign('majors', $majors);
+        $this->assign('courses', $course);
     }
 
     /**
@@ -47,7 +82,7 @@ class Question extends BaseController
      */
     public function add()
     {
-        // 返回模板视图
+        $this->major_course();
         return $this->fetch();
     }
 
@@ -71,6 +106,8 @@ class Question extends BaseController
         $question["order"] = trim(input('post.order'));
         $question["type"] = trim(input('post.type'));
         $question["analysis"] = trim(input('post.analysis'));
+        $question["major_id"] = trim(input('post.major_id'));
+        $question["course_id"] = trim(input('post.course_id'));
 
         // 向数据库新增试题信息
         $response = $QuestionApi->addQuestion($question);
@@ -118,6 +155,16 @@ class Question extends BaseController
         // 定义question模板变量，用于在模板视图中展示数据
         $this->assign('question', $question);
 
+        // 获取专业和课程信息
+        $courseApi = new CourseApi();
+        $majorApi = new MajorApi();
+        $majors = $majorApi->getMajorList();
+        $course = $courseApi->getCourseListByMajor($question['major_id']);
+
+        // 定义majors、courses、exam和papers模板变量，传输到模板视图中
+        $this->assign('majors', $majors);
+        $this->assign('courses', $course);
+
         // 返回当前控制器对应的模板视图add.html
         return $this->fetch('add');
     }
@@ -145,6 +192,8 @@ class Question extends BaseController
         $question["order"] = trim(input('post.order'));
         $question["type"] = trim(input('post.type'));
         $question["analysis"] = trim(input('post.analysis'));
+        $question["course_id"] = trim(input('post.course_id'));
+        $question["major_id"] = trim(input('post.major_id'));
 
         // 更新数据库中对应的试题信息
         $response = $QuestionApi->updateQuestion($question);

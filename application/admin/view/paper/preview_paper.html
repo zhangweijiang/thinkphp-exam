@@ -1,0 +1,61 @@
+<div class="row" style="margin:20px 20px;padding:0px;">
+    <div class="content">
+        <style>
+            .testitem-item{
+                border-radius: 3px;
+                background: #ffffff;
+                border:1px solid #d2d6de;
+                margin-bottom: 20px;
+                width: 100%;
+                padding:30px;
+                box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            }
+            .testitem-item .testitem__title{
+                font-size:16px;
+                font-weight:600;
+                margin-bottom:30px;
+            }
+            .testitem-item .testitem__content{
+                margin-bottom:30px;
+                overflow:hidden;
+            }
+            .testitem-item .testitem__content img{
+                max-width:100% !important;
+            }
+            .testitem-item .testitem__values{
+                margin-bottom:30px;
+            }
+            .testitem-item  .testitem__answer{
+                background-color:#ecf0f5;
+                padding:20px;
+            }
+        </style>
+        <div class="row" style="margin:0px;padding:0px;">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header" style="padding:10px;font-size:16px;">
+                        试卷：{$paper_name}			</div>
+                    <div class="box-body">
+                        {foreach $paperQuestion as $key=>$val}
+                        <div class="testitem-item">
+                            <div class="testitem__title">{$key+1}、 ({$val.type_name}) {$val.name} （{$val.score}分）</div>
+                            <!--<div class="testitem__content">{$val.title}</div>-->
+                            {if !empty($val['options'])}
+                            <div class="testitem__values">
+                                {foreach $val['options'] as $v}
+                                <p>{$v}</p>
+                                {/foreach}
+                            </div>
+                            {/if}
+                            <div class="testitem__answer">
+                                {if !empty($val.answer)}正确答案：{$val.answer} &nbsp;&nbsp;&nbsp;&nbsp;{/if}
+                                答案解析：{$val['analysis']}
+                            </div>
+                        </div>
+                    {/foreach}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -71,10 +71,11 @@ class ExamInfo extends BaseController
 
             return $response;
         }
-
+        $exam = $ExamApi->getExam($id);
         $data['id'] = $id;//考试id
         $data['user_id'] = session('user')['id'];  //考生id
         $data['username'] =  session('user')['username']; //考生姓名
+        $data['time'] = $exam['time'];
         //调用$ExamApi实例的signUp生成考试对应的考试-试卷表的信息，并且考试表的报名考生人数加一
         $response = $ExamApi->signUp($data);
 

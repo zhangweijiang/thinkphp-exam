@@ -45,16 +45,20 @@
                     title: 'ID', data: 'id', visible: true
                 },
                 {title: '试卷名称', data: 'name', visible: true},
+                {title: '专业', data: 'major', visible: true,sortable:false},
+                {title: '课程', data: 'course', visible: true,sortable:false},
                 {title: '总分', data: 'score', visible: true},
                 {title: '及格分', data: 'pass_score', visible: true},
                 {
                     title: '操作', data: null, visible: true,
                     render: function (v, type, row) {
                         var str = "";
-                        str += '<a class="update-button" data-id="' + row.id + '" href="javascript:" style="margin-right:30px;"><i class="fa fa-pencil"></i></a>';
-                        str += '<a class="edit-button" data-id="' + row.id + '" href="javascript:" style="margin-right:30px;"><i class="fa fa-file"></i></a>';
-                        str += '<a class="delete-button" data-id="' + row.id + '" href="javascript:"><i class="fa fa-trash"></i></a>'
-
+                        str += '<a class="update-button" title="编辑试卷" data-id="' + row.id + '" href="javascript:" style="margin-right:30px;"><i class="fa fa-pencil"></i></a>';
+                        str += '<a class="edit-button" title="修改试题" data-id="' + row.id + '" href="javascript:" style="margin-right:30px;"><i class="fa fa-file"></i></a>';
+                        str += '<a class="delete-button" title="删除试卷"  data-id="' + row.id + '" href="javascript:" style="margin-right:30px;"><i class="fa fa-trash"></i></a>';
+                        str += '<a class="select-button" title="试题选择" data-id="' + row.id + '" href="javascript:" style="margin-right:30px;"><i class="fa fa-hand-stop-o"></i></a>';
+                        str += '<a class="preview-button" title="预览试卷" data-id="' + row.id + '" href="javascript:" style="margin-right:30px;"><i class="fa fa-eye"></i></a>';
+                        str += '<a class="export-button" title="导出试卷" data-id="' + row.id + '" href="{:url(\'paper/wordexport\')}?id='+row.id+'" ><i class="fa fa-file-word-o"></i></a>';
                         return str;
 
                     }
@@ -148,6 +152,40 @@
                 layer.open({
                     type: 1,
                     title: '修改试卷试题',
+                    skin: false,
+                    area: ['800px', '550px'],
+                    content: html,
+                    end: function () {
+                        table.ajax.reload();
+                    }
+                });
+            });
+        });
+
+        // 试题选择
+        $('#table').on('click', '.select-button', function() {
+            var id = $(this).data('id');
+            $.post("{:url('paper/selectQuestions')}", {id: id}).then(function (html) {
+                layer.open({
+                    type: 1,
+                    title: '试题选择',
+                    skin: false,
+                    area: ['800px', '550px'],
+                    content: html,
+                    end: function () {
+                        table.ajax.reload();
+                    }
+                });
+            });
+        });
+
+        // 预览试卷
+        $('#table').on('click', '.preview-button', function() {
+            var id = $(this).data('id');
+            $.post("{:url('paper/previewPaper')}", {id: id}).then(function (html) {
+                layer.open({
+                    type: 1,
+                    title: '预览试卷',
                     skin: false,
                     area: ['800px', '550px'],
                     content: html,

@@ -421,15 +421,23 @@
         function initExamPage() {
             var now = new Date(), endTime;
             if (localStorage.getItem('endTime:{$Think.GET.id}')) {
-                endTime = localStorage.getItem('endTime');
+                endTime = localStorage.getItem('endTime:{$Think.GET.id}');
             } else {
                 endTime = parseInt("{$exam.end_time}")*1000;
                 localStorage.setItem('endTime:{$Think.GET.id}', endTime);
             }
-            var temp = (endTime - now.getTime()) / 1000;
+            //var temp = (endTime - now.getTime()) / 1000;
+            var temp = (now.getTime() - endTime) / 1000;
+
+            var coutdown = (endTime - now.getTime()) / 1000;
+
             setNoOperateEvent();
 
-            if(temp <= 0) {
+            var  time  = parseInt("{$exam.time}")*60;
+
+
+
+            if(temp>=0 && temp<=time) {
                 // TODO:提交试卷
                 var questions = $('.question-item');
                 var list = [];
@@ -466,7 +474,7 @@
                     console.error('请求失败！');
                 });
             } else {
-                backTimer(temp);
+                backTimer(coutdown);
             }
         }
 

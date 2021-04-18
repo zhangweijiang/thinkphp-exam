@@ -163,6 +163,7 @@ class ExamApi
 //        $user_exam['exam_time'] = $ExamInfo['start_date'];//考试开始时间
         $user_exam['status'] = 1;//状态（未报名则无记录，1-已报名 2-考试中 3-考试完成 4-缺考）
         $user_exam['create_time'] = date('Y-m-d H:i:s');
+        $user_exam['time'] = $data['time'];
         $flag2 = Db::name('UserExam')->insert($user_exam);
         if(!$flag2){
             $response = [

@@ -86,10 +86,12 @@
                 <div class="per-20-div">
                     <div class="exam-widget">
                         <div class="exam-widget-heading">
-                            <img src="{$vo.img}" alt="">
-                            <span class="exam-widget-tag">
-                                <label>{$vo.course_name}</label>
-                            </span>
+                            <a href="{:url('pc/exam_info/index')}?id={$vo.id}">
+                                <img src="{$vo.img}" alt="">
+                                <span class="exam-widget-tag">
+                                    <label>{$vo.course_name}</label>
+                                </span>
+                            </a>
                         </div>
                         <div class="exam-widget-body">
                             <div class="exam-widget-title">

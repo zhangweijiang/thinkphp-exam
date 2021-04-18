@@ -39,10 +39,10 @@ if (!defined('__PHP_SHA256_NANO_'))
 
 class shaHelper
 {
-    function shaHelper()
+    /*function shaHelper()
     {
         // nothing to construct here...
-    }
+    }*/
 
     // Do the SHA-256 Padding routine (make input a multiple of 512 bits)
     function char_pad($str)
