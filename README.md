@@ -1,6 +1,6 @@
 ## 个人简介
 - 作者：张伟江
-- 博客：http://zhangweijiang.com
+- 博客：http://www.zhangweijiang.com
 - 邮箱：982215226@qq.com
 - 意见反馈:http://github.com/zhangweijiang/thinkphp-exam/issues
 ## 链接
