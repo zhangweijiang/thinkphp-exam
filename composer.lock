@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "025d8248ce04d049f7616def177293cb",
+    "content-hash": "d42de48048d01e74feeb4b90b280d304",
     "packages": [
         {
             "name": "laminas/laminas-escaper",
@@ -18,13 +18,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laminas/laminas-escaper/zipball/25f2a053eadfa92ddacb609dcbbc39362610da70",
                 "reference": "25f2a053eadfa92ddacb609dcbbc39362610da70",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "laminas/laminas-zendframework-bridge": "^1.0",
@@ -73,13 +67,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/6ede70583e101030bcace4dcddd648f760ddf642",
                 "reference": "6ede70583e101030bcace4dcddd648f760ddf642",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": "^5.6 || ^7.0 || ^8.0"
@@ -133,13 +121,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/PHPOffice/PHPWord/zipball/06b90e39a36872c6ee73534e1a073f4b3132fc6a",
                 "reference": "06b90e39a36872c6ee73534e1a073f4b3132fc6a",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "ext-xml": "*",
@@ -237,42 +219,32 @@
         },
         {
             "name": "topthink/framework",
-            "version": "v5.0.14",
+            "version": "v5.1.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/framework.git",
-                "reference": "3d1bdfbc19a7e7fd323be1dd53c4bacbe7bfb706"
+                "reference": "7137741a323a4a60cfca334507cd1812fac91bb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/top-think/framework/zipball/3d1bdfbc19a7e7fd323be1dd53c4bacbe7bfb706",
-                "reference": "3d1bdfbc19a7e7fd323be1dd53c4bacbe7bfb706",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "url": "https://api.github.com/repos/top-think/framework/zipball/7137741a323a4a60cfca334507cd1812fac91bb2",
+                "reference": "7137741a323a4a60cfca334507cd1812fac91bb2",
+                "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0",
-                "topthink/think-installer": "~1.0"
+                "php": ">=5.6.0",
+                "topthink/think-installer": "2.*"
             },
             "require-dev": {
                 "johnkary/phpunit-speedtrap": "^1.0",
                 "mikey179/vfsstream": "~1.6",
                 "phpdocumentor/reflection-docblock": "^2.0",
                 "phploc/phploc": "2.*",
-                "phpunit/phpunit": "4.8.*",
-                "sebastian/phpcpd": "2.*"
+                "phpunit/phpunit": "^5.0|^6.0",
+                "sebastian/phpcpd": "2.*",
+                "squizlabs/php_codesniffer": "2.*"
             },
             "type": "think-framework",
-            "autoload": {
-                "psr-4": {
-                    "think\\": "library/think"
-                }
-            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache-2.0"
@@ -281,6 +253,10 @@
                 {
                     "name": "liu21st",
                     "email": "liu21st@gmail.com"
+                },
+                {
+                    "name": "yunwuxin",
+                    "email": "448901948@qq.com"
                 }
             ],
             "description": "the new thinkphp framework",
@@ -290,7 +266,7 @@
                 "orm",
                 "thinkphp"
             ],
-            "time": "2018-01-01T12:44:11+00:00"
+            "time": "2021-01-11T02:51:29+00:00"
         },
         {
             "name": "topthink/think-captcha",
@@ -304,22 +280,16 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/think-captcha/zipball/0c55455df26a1626a60d0dc35d2d89002b741d44",
                 "reference": "0c55455df26a1626a60d0dc35d2d89002b741d44",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "think\\captcha\\": "src/"
-                },
                 "files": [
                     "src/helper.php"
-                ]
+                ],
+                "psr-4": {
+                    "think\\captcha\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -346,22 +316,16 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/think-helper/zipball/0c99dc625b0d2d4124e1b6ca15a3ad6f0125963f",
                 "reference": "0c99dc625b0d2d4124e1b6ca15a3ad6f0125963f",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "think\\helper\\": "src"
-                },
                 "files": [
                     "src/helper.php"
-                ]
+                ],
+                "psr-4": {
+                    "think\\helper\\": "src"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -388,13 +352,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/think-image/zipball/8586cf47f117481c6d415b20f7dedf62e79d5512",
                 "reference": "8586cf47f117481c6d415b20f7dedf62e79d5512",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "ext-gd": "*"
@@ -424,29 +382,23 @@
         },
         {
             "name": "topthink/think-installer",
-            "version": "v1.0.12",
+            "version": "v2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/think-installer.git",
-                "reference": "1be326e68f63de4e95977ed50f46ae75f017556d"
+                "reference": "38ba647706e35d6704b5d370c06f8a160b635f88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/top-think/think-installer/zipball/1be326e68f63de4e95977ed50f46ae75f017556d",
-                "reference": "1be326e68f63de4e95977ed50f46ae75f017556d",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "url": "https://api.github.com/repos/top-think/think-installer/zipball/38ba647706e35d6704b5d370c06f8a160b635f88",
+                "reference": "38ba647706e35d6704b5d370c06f8a160b635f88",
+                "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0"
+                "composer-plugin-api": "^1.0||^2.0"
             },
             "require-dev": {
-                "composer/composer": "1.0.*@dev"
+                "composer/composer": "^1.0||^2.0"
             },
             "type": "composer-plugin",
             "extra": {
@@ -467,7 +419,7 @@
                     "email": "448901948@qq.com"
                 }
             ],
-            "time": "2017-05-27T06:58:09+00:00"
+            "time": "2021-01-14T12:12:14+00:00"
         },
         {
             "name": "topthink/think-migration",
@@ -481,26 +433,20 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/think-migration/zipball/8e489f8d38a39876690c0e00fcf9a54ae92c4d3d",
                 "reference": "8e489f8d38a39876690c0e00fcf9a54ae92c4d3d",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require-dev": {
                 "topthink/framework": "^5.0"
             },
             "type": "library",
             "autoload": {
+                "files": [
+                    "src/config.php"
+                ],
                 "psr-4": {
                     "Phinx\\": "phinx/src/Phinx",
                     "think\\migration\\": "src"
-                },
-                "files": [
-                    "src/config.php"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -526,20 +472,14 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/think-mongo/zipball/f7dc55d6bb9d22142ae262f15a3d269850218335",
                 "reference": "f7dc55d6bb9d22142ae262f15a3d269850218335",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "type": "library",
             "autoload": {
+                "files": [],
                 "psr-4": {
                     "think\\mongo\\": "src"
-                },
-                "files": []
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -566,13 +506,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/think-oracle/zipball/02e902b0cc63502e60995431a0da521454cd6f34",
                 "reference": "02e902b0cc63502e60995431a0da521454cd6f34",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "type": "library",
             "autoload": {
@@ -607,13 +541,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/think-queue/zipball/ad709611d516e13d6760234bc98e91faa901cae8",
                 "reference": "ad709611d516e13d6760234bc98e91faa901cae8",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "topthink/think-helper": ">=1.0.4",
@@ -626,12 +554,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "think\\": "src"
-                },
                 "files": [
                     "src/common.php"
-                ]
+                ],
+                "psr-4": {
+                    "think\\": "src"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
